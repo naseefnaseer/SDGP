@@ -8,3 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ParkinWeb';
 }
+
+export * from './footer/footer.component';
+export * from './header/header.component';
