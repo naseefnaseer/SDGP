@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv('Social_Network_Ads.csv')
+dataset = pd.read_csv('parkinsons_data.csv')
 X = dataset.iloc[:, 1: 23].values #matrix of independent features
 y = dataset.iloc[:, 23].values #dependent variable
 
@@ -28,7 +28,9 @@ classifier.fit(X_train, y_train)
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
 
+#Evaluating the model
 # Making the Confusion Matrix
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, y_pred)
-
+from sklearn.metrics import confusion_matrix,accuracy_score
+cm = confusion_matrix(y_test, y_pred) #(real values, predicted values)
+accuracy_score(y_test,y_pred)
+print("Accuracy_score for SVM ", accuracy_score(y_test, y_pred))
