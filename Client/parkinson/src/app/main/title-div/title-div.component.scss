@@ -1,0 +1,26 @@
+div {
+  background-color:rgb(255, 255, 255);
+
+  color: red($color: #000000);
+  filter: drop-shadow(0px 3px 10px rgba(0, 0, 0, 0.199));
+  top: -1px;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 0  0 .9rem .9rem;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, 0);
+}
+
+span {
+    filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.161));
+    white-space: nowrap;
+    text-align: center;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 45pt;
+    color: rgba(0,0,0,1);
+}

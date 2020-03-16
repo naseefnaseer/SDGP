@@ -1,18 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { MainComponent } from './main/main.component';
+import { TitleDivComponent } from './main/title-div/title-div.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    MainComponent,
+    TitleDivComponent
   ],
   imports: [
     BrowserModule,
+    MatCardModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [MainComponent]
 })
 export class AppModule { }
