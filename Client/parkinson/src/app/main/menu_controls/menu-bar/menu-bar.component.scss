@@ -1,0 +1,19 @@
+svg {
+  width: 70%;
+  top: -10px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  position: absolute;
+}
+
+
+
+.-dimen{
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    margin-top: -4px;
+    margin-left: 0;
+    background-position: fill;
+    background-size: fit;
+}
