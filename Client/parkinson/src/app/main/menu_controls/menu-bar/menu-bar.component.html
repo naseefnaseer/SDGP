@@ -1,7 +1,30 @@
-<mat-card>
-    <button mat-raised-button
-    matTooltip="Info about the action">
-Action
-</button>
-    
-</mat-card>
+<mat-toolbar class="toolBar">
+    <div> </div>
+    <span class="toggle">
+        <button  mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>home</mat-icon>
+        </button>
+
+        <button mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>dashboard</mat-icon>
+        </button>
+
+        <button mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>contacts</mat-icon>
+        </button>
+
+        <button [routerLink]='"/ContactUs"' mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>supervised_user_circle</mat-icon>
+        </button>
+
+        <button [routerLink]="'/'" mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+
+        <button [routerLink]='"/Registration"'  mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>person</mat-icon>
+        </button>
+    </span>
+
+
+</mat-toolbar>

@@ -12,8 +12,6 @@ export class MenuBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  btClick(){
-    alert("jljkl")
-  }
+
 
 }
