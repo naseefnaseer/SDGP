@@ -1,0 +1,116 @@
+#greet-title {
+  color: coral;
+  color: #196479;
+  font-size: 37pt;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  font-family: montserrat-medium;
+}
+
+.main-title {
+  font-size: 27pt;
+  color: coral;
+  color: #1c768f;
+  font-family: montserrat-medium;
+}
+.main {
+  display: flex;
+  direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.right-div {
+  position: position;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.new-register-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  width: 290px;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: white;
+  filter: drop-shadow(0px 2px 3px rgba(128, 128, 128, 0.558));
+}
+
+.login-div {
+  height: 80%;
+  width: 290px;
+  display: flex;
+  padding: 15px;
+  margin-top: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: center;
+  border-radius: 10px;
+  justify-items: center;
+  flex-direction: column;
+  background-color: white;
+  filter: drop-shadow(0px 2px 3px rgba(128, 128, 128, 0.558));
+}
+
+.card-title {
+  font-size: 16pt;
+  font-weight: 600;
+  width: fit-content;
+  text-align: center;
+  color: rgb(73, 73, 73);
+  padding: 0 45px 0 45px;
+  font-family: montserrat-light;
+}
+
+.signup-btn,
+.login-btn {
+  padding: 3px;
+  color: white;
+  width: 50%;
+  background-color: #00c81b;
+  margin: 0 0 20px 0;
+}
+
+.signup-btn {
+  font-size: 12pt;
+}
+.login-input {
+  width: 100%;
+  outline: none;
+  font-size: 12pt;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  padding: 8px 0 8px 8px;
+  border: 1px dotted #1c768f;
+  filter: drop-shadow(0px 2px 3px rgba(94, 94, 94, 0.158));
+}
+
+#rest-pass {
+  font-size: 8pt;
+  color: #1c768f;
+  font-family: arial;
+}
+
+#input-lable {
+  float: left;
+  margin: auto;
+  font-family: montserrat-light;
+}
+
+.spacer {
+  width: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+  .card-title {
+    font-size: 10pt;
+    flex-wrap: nowrap;
+    width: fit-content;
+    text-align: center;
+    margin: 15px 45px 20px 45px;
+  }
+}
