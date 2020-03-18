@@ -10,7 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Components
 import { MainComponent } from './main/main.component';
@@ -20,6 +22,7 @@ import { DashboardComponent } from './main/pages_contents/dashboard/dashboard.co
 import { UserSigningComponent } from './main/pages_contents/user-signing/user-signing.component';
 import { RegistrationComponent } from './main/pages_contents/registration/registration.component';
 import { ContactUsComponent } from './main/pages_contents/contact-us/contact-us.component';
+import { CdkStepperModule, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 
 
@@ -32,15 +35,20 @@ import { ContactUsComponent } from './main/pages_contents/contact-us/contact-us.
     UserSigningComponent,
     RegistrationComponent,
     ContactUsComponent,
+
   ],
   imports: [
+    MatTooltipModule,
     BrowserModule,
+    MatSnackBarModule,
+    CdkStepperModule,
     MatCardModule,
     MatIconModule,
-    MatButtonModule,
     MatInputModule,
-    AppRoutingModule,
+    MatButtonModule,
+    MatStepperModule,
     MatToolbarModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
 
@@ -51,7 +59,12 @@ import { ContactUsComponent } from './main/pages_contents/contact-us/contact-us.
 
     ])
   ],
-  providers: [],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false }
+    }
+  ],
   bootstrap: [MainComponent]
 })
 export class AppModule { }

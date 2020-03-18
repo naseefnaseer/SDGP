@@ -33,6 +33,11 @@ $parkinson-theme: mat-light-theme($parkinson-primary, $parkinson-accent, $parkin
   font-family: montserrat-light;
   src: url(assets/fonts/montserrat-light.ttf) format("opentype");
 }
+@font-face {
+  font-family: montserrat-semibolt;
+  src: url(assets/fonts/montserrat-semiBold.ttf) format("opentype");
+}
+
 
 /* You can add global styles to this file, and also import other style files */
 body {
@@ -57,3 +62,5 @@ body {
   margin: 0;
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
+
+
