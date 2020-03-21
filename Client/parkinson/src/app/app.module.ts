@@ -1,70 +1,57 @@
-
-// Modules
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule  } from '@angular/platform-browser/animations';
+
+// Reactive Form
+import { ReactiveFormsModule } from "@angular/forms";
+
+// App routing modules
+import { AppRoutingModule } from './shared/routes/app-routing.module';
+
+// App components
+import { AppComponent } from './app.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+
+// Firebase services + enviorment module
+import { AngularFireModule } from "@angular/fire";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
-// Components
-import { MainComponent } from './main/main.component';
-import { TitleDivComponent } from './main/title-div/title-div.component';
-import { MenuBarComponent } from './main/menu_controls/menu-bar/menu-bar.component';
-import { DashboardComponent } from './main/pages_contents/dashboard/dashboard.component';
-import { UserSigningComponent } from './main/pages_contents/user-signing/user-signing.component';
-import { RegistrationComponent } from './main/pages_contents/registration/registration.component';
-import { ContactUsComponent } from './main/pages_contents/contact-us/contact-us.component';
-import { CdkStepperModule, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
+// Auth service
+import { AuthService } from "./shared/services/auth.service";
+import { NewPasswordComponent } from './components/new-password/new-password.component';
 
 
 @NgModule({
   declarations: [
-    MainComponent,
-    MenuBarComponent,
-    TitleDivComponent,
+    AppComponent,
+    SignInComponent,
+    SignUpComponent,
     DashboardComponent,
-    UserSigningComponent,
-    RegistrationComponent,
-    ContactUsComponent,
-
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
+    NewPasswordComponent
   ],
   imports: [
-    MatTooltipModule,
     BrowserModule,
     MatSnackBarModule,
-    CdkStepperModule,
-    MatCardModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatStepperModule,
-    MatToolbarModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([
-
-      { path: '', component: DashboardComponent },
-      { path: 'signIn', component: UserSigningComponent },
-      { path: 'Registration', component: RegistrationComponent },
-      { path: 'ContactUs', component: ContactUsComponent },
-
-    ])
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    ReactiveFormsModule,
   ],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { displayDefaultIndicatorType: false }
-    }
-  ],
-  bootstrap: [MainComponent]
+  providers: [AuthService],
+  bootstrap: [AppComponent]
 })
+
 export class AppModule { }

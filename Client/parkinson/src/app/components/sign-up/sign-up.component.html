@@ -1,0 +1,171 @@
+<main class="page login-page">
+  <section class="clean-block clean-form dark">
+
+    <div class="container ds">
+
+      <div class="block-heading">
+        <h2 class="text-info bg-gradient-primary ds"
+          style="font-size:42px; font-family:Montserrat, sans-serif; letter-spacing:4px; ">
+
+          <div>Welcome to
+            <i class="font-italic">Vocalson.</i></div>
+        </h2>
+        <p style="font-size:21px; ">
+          <span class="ds text-muted">Hello, Doctor. Les get started.</span>
+        </p>
+        <h2 class="text-info"
+          style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); margin-top:13px; ">
+          <p class="ds">Sign Up</p>
+        </h2>
+      </div>
+      <form [formGroup] class="ds rounded">
+
+        <div class="form-group text-center"
+          style="margin-top:-10px; padding-bottom:-11px; font-size:17px; color:#3b99e0; font-family:Roboto, sans-serif; ">
+          <p class="ds ">Enter a details.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">
+            Name
+          </label>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <input type="text" placeholder="First" class="form-control ds" /></div>
+
+
+            <div class="col-md-6">
+              <input type="text" placeholder="Last" class="form-control ds" /></div>
+          </div>
+        </div>
+
+
+        <!-- Phone -->
+        <div class="form-group border p-3 border-success rounded b ds" style="border-width:3px !important;">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">Phone</label>
+          <div class="row">
+            <div class="col-md-8">
+              <!-- Phone Number Input -->
+              <input type="number" placeholder="+94 00 000 0000" style="text-align:center;"
+                class="form-control item ds p-1" />
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-primary btn-block ds rounded p-0 bg-info" style="margin:3px 0 3px 0;"
+                type="button"
+                (click)="authService.EmailSignUp()"
+                >
+                <i class="fa fa-arrow-circle-right"></i></button>
+            </div>
+          </div>
+
+          <!-- OTP -->
+          <label class="shadow-none" style="margin-top:4px;">
+            Authenticate OTP
+          </label>
+          <div class="row">
+            <div class="col-md-8">
+              <!-- OTP Number Input -->
+              <input type="text-center align-text-bottom" style="text-align:center; letter-spacing:5px; padding:2px;"
+                placeholder="X X X X X X" class="form-control item ds" />
+            </div>
+            <div class="col-md-4">
+              <!-- OTP Verify button -->
+              <button class="btn btn-primary btn-block border-0 ds rounded p-0 bg-success" style="margin:7px 0 0 0;"
+                type="button">
+                <i class="fa fa-check-circle"></i>
+              </button></div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">E-mail</label>
+
+          <div class="row">
+
+            <div class="col-md-11">
+              <input type="text" placeholder="Example@mail.com" class="form-control item ds" #email />
+            </div>
+
+            <div class="col-md-1">
+              <i class="fa fa-check"></i></div>
+          </div>
+        </div>
+
+
+        <div class="form-group" style="margin-bottom:33px; ">
+
+          <label style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">
+            Password
+          </label>
+
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <input #pass type="text" placeholder="New" class="form-control ds" /></div>
+
+            <div class="col-md-6">
+              <input #passconf type="text" placeholder="Confirm" class="form-control ds" /></div>
+
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block ds" type="button"
+          (click)="authService.SignUp(email.value, passconf.value)">
+          Register
+        </button>
+
+
+        <div class="form-group text-center"
+          style="margin-top:16px; padding-bottom:-11px; font-size:14px; color:#3b99e0; font-family:Roboto, sans-serif; ">
+          <p class="ds font-weight-bold">- Or -</p>
+        </div>
+
+
+        <!-- Google authentification button -->
+
+        <div class="form-group text-center">
+          <button class="btn btn-primary btn-block ds p-lg-0" type="button" (click)="authService.AuthGoogle()">
+            <span>
+              <span class="fa fa-google" style="  font-size:1.6em; ">
+              </span>
+              <i style="font-size:1.6em;  margin: 2px; "> | </i>
+              Sign in with <b>Google</b>
+            </span>
+          </button>
+        </div>
+
+        <!-- Mobile authentification button -->
+
+        <div class="form-group text-center">
+          <button class="btn btn-primary btn-block ds p-lg-0" type="button" routerLink="/sign-in">
+            <span>
+              <span class="fa fa-phone" style="  font-size:1.6em; ">
+              </span>
+              <i style="font-size:1.6em; margin:2px; "> | </i>
+              Sign in with <b>Phone</b>
+            </span>
+          </button>
+        </div>
+
+        <!-- Sign in nav button -->
+
+        <div class="form-group text-center"
+          style="margin-top:26px; padding-bottom:-11px; font-size:0px; color:#00b5d6; font-family:Roboto, sans-serif; ">
+          <a routerLink="/sign-in" class="text-center" style="  font-size:14px; ">
+            Already have an account?
+            <b style="  font-size:16px; ">
+              Sign In
+              <i class="fa fa-sign-in"></i>
+            </b>
+          </a>
+        </div>
+      </form>
+
+
+    </div>
+  </section>
+</main>
