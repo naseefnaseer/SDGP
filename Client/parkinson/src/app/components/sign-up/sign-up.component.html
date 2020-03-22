@@ -42,44 +42,6 @@
         </div>
 
 
-        <!-- Phone -->
-        <div class="form-group border p-3 border-success rounded b ds" style="border-width:3px !important;">
-          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">Phone</label>
-          <div class="row">
-            <div class="col-md-8">
-              <!-- Phone Number Input -->
-              <input type="number" placeholder="+94 00 000 0000" style="text-align:center;"
-                class="form-control item ds p-1" />
-            </div>
-            <div class="col-md-4">
-              <button class="btn btn-primary btn-block ds rounded p-0 bg-info" style="margin:3px 0 3px 0;"
-                type="button"
-                (click)="authService.EmailSignUp()"
-                >
-                <i class="fa fa-arrow-circle-right"></i></button>
-            </div>
-          </div>
-
-          <!-- OTP -->
-          <label class="shadow-none" style="margin-top:4px;">
-            Authenticate OTP
-          </label>
-          <div class="row">
-            <div class="col-md-8">
-              <!-- OTP Number Input -->
-              <input type="text-center align-text-bottom" style="text-align:center; letter-spacing:5px; padding:2px;"
-                placeholder="X X X X X X" class="form-control item ds" />
-            </div>
-            <div class="col-md-4">
-              <!-- OTP Verify button -->
-              <button class="btn btn-primary btn-block border-0 ds rounded p-0 bg-success" style="margin:7px 0 0 0;"
-                type="button">
-                <i class="fa fa-check-circle"></i>
-              </button></div>
-          </div>
-        </div>
-
-
         <div class="form-group">
           <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">E-mail</label>
 
@@ -128,7 +90,7 @@
         <!-- Google authentification button -->
 
         <div class="form-group text-center">
-          <button class="btn btn-primary btn-block ds p-lg-0" type="button" (click)="authService.AuthGoogle()">
+          <button class="btn btn-primary btn-block ds p-lg-0" type="button" (click)="authService.GoogleAuth()">
             <span>
               <span class="fa fa-google" style="  font-size:1.6em; ">
               </span>
@@ -137,20 +99,6 @@
             </span>
           </button>
         </div>
-
-        <!-- Mobile authentification button -->
-
-        <div class="form-group text-center">
-          <button class="btn btn-primary btn-block ds p-lg-0" type="button" routerLink="/sign-in">
-            <span>
-              <span class="fa fa-phone" style="  font-size:1.6em; ">
-              </span>
-              <i style="font-size:1.6em; margin:2px; "> | </i>
-              Sign in with <b>Phone</b>
-            </span>
-          </button>
-        </div>
-
         <!-- Sign in nav button -->
 
         <div class="form-group text-center"

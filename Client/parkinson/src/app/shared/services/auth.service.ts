@@ -9,14 +9,14 @@ import {
 import { Router } from "@angular/router";
 import * as firebase from "firebase";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ForgotPasswordComponent } from "src/app/components/forgot-password/forgot-password.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
-  userData: any; // Save logged in user data
-  phoneAuthController: Promise<auth.ConfirmationResult>;
-
+  userData: any;
+  // Save logged in user data
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -24,8 +24,9 @@ export class AuthService {
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     public _snackBar: MatSnackBar
   ) {
-    // Saving logged status in local system
-    // Null when logged out
+    /* Saving user data in localstorage when
+    logged in and setting up null when logged out */
+
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
@@ -49,22 +50,22 @@ export class AuthService {
         this.router.navigate(["dashboard"]);
       });
       this.SetUserData(result.user);
+      // return true;
     } catch (error) {
       window.alert(error.message);
+      // return false;
     }
   }
 
   // Sign up with email/password
-  async EmailSignUp(email: string, password: string) {
+  async SignUp(email: string, password: string) {
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(
         email,
         password
       );
-      /*
-      Call the SendVerificaitonMail() function when new user sign
-      up and returns promise
-      */
+      /* Call the SendVerificaitonMail() function when new user sign
+      up and returns promise */
       this.SendVerificationMail();
       this.SetUserData(result.user);
     } catch (error) {
@@ -79,13 +80,14 @@ export class AuthService {
   }
 
   // Reset Forggot password
-  async ForgotPassword(passwordResetEmail: string) {
+  async ForgotPassword(passwordResetEmail: string): Promise<boolean> {
     try {
       await this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
-      // TODO:
-      window.alert("Password reset email sent, check your inbox.");
+      this.openSnackBar("Request sent successfull.! ", "");
+      return true;
     } catch (error) {
-      window.alert(error);
+      this.openSnackBar(error.message, error.action);
+      return false;
     }
   }
 
@@ -96,29 +98,29 @@ export class AuthService {
   }
 
   // Sign in with Google
-  AuthGoogle() {
-    return this.Login(new auth.GoogleAuthProvider());
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
   }
 
   // Auth logic to run auth providers
-  async Login(provider: auth.AuthProvider) {
+  async AuthLogin(provider) {
     try {
       const result = await this.afAuth.auth.signInWithPopup(provider);
-
-      this.ngZone.run(() => {
-        this.router.navigate(["dashboard"]);
-      });
-
       this.SetUserData(result.user);
+
+      this.ngZone.run(async () => {
+        this.openSnackBar("Welcome " + this.userData.displayName, "");
+        await this.router.navigate(["dashboard-g"]);
+      });
     } catch (error) {
-      alert(error.message);
+      window.alert(error);
     }
   }
 
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: firebase.User) {
+  SetUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -141,29 +143,7 @@ export class AuthService {
     this.router.navigate(["sign-in"]);
   }
 
-  // Sign up using phone number
-  SendOTPcode(phonenum: string) {
-    this.phoneAuthController = this.afAuth.auth.signInWithPhoneNumber(
-      phonenum,
-      null
-    );
-
-    this.phoneAuthController.catch(function(e) {
-      this.openSnackBar(e.message, e.action);
-    });
-  }
-
-  VerifyOTP(otpCode: string) {
-    this.phoneAuthController.then(function(otp) {
-      this.openSnackBar(otp.verificationId, "VID");
-      otp.confirm(otpCode).then(verification => {
-        this.openSnackBar(verification);
-        console.log(verification);
-      });
-    });
-  }
-
-  newpass(code: string, newPassword: string) {
+  SetNewPassword(code: string, newPassword: string) {
     firebase
       .auth()
       .confirmPasswordReset(code, newPassword)
@@ -177,7 +157,7 @@ export class AuthService {
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 2000
+      duration: 3500
     });
   }
 }
