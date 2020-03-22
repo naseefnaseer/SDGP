@@ -30,6 +30,7 @@ import { environment } from "../environments/environment";
 // Auth service
 import { AuthService } from "./shared/services/auth.service";
 import { EmailConrollerComponent } from "../app/components/email-conroller/email-conroller.component";
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { EmailConrollerComponent } from "../app/components/email-conroller/email
     NewPasswordComponent,
     SignInComponent,
     SignUpComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    FooterComponent
   ],
   imports: [
     AngularFireAuthModule,
