@@ -3,7 +3,6 @@ import { Routes, RouterModule } from "@angular/router";
 
 // Required components for which route services to be activated
 import { DashboardComponent } from "../../components/dashboard/dashboard.component";
-import { WelcomeComponent } from "../../components/welcome/welcome.component";
 import { ForgotPasswordComponent } from "../../components/forgot-password/forgot-password.component";
 import { SignInComponent } from "../../components/sign-in/sign-in.component";
 import { SignUpComponent } from "../../components/sign-up/sign-up.component";
@@ -14,6 +13,7 @@ import { AuthGuard } from "../guard/auth.guard";
 import { NewPasswordComponent } from "src/app/components/new-password/new-password.component";
 import { PreSignedGuard } from "../guard/secure-inner-pages.guard";
 import { Error404Component } from "src/app/components/error404/error404.component";
+import { EmailConrollerComponent } from 'src/app/components/email-conroller/email-conroller.component';
 
 // Include route guard in routes array
 const routes: Routes = [
@@ -53,18 +53,23 @@ const routes: Routes = [
     canActivate: [PreSignedGuard]
   },
   {
-    path: "forgot-password",
+    path: "forgot-password/:oobCode",
     component: ForgotPasswordComponent,
     canActivate: [PreSignedGuard]
   },
   {
-    path: "new-password",
+    path: "new-password/:oobCode",
     component: NewPasswordComponent,
     canActivate: [PreSignedGuard]
   },
   {
-    path: "verify-email-address",
+    path: "verify-email-address/:oobCode",
     component: VerifyEmailComponent,
+    canActivate: [PreSignedGuard]
+  },
+  {
+    path: 'email-controller',
+    component: EmailConrollerComponent,
     canActivate: [PreSignedGuard]
   },
   {

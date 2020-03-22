@@ -21,9 +21,8 @@ export class NewPasswordComponent implements OnInit {
   ) {
     // Fetching the code from the URL
     // oobCode wchi is athe access token to reset the password
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.code = params["oobCode"];
-    });
+    this.code = this.activatedRoute.snapshot.paramMap.get("oobCode");
+
     if (this.code == undefined) {
       this.router.navigate(["404"]);
     }
@@ -42,19 +41,37 @@ export class NewPasswordComponent implements OnInit {
    * @param pass2 to confirm the password is correct
    * @param code from the mail server to reset the passswortd
    */
-  resetPassword(pass1: string, pass2: string, code: string) {
-    this.openSnackBar(code, pass2);
-    if (pass1 == pass2) {
-      this.match = true;
+  resetPassword(pass1: string, pass2: string) {
+    if (pass1 !== "") {
+      if (pass1 === pass2) {
+        this.match = true;
 
-      this.success = true;
+        this.success = true;
 
-      // Setting new password to thee user
-      this.authService.SetNewPassword(code, pass2);
+        // Setting new password to thee user
+        this.authService.SetNewPassword(this.code, pass2);
+      } else {
+        this.match = false;
+
+        this.success = false;
+      }
     } else {
-      this.match = false;
+      this.openSnackBar("Password cannot be empty", "OK");
+    }
+  }
 
-      this.success = false;
+  form(): Object {
+    if (this.success) {
+      return { display: "none" };
+    } else {
+      return { display: "block" };
+    }
+  }
+  message(): Object {
+    if (this.success) {
+      return { display: "block" };
+    } else {
+      return { display: "none" };
     }
   }
 

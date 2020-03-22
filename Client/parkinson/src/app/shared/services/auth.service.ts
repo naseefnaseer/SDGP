@@ -9,7 +9,6 @@ import {
 import { Router } from "@angular/router";
 import * as firebase from "firebase";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ForgotPasswordComponent } from "src/app/components/forgot-password/forgot-password.component";
 
 @Injectable({
   providedIn: "root"
@@ -45,16 +44,17 @@ export class AuthService {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(
         email,
         password
-      );
-      alert(result.user.emailVerified);
+        );
+
+        this.SetUserData(result.user);
+      this.ngZone.run(() => {
+        this.router.navigate(["dashboard-g"]);
+      });
       result.user.emailVerified
         ? this.openSnackBar("Welcom Back", "OK")
         : this.SendVerificationMail();
 
-      this.ngZone.run(() => {
-        this.router.navigate(["dashboard"]);
-      });
-      this.SetUserData(result.user);
+
       // return true;
     } catch (error) {
       window.alert(error.message);
@@ -65,7 +65,6 @@ export class AuthService {
 
   // Sign up with email/password
   async SignUp(email: string, password: string) {
-    alert(password);
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(
         email,
@@ -83,7 +82,19 @@ export class AuthService {
   // Send email verfificaiton when new user sign up
   async SendVerificationMail() {
     await this.afAuth.auth.currentUser.sendEmailVerification();
-    this.router.navigate(["verify-email-address"]);
+    this.router.navigate(["verify-email-address", "null"]);
+  }
+
+  async VerifyEmail(code: string): Promise<boolean> {
+    await this.afAuth.auth
+      .applyActionCode(code)
+      .then(function(_resp) {
+        return true;
+      })
+      .catch(function(_error) {
+        return false;
+      });
+    return false;
   }
 
   // Reset Forggot password
@@ -116,7 +127,7 @@ export class AuthService {
       this.SetUserData(result.user);
 
       this.ngZone.run(async () => {
-        this.openSnackBar("Welcome " + this.userData.displayName, "");
+        this.openSnackBar("Welcome", "");
         await this.router.navigate(["dashboard-g"]);
       });
     } catch (error) {
@@ -155,7 +166,7 @@ export class AuthService {
       .auth()
       .confirmPasswordReset(code, newPassword)
       .then(function() {
-        this.openSnackBar("Password changed successful.", "");
+        this.router.navigate("/");
       })
       .catch(function(e) {
         this.openSnackBar(e.message, "OK");

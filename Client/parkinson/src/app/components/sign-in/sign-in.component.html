@@ -34,13 +34,14 @@
         </div>
 
         <div class="form-group">
-          <a routerLink="/forgot-password" style="font-size:12px;">
+          <a href="/forgot-password/null" style="font-size:12px;">
             Forgot the password ? Reset.
           </a>
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary btn-block ds rounded" type="button"  (click)="authService.SignIn(email.value,pass.value)">
+          <button class="btn btn-primary btn-block ds rounded" type="button"
+            (click)="authService.SignIn(email.value,pass.value)">
             Log In
           </button>
         </div>

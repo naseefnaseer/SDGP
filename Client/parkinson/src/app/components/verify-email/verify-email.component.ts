@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../shared/services/auth.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
@@ -9,17 +9,42 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ["./verify-email.component.css"]
 })
 export class VerifyEmailComponent implements OnInit {
+  title: string;
+  isVerified: boolean;
+  code: any;
+
   constructor(
-    public authService: AuthService,
     public _snackBar: MatSnackBar,
+    public activatedRoute: ActivatedRoute,
+    public authService: AuthService,
     public router: Router
   ) {
-    this.authService.userData != null
-      ? this.openSnackBar(
-          "Confirm the Mail ",
-          "OK"
-        )
-      : this.router.navigate(["/404"]);
+    this.code = this.activatedRoute.snapshot.paramMap.get("oobCode");
+
+    if (this.code !== "null") {
+      this.isVerified = true;
+      if (this.authService.VerifyEmail(this.code)) {
+        this.title = "Verification Successful";
+      }
+    } else {
+      this.isVerified = false;
+      this.title = "Registration Successful.";
+    }
+  }
+
+  isVerifi(): Object {
+    if (!this.isVerified) {
+      return { display: "none" };
+    } else {
+      return { display: "block" };
+    }
+  }
+  isRegisted(): Object {
+    if (this.isVerified) {
+      return { display: "none" };
+    } else {
+      return { display: "block" };
+    }
   }
 
   ngOnInit() {

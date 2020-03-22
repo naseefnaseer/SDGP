@@ -1,6 +1,6 @@
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 // Reactive Form
 import { ReactiveFormsModule } from "@angular/forms";
@@ -10,48 +10,48 @@ import { AppRoutingModule } from "./shared/routes/app-routing.module";
 
 // App components
 import { AppComponent } from "./app.component";
-import { SignInComponent } from "./components/sign-in/sign-in.component";
-import { SignUpComponent } from "./components/sign-up/sign-up.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { Error404Component } from "./components/error404/error404.component";
 import { ForgotPasswordComponent } from "./components/forgot-password/forgot-password.component";
 import { NewPasswordComponent } from "./components/new-password/new-password.component";
-import { WelcomeComponent } from "./components/welcome/welcome.component";
+import { SignInComponent } from "./components/sign-in/sign-in.component";
+import { SignUpComponent } from "./components/sign-up/sign-up.component";
 import { VerifyEmailComponent } from "./components/verify-email/verify-email.component";
-import { Error404Component } from './components/error404/error404.component';
 
 // Firebase services + enviorment module
-import { AngularFireModule } from "@angular/fire";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireModule } from "@angular/fire";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 
 // Auth service
 import { AuthService } from "./shared/services/auth.service";
+import { EmailConrollerComponent } from "../app/components/email-conroller/email-conroller.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
+    EmailConrollerComponent,
+    Error404Component,
+    ForgotPasswordComponent,
+    NewPasswordComponent,
     SignInComponent,
     SignUpComponent,
-    DashboardComponent,
-    ForgotPasswordComponent,
-    VerifyEmailComponent,
-    NewPasswordComponent,
-    WelcomeComponent,
-    Error404Component
+    VerifyEmailComponent
   ],
   imports: [
-    BrowserModule,
-    MatSnackBarModule,
-    MatDialogModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
+    BrowserModule,
+    MatDialogModule,
+    MatSnackBarModule,
     ReactiveFormsModule
   ],
   providers: [AuthService],
