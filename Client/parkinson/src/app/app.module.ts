@@ -16,8 +16,8 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { ForgotPasswordComponent } from "./components/forgot-password/forgot-password.component";
 import { NewPasswordComponent } from "./components/new-password/new-password.component";
 import { WelcomeComponent } from "./components/welcome/welcome.component";
-
 import { VerifyEmailComponent } from "./components/verify-email/verify-email.component";
+import { Error404Component } from './components/error404/error404.component';
 
 // Firebase services + enviorment module
 import { AngularFireModule } from "@angular/fire";
@@ -40,7 +40,8 @@ import { AuthService } from "./shared/services/auth.service";
     ForgotPasswordComponent,
     VerifyEmailComponent,
     NewPasswordComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,

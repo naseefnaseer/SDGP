@@ -11,7 +11,7 @@
 
         <!-- Form -->
         <form [formGroup] class="ds rounded" *ngIf="authService.userData as user">
-          <div class="form-group" style="margin-top:24px; font-size: x-large;">
+          <div class="form-group" style="margin-top:24px; font-size: larger;">
             <p class="text-center">We have sent a confirmation email to <br> <strong class=" text-info">{{user.email.toUpperCase()}}</strong>.</p>
             <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
           </div>

@@ -13,11 +13,25 @@ import { VerifyEmailComponent } from "../../components/verify-email/verify-email
 import { AuthGuard } from "../guard/auth.guard";
 import { NewPasswordComponent } from "src/app/components/new-password/new-password.component";
 import { PreSignedGuard } from "../guard/secure-inner-pages.guard";
-
+import { Error404Component } from "src/app/components/error404/error404.component";
 
 // Include route guard in routes array
 const routes: Routes = [
-  { path: "", redirectTo: "/sign-in", pathMatch: "full" },
+  {
+    path: "",
+    redirectTo: "/sign-in",
+    pathMatch: "full"
+  },
+
+  {
+    path: "404",
+    component: Error404Component
+  },
+
+  {
+    path: "***",
+    redirectTo: "/404"
+  },
   {
     path: "dashboard",
     component: DashboardComponent,
@@ -52,6 +66,10 @@ const routes: Routes = [
     path: "verify-email-address",
     component: VerifyEmailComponent,
     canActivate: [PreSignedGuard]
+  },
+  {
+    path: "404",
+    component: VerifyEmailComponent
   }
 ];
 

@@ -46,6 +46,11 @@ export class AuthService {
         email,
         password
       );
+      alert(result.user.emailVerified);
+      result.user.emailVerified
+        ? this.openSnackBar("Welcom Back", "OK")
+        : this.SendVerificationMail();
+
       this.ngZone.run(() => {
         this.router.navigate(["dashboard"]);
       });
@@ -53,12 +58,14 @@ export class AuthService {
       // return true;
     } catch (error) {
       window.alert(error.message);
+
       // return false;
     }
   }
 
   // Sign up with email/password
   async SignUp(email: string, password: string) {
+    alert(password);
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(
         email,

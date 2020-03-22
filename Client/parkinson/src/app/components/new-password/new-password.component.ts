@@ -19,21 +19,18 @@ export class NewPasswordComponent implements OnInit {
     public authService: AuthService,
     public router: Router
   ) {
-
     // Fetching the code from the URL
     // oobCode wchi is athe access token to reset the password
     this.activatedRoute.queryParams.subscribe(params => {
       this.code = params["oobCode"];
     });
+    if (this.code == undefined) {
+      this.router.navigate(["404"]);
+    }
   }
 
   ngOnInit() {
-    
     this.match = true;
-
-    if (this.code == "") {
-      this.router.navigate(["notFound"]);
-    }
   }
 
   /**
@@ -60,7 +57,6 @@ export class NewPasswordComponent implements OnInit {
       this.success = false;
     }
   }
-
 
   /**
    * @param msg the message of the nasck bar

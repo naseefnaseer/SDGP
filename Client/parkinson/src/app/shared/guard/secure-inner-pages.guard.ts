@@ -25,6 +25,7 @@ export class PreSignedGuard implements CanActivate {
     if(this.authService.isLoggedIn) {
        this.router.navigate(['dashboard'])
     }
+    else
     return true;
   }
 

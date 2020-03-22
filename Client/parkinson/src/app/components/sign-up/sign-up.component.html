@@ -14,69 +14,54 @@
           <span class="ds text-muted">Hello, Doctor. Les get started.</span>
         </p>
         <h2 class="text-info"
-          style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); margin-top:13px; ">
+          style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.3)); margin-top:13px; ">
           <p class="ds">Sign Up</p>
         </h2>
       </div>
-      <form [formGroup] class="ds rounded">
 
+      <form [formGroup] class="ds rounded">
         <div class="form-group text-center"
           style="margin-top:-10px; padding-bottom:-11px; font-size:17px; color:#3b99e0; font-family:Roboto, sans-serif; ">
           <p class="ds ">Enter a details.</p>
         </div>
-
         <div class="form-group">
           <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">
             Name
           </label>
-
           <div class="row">
-
             <div class="col-md-6">
-              <input type="text" placeholder="First" class="form-control ds" /></div>
-
-
+              <input type="text" placeholder="First" class="form-control ds" #fname /></div>
             <div class="col-md-6">
-              <input type="text" placeholder="Last" class="form-control ds" /></div>
+              <input type="text" placeholder="Last" class="form-control ds" #lname /></div>
           </div>
         </div>
 
 
         <div class="form-group">
-          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">E-mail</label>
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">E-mail</label>
+          <div>
+            <input type="email" placeholder="Example@mail.com" class="form-control ds" #email />
+            <span style="font-size: smaller; color: red;" [ngStyle]="mailerror()">Invalid E-Mail address.</span>
 
-          <div class="row">
-
-            <div class="col-md-11">
-              <input type="text" placeholder="Example@mail.com" class="form-control item ds" #email />
-            </div>
-
-            <div class="col-md-1">
-              <i class="fa fa-check"></i></div>
           </div>
+
         </div>
 
-
         <div class="form-group" style="margin-bottom:33px; ">
-
           <label style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">
             Password
           </label>
-
-
           <div class="row">
-
             <div class="col-md-6">
-              <input #pass type="text" placeholder="New" class="form-control ds" /></div>
-
+              <input #pass type="password" placeholder="New" class="form-control ds" #pass1 /></div>
             <div class="col-md-6">
-              <input #passconf type="text" placeholder="Confirm" class="form-control ds" /></div>
-
+              <input #passconf type="password" placeholder="Confirm" class="form-control ds" #pass2 />
+              <span style="font-size: smaller; color: red;" [ngStyle]="passerror()">Password did not match!</span></div>
           </div>
         </div>
 
-        <button class="btn btn-primary btn-block ds" type="button"
-          (click)="authService.SignUp(email.value, passconf.value)">
+        <button (click)="signUpUser(email.value, fname.value,lname.value,pass1.value,pass2.value)"
+          class="btn btn-primary btn-block ds" type="button" (click)="signUpUser(email.value)">
           Register
         </button>
 
