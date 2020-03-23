@@ -1,3 +1,4 @@
+<title>Sign Up</title>
 <main class="page login-page">
   <section class="clean-block clean-form dark">
 
@@ -64,8 +65,9 @@
           class="btn btn-primary btn-block ds" type="button">
           Register
         </button>
-
-
+        <p></p>
+        <mat-progress-bar mode="indeterminate" [ngClass]="{'invisible': !isLoading,'visible':isLoading}">
+        </mat-progress-bar>
         <div class="form-group text-center"
           style="margin-top:16px; padding-bottom:-11px; font-size:14px; color:#3b99e0; font-family:Roboto, sans-serif; ">
           <p class="ds font-weight-bold">- Or -</p>

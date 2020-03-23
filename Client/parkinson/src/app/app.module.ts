@@ -23,14 +23,16 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { environment } from "../environments/environment";
 
 // Auth service
 import { AuthService } from "./shared/services/auth.service";
 import { EmailConrollerComponent } from "../app/components/email-conroller/email-conroller.component";
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from "./components/footer/footer.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserAnimationsModule,
     BrowserModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatProgressBarModule,
     ReactiveFormsModule
   ],
   providers: [AuthService],

@@ -7,6 +7,7 @@ import { AuthService } from "../../shared/services/auth.service";
   styleUrls: ["./sign-up.component.css"]
 })
 export class SignUpComponent implements OnInit {
+  isLoading: boolean;
   isMatchPass: boolean;
   isMatchMail: boolean;
   constructor(public authService: AuthService) {}
@@ -26,9 +27,11 @@ export class SignUpComponent implements OnInit {
     this.isMatching(pass1, pass2);
     if (this.isMatchPass) {
       if (email.includes("@") && email.includes(".")) {
+        this.isLoading = true;
         this.authService.SignUp(email, pass2);
       } else {
         this.isMatchMail = false;
+        this.isLoading = true;
       }
     }
   }

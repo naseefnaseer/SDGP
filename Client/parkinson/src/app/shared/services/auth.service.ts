@@ -39,14 +39,14 @@ export class AuthService {
   }
 
   // Sign in with email/password
-  async SignIn(email: string, password: string) {
+  async SignIn(email: string, password: string): Promise<boolean> {
     try {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(
         email,
         password
-        );
+      );
 
-        this.SetUserData(result.user);
+      this.SetUserData(result.user);
       this.ngZone.run(() => {
         this.router.navigate(["dashboard-g"]);
       });
@@ -54,10 +54,10 @@ export class AuthService {
         ? this.openSnackBar("Welcom Back", "OK")
         : this.SendVerificationMail();
 
-
       // return true;
     } catch (error) {
       window.alert(error.message);
+      return false;
 
       // return false;
     }

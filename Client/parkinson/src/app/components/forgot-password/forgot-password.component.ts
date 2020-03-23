@@ -8,6 +8,8 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./forgot-password.component.css"]
 })
 export class ForgotPasswordComponent implements OnInit {
+
+  isLoading: boolean;
   isSuccess = false;
   constructor(public authService: AuthService) {}
 
@@ -29,6 +31,9 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   async SendRequest(mail: string) {
-    this.isSuccess = await this.authService.ForgotPassword(mail);
+    this.isLoading = true;
+     this.isSuccess = await this.authService.ForgotPassword(mail);
+    this.isLoading = this.isSuccess;
+
   }
 }

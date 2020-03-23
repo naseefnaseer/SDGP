@@ -1,3 +1,4 @@
+<title>Sign In</title>
 <main class="page login-page">
 
   <section class="clean-block clean-form dark">
@@ -40,13 +41,14 @@
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary btn-block ds rounded" type="button"
-            (click)="authService.SignIn(email.value,pass.value)">
+          <button class="btn btn-primary btn-block ds rounded" type="button" (click)="SignIn(email.value,pass.value)">
             Log In
           </button>
         </div>
 
         <div class="form-group text-center">
+          <mat-progress-bar mode="indeterminate" [ngClass]="{'invisible': !isLoading,'visible':isLoading}">
+          </mat-progress-bar>
           <a href="" routerLink="/register-user" class="text-center" style="  font-size:12px;">
             Dont have one?
             <b style="  font-size:14px;">
@@ -57,5 +59,6 @@
         </div>
       </form>
     </div>
+
   </section>
 </main>

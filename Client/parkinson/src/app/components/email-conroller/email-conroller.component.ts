@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ["./email-conroller.component.scss"]
 })
 export class EmailConrollerComponent {
+
   mode: any;
   code: any;
 
