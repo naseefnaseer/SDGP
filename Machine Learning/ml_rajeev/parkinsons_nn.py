@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# Importing the dataset
+# Importing the dataset.
 dataset = pd.read_csv('parkinsons_data.csv')
 X = dataset.iloc[:, 1: 23].values #matrix of independent features
 y = dataset.iloc[:, 23].values #dependent variable
