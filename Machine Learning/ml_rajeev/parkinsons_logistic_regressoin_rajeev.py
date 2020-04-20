@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar  2 07:25:13 2020
 
-@author: Asus
-"""
 
 # Logistic Regression
 
