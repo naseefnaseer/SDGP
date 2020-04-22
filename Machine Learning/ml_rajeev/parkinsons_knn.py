@@ -14,6 +14,10 @@ y = dataset.iloc[:, 23].values #dependent variable
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 
+#testing data - actual parkinsons patient data
+testDataset = pd.read_csv('Parkinsons Test Data.csv')
+X_test_real = testDataset.iloc[:, 0: 22].values
+
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
@@ -29,6 +33,7 @@ classifier.fit(X_train, y_train)
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
 
+
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix, accuracy_score
 cm = confusion_matrix(y_test, y_pred)
@@ -36,6 +41,7 @@ cm = confusion_matrix(y_test, y_pred)
 #getting accuracy
 accuracy_score(y_test,y_pred)
 print("Accuracy_score for KNN classifier ", accuracy_score(y_test, y_pred))
+
 
 '''
 # Visualising the Training set results
