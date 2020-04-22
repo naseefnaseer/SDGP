@@ -22,6 +22,10 @@ X_test = sc.transform(X_test)
 
 # Fitting classifier to the Training set
 # Create your classifier here
+from sklearn.linear_model import LogisticRegression
+classifier = LogisticRegression(random_state = 0) #LR object - pseudo random
+classifier.fit(X_train, y_train) #fit classifier object to training set so classifier learns co relation between X-train an Y-train
+
 
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
