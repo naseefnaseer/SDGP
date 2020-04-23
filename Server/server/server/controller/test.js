@@ -4,14 +4,14 @@ var doctorService = require('../service/doctor');
  **_ Function to create the user in user collection.
  _**/
 exports.create = function (req, res, next) {
-    var body = new Doctor(req.body);
-    if (!body.firstName || !body.lastName || !body.phone || !body.doctorUserName || !body.doctorPassword) {
+    var body = new Test(req.body);
+    if (!body.doctorID || !body.patientID || !body.testResults || !body.testDate ) {
         res.status(400).send('Required details are missing');
         return;
     }
-    doctorService.createPatient(body, function(error, response){
+    doctorService.createTest(body, function(error, response){
         if(response){
-            res.status(400).send(response)
+            res.status(200).send(response)
         }
         else if (error){
             res.status(400).send(error);
