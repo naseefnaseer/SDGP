@@ -1,21 +1,12 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar  2 07:25:13 2020
-
-@author: Asus
-"""
-
-# Logistic Regression
-
 # Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset.
-dataset = pd.read_csv('parkinsons_data.csv')
-X = dataset.iloc[:, 1: 23].values #matrix of independent features
-y = dataset.iloc[:, 23].values #dependent variable
+dataset = pd.read_csv('Parkinsons Train Data.csv')
+X = dataset.iloc[:, 1: 26].values #matrix of independent features 1:26 gives 70% accuracy
+y = dataset.iloc[:, 27].values #dependent variable
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
@@ -42,7 +33,7 @@ y_pred = classifier.predict(X_test)
 from sklearn.metrics import confusion_matrix,accuracy_score
 cm = confusion_matrix(y_test, y_pred) #(real values, predicted values)
 accuracy_score(y_test,y_pred)
-print("Accuracy_score for Nerual Network(Oxford dataset) ", accuracy_score(y_test, y_pred))
+print("Accuracy_score for Nerual Network(Turkish data set) ", accuracy_score(y_test, y_pred))
 
 """
 [correct,incorrect]
