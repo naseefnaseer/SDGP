@@ -5,7 +5,7 @@ import pandas as pd
 
 # Importing the dataset.
 dataset = pd.read_csv('Parkinsons Train Data.csv')
-X = dataset.iloc[:, 1: 26].values #matrix of independent features 1:26 gives 70% accuracy
+X = dataset.iloc[:, 1: 25].values #matrix of independent features 1:26 gives 70% accuracy
 y = dataset.iloc[:, 27].values #dependent variable
 
 # Splitting the dataset into the Training set and Test set
