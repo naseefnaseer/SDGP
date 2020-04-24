@@ -1,4 +1,5 @@
 var patientService = require('../service/patient');
+var fs = require('fs');
 
 /**
  **_ Function to create the user in user collection.
@@ -11,7 +12,7 @@ exports.create = function (req, res, next) {
     }
     patientService.createPatient(body, function(error, response){
         if(response){
-            res.status(400).send(response)
+            res.status(200).send(response)
         }
         else if (error){
             res.status(400).send(error);
@@ -19,6 +20,19 @@ exports.create = function (req, res, next) {
     });
     
 }
+/**
+ **_Receieve audio file from the patient
+ _**/
+
+
+exports.receiveAudioFile = function (req, res, next){
+    var file = fs.readFile(req.body.audioFile);
+    // console.log(file);
+    res.status(200).send(file);
+    
+
+}
+
 
 /**
  _ Function to find user from user collection.
@@ -114,7 +128,7 @@ exports.delete = function (req, res) {
             }
             if (response.n === 0 && response.ok === 1) {
                 res.status(204).send({
-                    message: 'No data found'
+                    msg: 'No data found'
                 });
             }
         }
