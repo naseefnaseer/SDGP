@@ -124,6 +124,21 @@ exports.delete = function (req, res) {
 // Model.find()
 // Model.findById()
 
+/* 
+Recieving audio file from the patient 
+*/
+exports.recieveAudioFile = function(req,res,next){
+    var fs =require('fs');
+    try{
+    var file =fs.readFile(req.body.audioFile);
+    //console.log(file);
+    res.status(200).send(file);
+    }
+    catch(err){
+
+    }
+}
+
 class Patient {
     constructor(userData) {
         this.patientID = userData.patientID || '';
