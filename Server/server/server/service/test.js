@@ -1,3 +1,6 @@
+(function (){
+
+
 var mongoose = require('mongoose');
 
 var test = require('./../model/speechtest'); 
@@ -36,3 +39,6 @@ exports.updateTestByQuerry = function (query, data, options, callback) {
 exports.deleteTest = function (query, callback) {
     test.deleteOne(query, callback);
 }
+
+
+})()

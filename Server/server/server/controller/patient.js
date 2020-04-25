@@ -20,18 +20,19 @@ exports.create = function (req, res, next) {
     });
     
 }
-/**
+/** 
  **_Receieve audio file from the patient
- _**/
+ _*
 
 
 exports.receiveAudioFile = function (req, res, next){
     var file = fs.readFile(req.body.audioFile);
     // console.log(file);
-    res.status(200).send(file);
+    res.status(200).send(file); 
     
 
 }
+*/
 
 
 /**
@@ -134,13 +135,9 @@ exports.delete = function (req, res) {
         }
     });
 }
-//TODO: 
-// Model.find()
-// Model.findById()
 
 class Patient {
     constructor(userData) {
-        this.patientID = userData.patientID || '';
         this.firstName = userData.firstName || '';
         this.lastName = userData.lastName || '';
         this.dob = userData.dob || '';
