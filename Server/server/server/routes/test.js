@@ -23,7 +23,7 @@ router.get('/test/:testID', test.find);
 router.put('/updatebyid', test.updateById);
 
 /**
- _ To update the user data by filter condition
+ _ To update the user data by filter condition  
  */
 router.put('/update', test.update);
 

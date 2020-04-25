@@ -1,9 +1,67 @@
 var testService = require('../service/test');
+var audio = require('./vocal')
+const axios = require('axios');
+const  multipart  =  require('connect-multiparty');
 
 /**
  **_ Function to create the user in user collection.
  _**/
 exports.create = function (req, res, next) {
+
+    // try {
+    //     if(!req.files) {
+    //         res.send({
+    //             status: false,
+    //             message: 'No file uploaded'
+    //         });
+    //     } else {
+    //         let data = []; 
+    
+    //         //loop all files
+    //         _.forEach(_.keysIn(req.files.photos), (key) => {
+    //             let photo = req.files.photos[key];
+                
+    //             //move photo to uploads directory
+    //             photo.mv('./uploads/' + photo.name);
+
+    //             //push file details
+    //             data.push({
+    //                 name: photo.name,
+    //                 size: photo.size
+    //             });
+    //         });
+    
+    //         //return response
+    //         res.send({
+    //             status: true,
+    //             message: 'Files are uploaded',
+    //             data: data
+    //         });
+    //     }
+    // } catch (err) {
+    //     res.status(500).send(err);
+    // }
+
+
+
+    // const data = {
+    //     name: 'John Doe',
+    //     job: 'Content Writer'
+    // };    
+
+    var pyRes;
+
+    axios.post('http://localhost:5000/get_prediction', data)
+    .then((res) => {
+        // console.log(`Status: ${res.status}`);
+        // console.log('Body: ', res.data);
+        pyRES = res.data
+    }).catch((err) => {
+        console.error(err);
+    });
+
+    console.log(pyRes);
+    
 
     // var options = {
     //     method: 'GET',
@@ -21,11 +79,10 @@ exports.create = function (req, res, next) {
     // })
 
 
-    var body = new Test(req.body);
+    var body = new Test(pyRes);
     if (!body.doctorID || !body.patientID || !body.testResult   ) {
-        res.status(400).send('Required details are missing');
-        console.log(body); 
-        
+        res.status(400).send({"message" : "Required Details are missing"});
+        console.log(body);         
         return;
     }
     testService.createTest(body, function(error, response){
@@ -49,7 +106,7 @@ exports.find = function (req, res) {
         patientID: params.patientID
     };
     if (!query) {
-        res.status(400).send('Bad Request');
+        res.status(500).send({"message": "Bad Request"});
         return;
     }
     testService.findTest(query, function (error, response) {
