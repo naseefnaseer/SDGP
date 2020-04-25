@@ -127,6 +127,8 @@ exports.delete = function (req, res) {
 /* 
 Recieving audio file from the patient 
 */
+
+
 exports.recieveAudioFile = function(req,res,next){
     var fs =require('fs');
     try{
@@ -135,7 +137,7 @@ exports.recieveAudioFile = function(req,res,next){
     res.status(200).send(file);
     }
     catch(err){
-
+     console.log(err);
     }
 }
 
