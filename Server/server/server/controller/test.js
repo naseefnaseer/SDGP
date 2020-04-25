@@ -1,19 +1,38 @@
-var doctorService = require('../service/doctor');
+var testService = require('../service/test');
 
 /**
  **_ Function to create the user in user collection.
  _**/
 exports.create = function (req, res, next) {
-    var body = new Doctor(req.body);
-    if (!body.firstName || !body.lastName || !body.phone || !body.doctorUserName || !body.doctorPassword) {
+
+    // var options = {
+    //     method: 'GET',
+    //     uri: 'http://127.0.0.1:5000/',
+    //     json: true // Automatically stringifies the body to JSON
+    // };
+    // var getReq = await request(options)
+    // .then(function (parsedBody){
+    //     console.log(parsedBody);
+    //     return parsedBody;
+    // })
+    // .catch(function (error){
+    //     console.log(error);
+        
+    // })
+
+
+    var body = new Test(req.body);
+    if (!body.doctorID || !body.patientID || !body.testResult   ) {
         res.status(400).send('Required details are missing');
+        console.log(body); 
+        
         return;
     }
-    doctorService.createPatient(body, function(error, response){
+    testService.createTest(body, function(error, response){
         if(response){
-            res.status(400).send(response)
+            res.status(200).send(response);
         }
-        else if (error){
+        else if (error){  
             res.status(400).send(error);
         }
     });
@@ -33,7 +52,7 @@ exports.find = function (req, res) {
         res.status(400).send('Bad Request');
         return;
     }
-    doctorService.findTest(query, function (error, response) {
+    testService.findTest(query, function (error, response) {
         if (error) {
             res.status(404).send(error);
             return;
@@ -59,7 +78,7 @@ exports.updateById = function (req, res) {
         return;
     }
     var updateData = body.data || {}
-    doctorService.updateTestById(body.id, updateData, (err, response) => {
+    testService.updateTestById(body.id, updateData, (err, response) => {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
@@ -82,7 +101,7 @@ exports.update = function (req, res) {
         return;
     }
 
-    doctorService.updateTest(query, data, options, (err, response) => {
+    testService.updateTest(query, data, options, (err, response) => {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
@@ -103,7 +122,7 @@ exports.delete = function (req, res) {
         res.status(400).send('Bad Request');
         return;
     }
-    doctorService.deleteTest(query, function (error, response) {
+    testService.deleteTest(query, function (error, response) {
         if (error) {
             res.status(400).send(error);
             return;
@@ -123,12 +142,9 @@ exports.delete = function (req, res) {
 
 class Test {
     constructor(userData) {
-        this.testID = userData.testID || '';
         this.testResult = userData.testResult;
         this.patientID = userData.patientID || '';
         this.doctorID = userData.doctorID || '';
-        this.speech = userData.speech || '';
-        this.testDate = userData.testDate || '';
     }
 }
 

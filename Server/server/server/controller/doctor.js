@@ -1,9 +1,13 @@
 var doctorService = require('../service/doctor');
+var doctor = require('../model/doctor');
+
+
 
 /**
- **_ Function to create the user in user collection.
+ **_ Function to create the user in doctor collection.
  _**/
-exports.create = function (req, res, next) {
+exports.create = function (req, res, next) {    
+
     var body = new Doctor(req.body);
     if (!body.firstName || !body.lastName || !body.phone || !body.doctorUserName || !body.doctorPassword) {
         res.status(400).send('Required details are missing');
@@ -11,15 +15,17 @@ exports.create = function (req, res, next) {
     }
     doctorService.createDoctor(body, function(error, response){
         if(response){
-            res.status(400).send(response)
+            res.status(200).send(response)
         }
         else if (error){
             if (error.code == 11000){
+                console.log(error);
+                
                 res.status(400).send({
                     msg: "Duplicate"
                 });
             }
-            else{
+            else{ 
                 res.status(400).send(error);
             }
     
@@ -29,8 +35,9 @@ exports.create = function (req, res, next) {
     
 }
 
+
 /**
- _ Function to find user from user collection.
+ _ Function to find user from doctor collection.
  _/
  */
 exports.find = function (req, res) {
@@ -56,6 +63,12 @@ exports.find = function (req, res) {
         }
     });
 }
+
+/**
+ _ Function valiadte user login
+ _/
+ */
+
 
 exports.login = function (req, res) {
     var params = req.params || {};
@@ -88,8 +101,6 @@ exports.login = function (req, res) {
         }
     });
 }
-
-
 
 
 
@@ -143,6 +154,7 @@ exports.update = function (req, res) {
 
 exports.delete = function (req, res) {
     var body = req.body || {};
+
     var query = body.query;
     if (!query) {
         res.status(400).send('Bad Request');
@@ -154,6 +166,9 @@ exports.delete = function (req, res) {
             return;
         }
         if (response) {
+            console.log(response.n);
+            console.log(response);
+            
             if (response.n === 1 && response.ok === 1) {
                 res.status(202).send(body);
             }
@@ -173,7 +188,6 @@ exports.delete = function (req, res) {
 
 class Doctor {
     constructor(userData) {
-        this.doctorID = userData.doctorID || '';
         this.firstName = userData.firstName || '';
         this.lastName = userData.lastName || '';
         this.doctorUserName = userData.doctorUserName || '';

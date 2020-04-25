@@ -11,6 +11,12 @@ router.get('/', function (req, res, next) {
  _**/
 router.post('/', patient.create);
 
+
+/**
+ **_ To create the New user
+ _**/
+ router.post('/audio', patient.create);
+
 /**
  _ TO get the single user by their username eg.email
  _/
