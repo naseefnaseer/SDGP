@@ -1,9 +1,13 @@
 var doctorService = require('../service/doctor');
+var doctor = require('../model/doctor');
+
+
 
 /**
  **_ Function to create the user in doctor collection.
  _**/
-exports.create = function (req, res, next) {
+exports.create = function (req, res, next) {    
+
     var body = new Doctor(req.body);
     if (!body.firstName || !body.lastName || !body.phone || !body.doctorUserName || !body.doctorPassword) {
         res.status(400).send('Required details are missing');
@@ -15,11 +19,13 @@ exports.create = function (req, res, next) {
         }
         else if (error){
             if (error.code == 11000){
+                console.log(error);
+                
                 res.status(400).send({
                     msg: "Duplicate"
                 });
             }
-            else{
+            else{ 
                 res.status(400).send(error);
             }
     
@@ -28,9 +34,6 @@ exports.create = function (req, res, next) {
     });
     
 }
-
-
-
 
 
 /**
@@ -98,8 +101,6 @@ exports.login = function (req, res) {
         }
     });
 }
-
-
 
 
 
@@ -182,7 +183,6 @@ exports.delete = function (req, res) {
 
 class Doctor {
     constructor(userData) {
-        this.doctorID = userData.doctorID || '';
         this.firstName = userData.firstName || '';
         this.lastName = userData.lastName || '';
         this.doctorUserName = userData.doctorUserName || '';

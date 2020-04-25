@@ -1,36 +1,30 @@
 var mongoose = require('mongoose');
-const AutoIncrementFactory = require('mongoose-sequence')(mongoose);
+var autoIncrement = require('mongoose-auto-increment');
 
-var connection = require('../config/connection');
+var connection = mongoose.createConnection("mongodb://localhost/Parkinsons");
 
-
-// const autoIncrement = AutoIncrementFactory(connection);
-
+autoIncrement.initialize(connection);
 
 var patientSchema = new mongoose.Schema({
-    patientID: {
-        type: String,
-        required: true,
-        unique: true
-    },
     firstName: {
         type: String,
         default: ''
     },
     lastName: {
-        type: String,
+        type: String, 
         default: ''
     },
     dob: String,
-    address: String,
+    address: String, 
     phone: String,
-});
+}); 
+ 
+
+
+patientSchema.plugin(autoIncrement.plugin, 'Patient');
 
 var patient = new mongoose.model('Patient', patientSchema);
 
-// patientSchema.plugin(autoIncrement, {inc_field: 'patientID'});
-
-// module.exports = patient;
 module.exports = mongoose.model('Patient',patientSchema);
 
 

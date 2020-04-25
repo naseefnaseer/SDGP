@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var connection = require('./server/config/connection');
 
+
+
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 var contactRouter = require('./routes/contact');
@@ -36,7 +38,7 @@ app.use('/api/patients', patientsRouter);
 app.use('/api/doctor', doctorsRouter);
 app.use('/api/test', testsRouter);
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handler 
 app.use(function(req, res, next) {
   next(createError(404));
 });
@@ -55,10 +57,11 @@ app.use(function(err, req, res, next) {
 /**
  * Get port from environment and store in Express.
  */
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 
 
 module.exports = app;
+ 
