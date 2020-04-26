@@ -1,4 +1,3 @@
-
 var patient = require('./../model/patient');
 
 

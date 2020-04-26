@@ -4,11 +4,11 @@ var patientService = require('../service/patient');
 var fs = require('fs');
 
 /**
- **_ Function to create the user in user collection.
+ **_ Function to create a patient in the collection.
  _**/
 exports.create = function (req, res, next) {
     var body = new Patient(req.body);
-    if (!body.npm  || !body.lastName || !body.phone) {
+    if (!body.firstName || !body.lastName || !body.phone || !body.dob || !body.gender) {
         res.status(400).send({message: "Required details are missing"});
         return;
     }
@@ -22,23 +22,10 @@ exports.create = function (req, res, next) {
     });
     
 } 
-/** 
- **_Receieve audio file from the patient
- _*
-
-
-exports.receiveAudioFile = function (req, res, next){
-    var file = fs.readFile(req.body.audioFile);
-    // console.log(file);
-    res.status(200).send(file); 
-    
-
-}
-*/
 
 
 /**
- _ Function to find user from user collection.
+ _ Function to find the registered patient from user collection using patient ID
  _/
  */
 exports.find = function (req, res) {
@@ -67,8 +54,7 @@ exports.find = function (req, res) {
 }
 
 /**
- _ Function All patient from patient collection
- _/
+ _ Function to get all the registered patient documents
  */
 exports.findAll = function (req, res) {
     patientService.findAllPatient(function (error, response) {
@@ -88,7 +74,7 @@ exports.findAll = function (req, res) {
 
 
 /**
- **_ Function to update the user data  by their ID.
+ **_ Function to update the registered patient details using the patient id
  _**/
 exports.updateById = function (req, res) {
     var body = req.body;
@@ -108,7 +94,7 @@ exports.updateById = function (req, res) {
 }
 
 /**
- _ Function to update the user data by filter condition.
+ _ Function to update the registered patient details by filter condition.
  _/
  */
 exports.update = function (req, res) {
@@ -132,7 +118,7 @@ exports.update = function (req, res) {
 
 /**
 /_*
- _ Function to delete the user from collection.
+ _ Function to delete the registered patient from collection.
  */
 
 exports.delete = function (req, res) {
@@ -160,11 +146,17 @@ exports.delete = function (req, res) {
     });
 }
 
+/**
+ * Constructor for Patient to create a patient object
+ *
+ */
+
 class Patient {
     constructor(userData) {
         this.firstName = userData.firstName || '';
         this.lastName = userData.lastName || '';
         this.dob = userData.dob || '';
+        this.gender = userData.gender || '';
         this.address = userData.address || '';
         this.phone = userData.phone || '';
     }

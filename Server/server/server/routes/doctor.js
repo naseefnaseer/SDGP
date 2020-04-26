@@ -7,25 +7,25 @@ router.get('/', function (req, res, next) {
 });
 
 /**
- **_ To create the New user
+ **_ To create the New user for Doctor
  _**/
 router.post('/', doctor.create);
 
 /**
- _ TO get the single user by their id
+ _ TO get the single user by their doctor id
  */
 router.get('/doctor/:doctorID', doctor.find);
 
 
 /**
- _ TO get the single user by their username eg.email
+ _ TO get the single user by the doctor username 
  _/
  */
 router.get('/doctor/:email/:pwd', doctor.login);
 
 
 /**
- **_ To update user data(fields) by user ID
+ **_ To update user by doctor id
  _**/
 router.put('/updatebyid', doctor.updateById);
 

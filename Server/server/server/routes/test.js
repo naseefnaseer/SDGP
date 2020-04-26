@@ -1,14 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var test = require('../controller/test');
-// var uploadService = require('../service/vocal');
-var multer = require('multer');
+const multer  = require('multer') //use multer to upload blob data
+const upload = multer(); // set m
 
-var upload = multer({dest: './uploads/' })
+
+// router.post('/', upload.any('audio'), test.create);
+
 /**
  **_ To create the New Test
  _**/
-router.post('/', upload.single('fileX'), test.create);
+
+
+router.post('/', upload.single('p84'), test.create);
 
 /**
  _ TO get the test using testID

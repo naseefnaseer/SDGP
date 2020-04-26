@@ -1,6 +1,3 @@
-
-var mongoose = require('mongoose');
-
 var test = require('./../model/speechtest'); 
 
 // Create new doctor

@@ -1,71 +1,26 @@
 var testService = require('../service/test');
 const axios = require('axios');
-const  multipart  =  require('connect-multiparty');
-const readFile = require('util').promisify(require('fs').readFile)
-
+const fs = require('fs');
 
 
 /**
- **_ Function to create the user in user collection.
+ **_ Function to create the test.
  _**/
 exports.create = function (req, res, next) {
- 
 
- 
-    // try {
-    //     if(!req.files) {
-    //         res.send({
-    //             status: false,
-    //             message: 'No file uploaded'
-    //         });
-    //     } else {
-    //         let data = []; 
-    
-    //         //loop all files
-    //         _.forEach(_.keysIn(req.files.photos), (key) => {
-    //             let photo = req.files.photos[key];
-                
-    //             //move photo to uploads directory
-    //             photo.mv('./uploads/' + photo.name);
+    let uploadLocation = __dirname + '\\public\\uploads\\' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
 
-    //             //push file details
-    //              data.push({
-    //                 name: photo.name,
-    //                 size: photo.size
-    //             });
-    //         });
-    
-    //         //return response
-    //         res.send({
-    //             status: true,
-    //             message: 'Files are uploaded',
-    //             data: data
-    //         });
-    //     }
-    // } catch (err) {
-    //     res.status(500).send(err);
-    // }
-
-
-
-    // const data = {
-    //     name: 'John Doe',
-    //     job: 'Content Writer'
-    // };    
-
-    // console.log(req.body.dId);
-
-    var data = {
-        name: "john"
-    };
-    
+    fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
+    res.sendStatus(200); //send back that everything went ok
  
     var pyRes;
 
-    axios.post('http://localhost:5000/get_prediction', data)
+    /**
+     * axios is a http client. Here it is used to send the location of the patient's audio file to the flask restAPI
+     */
+
+    axios.post('http://localhost:5000/get_prediction', req.file)
     .then((res) => {
-        // console.log(`Status: ${res.status}`);
-        // console.log('Body: ', res.data);
         pyRES = res.data
     }).catch((err) => {
         console.error(err);
@@ -73,23 +28,6 @@ exports.create = function (req, res, next) {
 
     console.log(pyRes);
     
-
-    // var options = {
-    //     method: 'GET',
-    //     uri: 'http://127.0.0.1:5000/',
-    //     json: true // Automatically stringifies the body to JSON
-    // };
-    // var getReq = await request(options)
-    // .then(function (parsedBody){
-    //     console.log(parsedBody);
-    //     return parsedBody;
-    // })
-    // .catch(function (error){
-    //     console.log(error);
-        
-    // })
-
-
     var body = new Test(pyRes);
     if (!body.doctorID || !body.patientID || !body.testResult   ) {
         res.status(400).send({message : "Required Details are missing"});
@@ -108,7 +46,7 @@ exports.create = function (req, res, next) {
 }
 
 /**
- _ Function to find Test from test collection.
+ _ Function to find Test from test collection using test ID
  _/
  */
 exports.find = function (req, res) {
@@ -136,7 +74,7 @@ exports.find = function (req, res) {
 }
 
 /**
- _ Function to find all Tests by doc from test collection.
+ _ Function to find all Tests done by a doctor from test collection using doctorID
  _/
  */
 exports.findAllByDoc = function (req, res) {
@@ -187,7 +125,7 @@ exports.findAll = function (req, res) {
 
 
 /**
- **_ Function to update the user data  by their ID.
+ **_ Function to update the test data  by the test ID.
  _**/
 exports.updateById = function (req, res) {
     var body = req.body;
@@ -207,7 +145,7 @@ exports.updateById = function (req, res) {
 }
 
 /**
- _ Function to uodate the user data by filter condition.
+ _ Function to update the test data by filter condition.
  _/
  */
 exports.update = function (req, res) {
@@ -231,7 +169,7 @@ exports.update = function (req, res) {
 
 /**
 /_*
- _ Function to delete the user from collection.
+ _ Function to delete the test from the collection
  */
 
 exports.delete = function (req, res) {
@@ -259,11 +197,15 @@ exports.delete = function (req, res) {
     });
 }
 
+/**
+ * Defined constructor to create a test object
+ */
 class Test {
     constructor(userData) {
         this.testResult = userData.testResult;
         this.patientID = userData.patientID || '';
         this.doctorID = userData.doctorID || '';
+        this.updrs = userData.updrs;
     }
 }
 

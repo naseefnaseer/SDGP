@@ -1,5 +1,5 @@
-
 var doctorService = require('../service/doctor');
+const Bcrypt = require("bcryptjs");
 var doctor = require('../model/doctor');
 
 
@@ -9,11 +9,14 @@ var doctor = require('../model/doctor');
  _**/
 exports.create = function (req, res, next) {    
 
+    
+
     var body = new Doctor(req.body);
     if (!body.firstName || !body.lastName || !body.phone || !body.doctorUserName || !body.doctorPassword) {
         res.status(400).send({message: "Required details are missing"});
         return;
     }
+    body.doctorPassword = Bcrypt.hashSync(req.body.doctorPassword, 10);
     doctorService.createDoctor(body, function(error, response){
         if(response){
             res.status(200).send(response)
@@ -66,7 +69,7 @@ exports.find = function (req, res) {
 }
 
 /**
- _ Function valiadte user login
+ _ Function to validate the login 
  _/
  */
 
@@ -74,8 +77,7 @@ exports.find = function (req, res) {
 exports.login = function (req, res) {
     var params = req.params || {};
     var query = {
-        doctorUserName: params.email,
-        doctorPassword: params.pwd
+        doctorUserName: params.email
     };
     
     if (!query) {
@@ -88,17 +90,15 @@ exports.login = function (req, res) {
             return;
         }
         if (response) {
-            loginBody = response;
-            if (doctorPassword = response.doctorPassword){
-                res.status(200).send(response);
+            console.log(response.doctorPassword);
+            if(!Bcrypt.compareSync(query.doctorPassword, respose.doctorPassword)){
+                res.status(400).send({message: "Password is invalid"})
             }
-            else{
-                res.status(200).send({message: 'Password is not matching'});
-            }
+            response.send(response);
             return;
         }
         if (!response) {
-            res.status(204).send({message: "No Data Found"});
+            res.status(204).send({message: "No User Found"});
         }
     });
 }
@@ -106,7 +106,7 @@ exports.login = function (req, res) {
 
 
 /**
- **_ Function to update the user data  by their ID.
+ **_ Function to update the doctor details using the doctor ID.
  _**/
 exports.updateById = function (req, res) {
     var body = req.body;
@@ -126,7 +126,7 @@ exports.updateById = function (req, res) {
 }
 
 /**
- _ Function to uodate the user data by filter condition.
+ _ Function to update the doctor details using filter condition.
  _/
  */
 exports.update = function (req, res) {
@@ -150,7 +150,7 @@ exports.update = function (req, res) {
 
 /**
 /_*
- _ Function to delete the user from collection.
+ _ Function to delete the doctor from the collection.
  */
 
 exports.delete = function (req, res) {
@@ -179,6 +179,9 @@ exports.delete = function (req, res) {
     });
 }
 
+/**
+ * Constructor for Doctor to create a doctor object
+ */
 class Doctor {
     constructor(userData) {
         this.firstName = userData.firstName || '';

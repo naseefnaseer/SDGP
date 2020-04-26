@@ -5,6 +5,11 @@ var connection = mongoose.createConnection("mongodb://localhost/Parkinsons");
 
 autoIncrement.initialize(connection);
 
+/**
+ * Mongoose Schema for Patients
+ */
+
+
 var patientSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -14,12 +19,14 @@ var patientSchema = new mongoose.Schema({
         type: String, 
         default: ''
     },
+    gender: String,
     dob: String,
     address: String, 
     phone: String,
 }); 
  
 
+// Auto Incrementer for the speechTest id
 
 patientSchema.plugin(autoIncrement.plugin, 'Patient');
 

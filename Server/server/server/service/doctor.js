@@ -1,5 +1,3 @@
-var mongoose = require('mongoose');
-
 // Model used to do the CRUD operations
 var doctor = require('./../model/doctor');
  
