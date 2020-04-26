@@ -5,8 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var connection = require('./server/config/connection');
-
-// var usersRouter = require('./routes/users');
 var patientsRouter = require('./server/routes/patient');
 var doctorsRouter = require('./server/routes/doctor');
 var testsRouter = require('./server/routes/test');
@@ -25,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+//Router Setup
 app.use('/api/patients', patientsRouter);
 app.use('/api/doctors', doctorsRouter);
 app.use('/api/tests', testsRouter);
