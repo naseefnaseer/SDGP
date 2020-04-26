@@ -11,14 +11,14 @@ y = dataset.iloc[:, 27].values #dependent variable
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 1)
-
+'''
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler, MinMaxScaler #use min max scalar
 sc = StandardScaler()
 mm = MinMaxScaler()
 X_train = mm.fit_transform(X_train)
 X_test = mm.transform(X_test) # need to call fit transfrom first to use transform
-
+'''
 
 # Importing the Keras libraries and packages
 import keras # open source toolkit for building deep learning models
