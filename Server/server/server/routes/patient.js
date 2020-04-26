@@ -24,6 +24,13 @@ router.post('/', patient.create);
 router.get('/patient/:patientID', patient.find);
 
 /**
+ _ TO get the single user by their username eg.email
+ _/
+ */
+router.get('/patient/', patient.findAll);
+
+
+/**
  **_ To update user data(fields) by user ID
  _**/
 router.put('/updatebyid', patient.updateById);

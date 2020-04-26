@@ -17,6 +17,18 @@ exports.findTest = function (query, callback) {
     test.findOne(query, callback);
 }
 
+// Find all test of doctor
+exports.findAllTestByDoc = function (query, callback) {
+    test.find(query, callback);
+}
+
+// Find all test 
+exports.findAllTest = function ( callback) {
+    test.find(null, callback);
+}
+
+
+
 // Update doctor by ID
 exports.updateTestById = function (id, data, callback) {
     test.findByIdAndUpdate({

@@ -1,12 +1,18 @@
 var testService = require('../service/test');
 const axios = require('axios');
 const  multipart  =  require('connect-multiparty');
+var vocalService = require('../service/vocal');
+const readFile = require('util').promisify(require('fs').readFile)
+
+
 
 /**
  **_ Function to create the user in user collection.
  _**/
 exports.create = function (req, res, next) {
+ 
 
+ 
     // try {
     //     if(!req.files) {
     //         res.send({
@@ -48,7 +54,11 @@ exports.create = function (req, res, next) {
     //     job: 'Content Writer'
     // };    
 
-    console.log(req.body.dId);
+    // console.log(req.body.dId);
+
+    var data = {
+        name: "john"
+    };
     
  
     var pyRes;
@@ -99,13 +109,13 @@ exports.create = function (req, res, next) {
 }
 
 /**
- _ Function to find user from user collection.
+ _ Function to find Test from test collection.
  _/
  */
 exports.find = function (req, res) {
     var params = req.params || {};
     var query = {
-        patientID: params.patientID
+        _id: parseInt(params.testID)
     };
     if (!query) {
         res.status(500).send({message: "Bad Request"});
@@ -125,6 +135,57 @@ exports.find = function (req, res) {
         }
     });
 }
+
+/**
+ _ Function to find all Tests by doc from test collection.
+ _/
+ */
+exports.findAllByDoc = function (req, res) {
+    var params = req.params || {};
+    var query = {
+        doctorID: parseInt(params.doctorID)
+    };
+    if (!query) {
+        res.status(500).send({message: "Bad Request"});
+        return;
+    }
+    testService.findAllTestByDoc(query, function (error, response) {
+        if (error) {
+            res.status(404).send({message : error});
+            return;
+        }
+        if (response) {
+            res.status(200).send(response);
+            return;
+        }
+        if (!response) {
+            res.status(204).send({message: "No Data Found"});
+        }
+    });
+}
+
+/**
+ _ Function to find all Tests by doc from test collection.
+ _/
+ */
+exports.findAll = function (req, res) {
+
+    testService.findAllTest(function (error, response) {
+        if (error) {
+            res.status(404).send({message : error});
+            return;
+        }
+        if (response) {
+            res.status(200).send(response);
+            return;
+        }
+        if (!response) {
+            res.status(204).send({message: "No Data Found"});
+        }
+    });
+}
+
+
 
 /**
  **_ Function to update the user data  by their ID.

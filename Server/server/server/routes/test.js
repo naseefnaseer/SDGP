@@ -1,22 +1,38 @@
 var express = require('express');
 var router = express.Router();
 var test = require('../controller/test');
+// var uploadService = require('../service/vocal');
+var multer = require('multer');
 
-
+var upload = multer({dest: './uploads/' })
 /**
- **_ To create the New user
+ **_ To create the New Test
  _**/
-router.post('/', test.create);
+router.post('/', upload.single('fileX'), test.create);
 
 /**
- _ TO get the single user by their username eg.email
+ _ TO get the test using testID
  _/
  */
 router.get('/test/:testID', test.find);
 
 /**
- **_ To update user data(fields) by user ID
- _**/
+ _ TO get all the tests using docID
+ _/
+ */
+router.get('/testDoc/:doctorID', test.findAllByDoc);
+
+/**
+ _ TO get the all the tests
+ _/
+ */
+router.get('/test', test.findAll);
+
+
+
+/**
+ **_ To update the test using testID
+ _**/ 
 router.put('/updatebyid', test.updateById);
 
 /**
@@ -25,7 +41,7 @@ router.put('/updatebyid', test.updateById);
 router.put('/update', test.update);
 
 /**
- _ To delete the user by condition
+ _ To delete test using a condition
  */
 router.delete('/delete', test.delete);
 

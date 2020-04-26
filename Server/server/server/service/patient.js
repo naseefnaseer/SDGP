@@ -23,6 +23,12 @@ exports.findPatient = function (query, callback) {
     patient.findOne(query, callback);
 }
 
+// Find patient
+exports.findAllPatient = function (callback) {
+    patient.find(null, callback);
+}
+
+
 // Update patient by ID
 exports.updatePatientById = function (id, data, callback) {
     patient.findByIdAndUpdate({

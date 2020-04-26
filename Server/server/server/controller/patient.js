@@ -67,6 +67,27 @@ exports.find = function (req, res) {
 }
 
 /**
+ _ Function All patient from patient collection
+ _/
+ */
+exports.findAll = function (req, res) {
+    patientService.findAllPatient(function (error, response) {
+        if (error) {
+            res.status(404).send(error);
+            return;
+        }
+        if (response) {
+            res.status(200).send(response);
+            return;
+        }
+        if (!response) {
+            res.status(204).send({message: "Patient details not found"});
+        }
+    });
+}
+
+
+/**
  **_ Function to update the user data  by their ID.
  _**/
 exports.updateById = function (req, res) {
