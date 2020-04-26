@@ -11,7 +11,7 @@ y = dataset.iloc[:, 27].values #dependent variable
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 1)
 
-# Feature Scaling
+# Feature Scaling - needed for SVR 
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 sc_y = StandardScaler()
@@ -26,7 +26,6 @@ y_test = sc_y.fit_transform(y_test.reshape(-1, 1))
 from sklearn.svm import  SVR
 svr = SVR(kernel = 'linear', C = 1.0, gamma = 1.0) # linear or rbf kernel
 '''
-
 '''
 svr.fit(X_train, y_train) #trains the machine 
 

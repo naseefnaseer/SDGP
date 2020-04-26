@@ -10,7 +10,6 @@ dataset = pd.read_csv('Train Data with UPDRS.csv')
 X = dataset.iloc[:, 1: 26].values #matrix of independent features 1:26 gives 70% accuracy
 y = dataset.iloc[:, 27].values #dependent variable
 
-data_dmatrix = xgb.DMatrix(data=X,label=y)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
@@ -25,21 +24,18 @@ X_test = sc.transform(X_test)
 
 # Fitting XGBoost to the Training set
 from xgboost import XGBRegressor, XGBRFRegressor
-data_dmatrix = xgb.DMatrix(data=X_train,label=y_train)
 
-xg_reg = xgb.XGBRegressor(objective ='reg:linear', colsample_bytree = 0.3, learning_rate = 0.1,
+xg_reg =XGBRegressor(objective ='reg:squarederror', colsample_bytree = 0.3, learning_rate = 0.1,
                 max_depth = 5, alpha = 10, n_estimators = 10)
 xg_reg.fit(X_train, y_train)
 
 # Predicting the Test set results
 y_pred = xg_reg.predict(X_test)
+y_pred_train = xg_reg.predict(X_train)
+#module evaluation
+from sklearn.metrics import mean_squared_error
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+rmse_train = np.sqrt(mean_squared_error(y_train, y_pred_train ))
 
-# Making the Confusion Matrix
-from sklearn.metrics import confusion_matrix
-#cm = confusion_matrix(y_test, y_pred)
-
-# Applying k-Fold Cross Validation
-from sklearn.model_selection import cross_val_score
-accuracies = cross_val_score(estimator = xg_reg, X = X_train, y = y_train, cv = 10)
-accuracies.mean()
-accuracies.std()
+print("RMSE(Root mean square error) for testing set = ", rmse )
+print("RMSE(Root mean square error) for training set = ", rmse_train )
