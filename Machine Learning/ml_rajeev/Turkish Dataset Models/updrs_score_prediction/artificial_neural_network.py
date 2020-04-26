@@ -11,14 +11,14 @@ y = dataset.iloc[:, 27].values #dependent variable
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 1)
-'''
+
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler, MinMaxScaler #use min max scalar
 sc = StandardScaler()
 mm = MinMaxScaler()
-X_train = mm.fit_transform(X_train)
-X_test = mm.transform(X_test) # need to call fit transfrom first to use transform
-'''
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test) # need to call fit transfrom first to use transform
+
 
 # Importing the Keras libraries and packages
 import keras # open source toolkit for building deep learning models
@@ -31,14 +31,14 @@ classifier = Sequential() #ANN object that acts as a classifier
 
 # Adding the input layer and the first hidden layer - Dense() adds the first hidden layer in which we specify the num of inputs nodes which are for the input layer
 classifier.add(Dense(output_dim = 13, kernel_initializer='he_uniform', activation = 'relu', input_dim = 26))
-#Dense( #output_dim = No.of nodes in hidden layer (here its 25+1/13) - avg of input and output nodes if not doing k fold, 
+#Dense( #output_dim = No.of nodes in hidden layer (here its 25+1/2=13) - avg of input and output nodes if not doing k fold, 
         #init = initialize the weights using the uniform function ,
         #activation = activation function used in hidden layer , relu = rectifier function 
         #input_dim = no. of nodes in the input layer - this creates the input layer, only need this for the first hidden layer)
         
 # Adding the second hidden layer
-classifier.add(Dense(output_dim = 13, init = 'uniform', activation = 'relu'))
-
+classifier.add(Dense(output_dim = 20, init = 'uniform', activation = 'relu'))
+#classifier.add(Dense(output_dim = 5, init = 'uniform', activation = 'relu'))
 # Adding the output layer
 classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'linear')) #change the activation function to linear
 
@@ -49,7 +49,7 @@ classifier.compile("adam", loss="mse", metrics = ["mse"])
           #metrics = criteria used to evaluate the model
 
 # Fitting the ANN to the Training set
-classifier.fit(X_train, y_train, batch_size = 5, nb_epoch = 200)
+classifier.fit(X_train, y_train, batch_size = 2, nb_epoch = 200)
 #.fit(#X_train = matrix of features
       #y_train = dependent var
       #batch_size = no of observations per one weight update
@@ -65,19 +65,21 @@ rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 rmse_train = np.sqrt(mean_squared_error(y_train, y_pred_train ))
 print("RMSE(Root mean square error) for testing set = ", rmse )
 print("RMSE(Root mean square error) for training set = ", rmse_train )
-'''
-y_pred = (y_pred > 0.5) #threshold for binary value - use higher threshold for medical applications?
-#=== returns true if y_pre>0.5 else returns false 
-y_pred_train = classifier.predict(X_train) #returns a probability between 0 and 1
-y_pred_train = (y_pred_train > 0.5)
-'''
-'''
 
-# Making the Confusion Matrix
-from sklearn.metrics import confusion_matrix, accuracy_score
-#cm = confusion_matrix(y_test, y_pred)
-print(" testing accuracy of ANN = ", accuracy_score(y_test,y_pred))
-print(" training accuracy of ANN = ", accuracy_score(y_train,y_pred_train))
-# -*- coding: utf-8 -*-
 
-'''
+#testing the test dataset
+pred_data = pd.read_csv('Parkinsons Test Data.csv', header=0)
+X_predTest = pred_data.iloc[:, :].values
+
+#scale using sc
+X_predTest = sc.transform(X_predTest)
+
+#predict the test set
+y_pred_test_set = classifier.predict(X_predTest)
+
+
+
+import joblib
+joblib.dump(classifier, 'ann_regression_model.pkl')
+print("Model dumped!")
+

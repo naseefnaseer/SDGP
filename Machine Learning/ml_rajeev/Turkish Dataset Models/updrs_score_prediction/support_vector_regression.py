@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# -*- coding: utf-8 -*-
-
-#No need feature scaling since co-efficients compensate for that
-# y = b0 + b1x1 + b2x2 + b3x3 + ...
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -34,8 +26,6 @@ y_test = sc_y.fit_transform(y_test.reshape(-1, 1))
 from sklearn.svm import  SVR
 svr = SVR(kernel = 'linear', C = 1.0, gamma = 1.0) # linear or rbf kernel
 '''
-
-
 
 '''
 svr.fit(X_train, y_train) #trains the machine 
