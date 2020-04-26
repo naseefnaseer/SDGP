@@ -1,3 +1,5 @@
+
+
 var patientService = require('../service/patient');
 var fs = require('fs');
 
@@ -7,19 +9,19 @@ var fs = require('fs');
 exports.create = function (req, res, next) {
     var body = new Patient(req.body);
     if (!body.firstName || !body.lastName || !body.phone) {
-        res.status(400).send('Required details are missing');
+        res.status(400).send({message: "Required details are missing"});
         return;
     }
     patientService.createPatient(body, function(error, response){
         if(response){
-            res.status(200).send(response)
+            res.status(200).send(response) 
         }
         else if (error){
-            res.status(400).send(error);
+            res.status(400).send({message: error});
         }
     });
     
-}
+} 
 /** 
  **_Receieve audio file from the patient
  _*
@@ -41,11 +43,12 @@ exports.receiveAudioFile = function (req, res, next){
  */
 exports.find = function (req, res) {
     var params = req.params || {};
+    
     var query = {
-        patientID: params.patientID
+        _id: parseInt(params.patientID)
     };
     if (!query) {
-        res.status(400).send('Bad Request');
+        res.status(400).send({message: "Bad Request"});
         return;
     }
     patientService.findPatient(query, function (error, response) {
@@ -58,7 +61,7 @@ exports.find = function (req, res) {
             return;
         }
         if (!response) {
-            res.status(204).send('No Data Found');
+            res.status(204).send({message: "Patient details not found"});
         }
     });
 }
@@ -70,7 +73,7 @@ exports.updateById = function (req, res) {
     var body = req.body;
 
     if (!body.id) {
-        res.status(400).send('Id is missing');
+        res.status(400).send({message: "Patient ID is missing"});
         return;
     }
     var updateData = body.data || {}
@@ -78,13 +81,13 @@ exports.updateById = function (req, res) {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
-            res.status(400).send(err);
+            res.status(400).send({message: err});
         }
     });
 }
 
 /**
- _ Function to uodate the user data by filter condition.
+ _ Function to update the user data by filter condition.
  _/
  */
 exports.update = function (req, res) {
@@ -93,15 +96,15 @@ exports.update = function (req, res) {
     var data = body.data;
     var options = body.options
     if (!query) {
-        res.status(400).send('Bad request');
+        res.status(400).send({message: "Bad Request"});
         return;
     }
 
-    patientService.updateUser(query, data, options, (err, response) => {
+    patientService.updatePatientByQuerry(query, data, options, (err, response) => {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
-            res.status(400).send(err);
+            res.status(400).send({message: err});
         }
     });
 }
@@ -115,17 +118,17 @@ exports.delete = function (req, res) {
     var body = req.body || {};
     var query = body.query;
     if (!query) {
-        res.status(400).send('Bad Request');
+        res.status(400).send({message :"Bad Request"});
         return;
     }
-    patientService.deleteUser(query, function (error, response) {
+    patientService.deleteDoctor(query, function (error, response) {
         if (error) {
             res.status(400).send(error);
             return;
         }
         if (response) {
             if (response.n === 1 && response.ok === 1) {
-                res.status(202).send(body);
+                res.status(202).send(response);
             }
             if (response.n === 0 && response.ok === 1) {
                 res.status(204).send({

@@ -1,5 +1,4 @@
 var testService = require('../service/test');
-var audio = require('./vocal')
 const axios = require('axios');
 const  multipart  =  require('connect-multiparty');
 
@@ -25,7 +24,7 @@ exports.create = function (req, res, next) {
     //             photo.mv('./uploads/' + photo.name);
 
     //             //push file details
-    //             data.push({
+    //              data.push({
     //                 name: photo.name,
     //                 size: photo.size
     //             });
@@ -49,6 +48,9 @@ exports.create = function (req, res, next) {
     //     job: 'Content Writer'
     // };    
 
+    console.log(req.body.dId);
+    
+ 
     var pyRes;
 
     axios.post('http://localhost:5000/get_prediction', data)
@@ -81,7 +83,7 @@ exports.create = function (req, res, next) {
 
     var body = new Test(pyRes);
     if (!body.doctorID || !body.patientID || !body.testResult   ) {
-        res.status(400).send({"message" : "Required Details are missing"});
+        res.status(400).send({message : "Required Details are missing"});
         console.log(body);         
         return;
     }
@@ -90,7 +92,7 @@ exports.create = function (req, res, next) {
             res.status(200).send(response);
         }
         else if (error){  
-            res.status(400).send(error);
+            res.status(400).send({message: error});
         }
     });
     
@@ -106,12 +108,12 @@ exports.find = function (req, res) {
         patientID: params.patientID
     };
     if (!query) {
-        res.status(500).send({"message": "Bad Request"});
+        res.status(500).send({message: "Bad Request"});
         return;
     }
     testService.findTest(query, function (error, response) {
         if (error) {
-            res.status(404).send(error);
+            res.status(404).send({message : error});
             return;
         }
         if (response) {
@@ -119,7 +121,7 @@ exports.find = function (req, res) {
             return;
         }
         if (!response) {
-            res.status(204).send('No Data Found');
+            res.status(204).send({message: "No Data Found"});
         }
     });
 }
@@ -131,7 +133,7 @@ exports.updateById = function (req, res) {
     var body = req.body;
 
     if (!body.id) {
-        res.status(400).send('Id is missing');
+        res.status(400).send({message: "Test ID is missing"});
         return;
     }
     var updateData = body.data || {}
@@ -139,7 +141,7 @@ exports.updateById = function (req, res) {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
-            res.status(400).send(err);
+            res.status(400).send({messsage: err});
         }
     });
 }
@@ -154,7 +156,7 @@ exports.update = function (req, res) {
     var data = body.data;
     var options = body.options
     if (!query) {
-        res.status(400).send('Bad request');
+        res.status(400).send({message: "Bad request"});
         return;
     }
 
@@ -162,7 +164,7 @@ exports.update = function (req, res) {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
-            res.status(400).send(err);
+            res.status(400).send({message: err});
         }
     });
 }
@@ -176,17 +178,17 @@ exports.delete = function (req, res) {
     var body = req.body || {};
     var query = body.query;
     if (!query) {
-        res.status(400).send('Bad Request');
+        res.status(400).send({message: "Bad Request"});
         return;
     }
     testService.deleteTest(query, function (error, response) {
         if (error) {
-            res.status(400).send(error);
+            res.status(400).send({message: error});
             return;
         }
         if (response) {
             if (response.n === 1 && response.ok === 1) {
-                res.status(202).send(body);
+                res.status(202).send(response);
             }
             if (response.n === 0 && response.ok === 1) {
                 res.status(204).send({

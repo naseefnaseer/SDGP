@@ -1,4 +1,3 @@
-(function (){
 
 var patient = require('./../model/patient');
 
@@ -44,4 +43,3 @@ exports.updatePatientByQuerry = function (query, data, options, callback) {
 exports.deleteDoctor = function (query, callback) {
     patient.deleteOne(query, callback);
 }
-})()

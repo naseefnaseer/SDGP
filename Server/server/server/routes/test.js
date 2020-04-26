@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 var test = require('../controller/test');
 
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
 
 /**
  **_ To create the New user

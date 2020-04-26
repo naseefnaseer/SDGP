@@ -1,3 +1,4 @@
+
 var doctorService = require('../service/doctor');
 var doctor = require('../model/doctor');
 
@@ -10,7 +11,7 @@ exports.create = function (req, res, next) {
 
     var body = new Doctor(req.body);
     if (!body.firstName || !body.lastName || !body.phone || !body.doctorUserName || !body.doctorPassword) {
-        res.status(400).send('Required details are missing');
+        res.status(400).send({message: "Required details are missing"});
         return;
     }
     doctorService.createDoctor(body, function(error, response){
@@ -22,11 +23,11 @@ exports.create = function (req, res, next) {
                 console.log(error);
                 
                 res.status(400).send({
-                    msg: "Duplicate"
+                    message: "User name is already used"
                 });
             }
             else{ 
-                res.status(400).send(error);
+                res.status(400).send({message: error});
             }
     
         }
@@ -46,12 +47,12 @@ exports.find = function (req, res) {
         doctorID: params.doctorID
     };
     if (!query) {
-        res.status(400).send('Bad Request');
+        res.status(400).send({message: "Bad Request"});
         return;
     }
     doctorService.findDoctor(query, function (error, response) {
         if (error) {
-            res.status(404).send(error);
+            res.status(404).send({message: error});
             return;
         }
         if (response) {
@@ -59,7 +60,7 @@ exports.find = function (req, res) {
             return;
         }
         if (!response) {
-            res.status(204).send('No Data Found');
+            res.status(204).send({message: "Doctor not found"});
         }
     });
 }
@@ -78,12 +79,12 @@ exports.login = function (req, res) {
     };
     
     if (!query) {
-        res.status(400).send('Bad Request');
+        res.status(400).send({message: "Bad Request"});
         return;
     }
     doctorService.findDoctor(query, function (error, response) {
         if (error) {
-            res.status(404).send(error);
+            res.status(404).send({message: error});
             return;
         }
         if (response) {
@@ -92,12 +93,12 @@ exports.login = function (req, res) {
                 res.status(200).send(response);
             }
             else{
-                res.status(200).send({'msg': 'Password is not matching'});
+                res.status(200).send({message: 'Password is not matching'});
             }
             return;
         }
         if (!response) {
-            res.status(204).send('No Data Found');
+            res.status(204).send({message: "No Data Found"});
         }
     });
 }
@@ -111,7 +112,7 @@ exports.updateById = function (req, res) {
     var body = req.body;
 
     if (!body.id) {
-        res.status(400).send('Id is missing');
+        res.status(400).send({message: "Doctor ID is missing"});
         return;
     }
     var updateData = body.data || {}
@@ -119,7 +120,7 @@ exports.updateById = function (req, res) {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
-            res.status(400).send(err);
+            res.status(400).send({message: err});
         }
     });
 }
@@ -134,7 +135,7 @@ exports.update = function (req, res) {
     var data = body.data;
     var options = body.options
     if (!query) {
-        res.status(400).send('Bad request');
+        res.status(400).send({message: "Bad Request"});
         return;
     }
 
@@ -142,7 +143,7 @@ exports.update = function (req, res) {
         if (response) {
             res.status(200).send(response);
         } else if (err) {
-            res.status(400).send(err);
+            res.status(400).send({message: err});
         }
     });
 }
@@ -157,7 +158,7 @@ exports.delete = function (req, res) {
 
     var query = body.query;
     if (!query) {
-        res.status(400).send('Bad Request');
+        res.status(400).send({message: "Bad Request"});
         return;
     }
     doctorService.deleteDoctor(query, function (error, response) {
@@ -165,12 +166,9 @@ exports.delete = function (req, res) {
             res.status(400).send(error);
             return;
         }
-        if (response) {
-            console.log(response.n);
-            console.log(response);
-            
+        if (response) {            
             if (response.n === 1 && response.ok === 1) {
-                res.status(202).send(body);
+                res.status(202).send(response);
             }
             if (response.n === 0 && response.ok === 1) {
                 res.status(204).send({

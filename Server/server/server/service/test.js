@@ -1,5 +1,3 @@
-(function (){
-
 
 var mongoose = require('mongoose');
 
@@ -41,4 +39,3 @@ exports.deleteTest = function (query, callback) {
 }
 
 
-})()
