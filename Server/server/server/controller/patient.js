@@ -8,7 +8,7 @@ var fs = require('fs');
  _**/
 exports.create = function (req, res, next) {
     var body = new Patient(req.body);
-    if (!body.firstName || !body.lastName || !body.phone) {
+    if (!body.npm  || !body.lastName || !body.phone) {
         res.status(400).send({message: "Required details are missing"});
         return;
     }

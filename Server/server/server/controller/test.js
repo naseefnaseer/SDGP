@@ -1,7 +1,6 @@
 var testService = require('../service/test');
 const axios = require('axios');
 const  multipart  =  require('connect-multiparty');
-var vocalService = require('../service/vocal');
 const readFile = require('util').promisify(require('fs').readFile)
 
 
