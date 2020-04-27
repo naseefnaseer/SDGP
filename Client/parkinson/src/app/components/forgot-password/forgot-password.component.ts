@@ -1,12 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../../shared/services/auth.service";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
-  selector: "app-forgot-password",
-  templateUrl: "./forgot-password.component.html",
-  styleUrls: ["./forgot-password.component.css"]
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.css']
 })
+
+
 export class ForgotPasswordComponent implements OnInit {
 
   isLoading: boolean;
@@ -15,24 +16,26 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {}
 
+  // tslint:disable-next-line: ban-types
   form(): Object {
     if (this.isSuccess) {
-      return { display: "none" };
+      return { display: 'none' };
     } else {
-      return { display: "block" };
+      return { display: 'block' };
     }
   }
+  // tslint:disable-next-line: ban-types
   message(): Object {
     if (this.isSuccess) {
-      return { display: "block" };
+      return { display: 'block' };
     } else {
-      return { display: "none" };
+      return { display: 'none' };
     }
   }
 
   async SendRequest(mail: string) {
     this.isLoading = true;
-     this.isSuccess = await this.authService.ForgotPassword(mail);
+    this.isSuccess = await this.authService.ForgotPassword(mail);
     this.isLoading = this.isSuccess;
 
   }

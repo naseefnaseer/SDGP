@@ -1,17 +1,14 @@
-import { Injectable, NgZone } from "@angular/core";
-import { User } from "../services/user";
-import { auth } from "firebase/app";
-import { AngularFireAuth } from "@angular/fire/auth";
-import {
-  AngularFirestore,
-  AngularFirestoreDocument
-} from "@angular/fire/firestore";
-import { Router } from "@angular/router";
-import * as firebase from "firebase";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { Injectable, NgZone } from '@angular/core';
+import { User } from '../services/user';
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import * as firebase from 'firebase';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthService {
   userData: any;
@@ -21,7 +18,7 @@ export class AuthService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    public _snackBar: MatSnackBar
+    public snackBar: MatSnackBar
   ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
@@ -29,11 +26,11 @@ export class AuthService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
-        localStorage.setItem("user", JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem("user"));
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user'));
       } else {
-        localStorage.setItem("user", null);
-        JSON.parse(localStorage.getItem("user"));
+        localStorage.setItem('user', null);
+        JSON.parse(localStorage.getItem('user'));
       }
     });
   }
@@ -48,10 +45,10 @@ export class AuthService {
 
       this.SetUserData(result.user);
       this.ngZone.run(() => {
-        this.router.navigate(["dashboard-g"]);
+        this.router.navigate(['dashboard-g']);
       });
       result.user.emailVerified
-        ? this.openSnackBar("Welcom Back", "OK")
+        ? this.openSnackBar('Welcom Back', 'OK')
         : this.SendVerificationMail();
 
       // return true;
@@ -82,16 +79,16 @@ export class AuthService {
   // Send email verfificaiton when new user sign up
   async SendVerificationMail() {
     await this.afAuth.auth.currentUser.sendEmailVerification();
-    this.router.navigate(["verify-email-address", "null"]);
+    this.router.navigate(['verify-email-address', 'null']);
   }
 
   async VerifyEmail(code: string): Promise<boolean> {
     await this.afAuth.auth
       .applyActionCode(code)
-      .then(function(_resp) {
+      .then(function (_resp) {
         return true;
       })
-      .catch(function(_error) {
+      .catch(function (_error) {
         return false;
       });
     return false;
@@ -101,7 +98,7 @@ export class AuthService {
   async ForgotPassword(passwordResetEmail: string): Promise<boolean> {
     try {
       await this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
-      this.openSnackBar("Request sent successfull.! ", "");
+      this.openSnackBar('Request sent successfull.! ', '');
       return true;
     } catch (error) {
       this.openSnackBar(error.message, error.action);
@@ -111,7 +108,7 @@ export class AuthService {
 
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem('user'));
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
@@ -127,8 +124,8 @@ export class AuthService {
       this.SetUserData(result.user);
 
       this.ngZone.run(async () => {
-        this.openSnackBar("Welcome", "");
-        await this.router.navigate(["dashboard-g"]);
+        this.openSnackBar('Welcome', '');
+        await this.router.navigate(['dashboard-g']);
       });
     } catch (error) {
       window.alert(error);
@@ -142,6 +139,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
+
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -157,24 +155,24 @@ export class AuthService {
   // Sign out
   async SignOut() {
     await this.afAuth.auth.signOut();
-    localStorage.removeItem("user");
-    this.router.navigate(["sign-in"]);
+    localStorage.removeItem('user');
+    this.router.navigate(['sign-in']);
   }
 
   SetNewPassword(code: string, newPassword: string) {
     firebase
       .auth()
       .confirmPasswordReset(code, newPassword)
-      .then(function() {
-        this.router.navigate("/");
+      .then(function () {
+        this.router.navigate('/');
       })
-      .catch(function(e) {
-        this.openSnackBar(e.message, "OK");
+      .catch(function (e) {
+        this.openSnackBar(e.message, 'OK');
       });
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 3500
     });
   }

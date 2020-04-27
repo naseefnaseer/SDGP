@@ -1,70 +1,199 @@
-<!--
+
+    <div id="wrapper">
+      <div class="d-flex flex-column" id="content-wrapper">
+          <div id="content">
+              <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                  <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                      <h2 class="text-primary">Registration</h2>
+                      <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                          <div class="input-group">
+                              <div class="input-group-append"></div>
+                          </div>
+                      </form>
+                      <div class="dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"></a>
+                          <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a>
+                              <a
+                                  class="dropdown-item" role="presentation" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                  <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a></div>
+                      </div>
+                      <ul class="nav navbar-nav flex-nowrap ml-auto">
+                          <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu" aria-labelledby="searchDropdown">
+                                  <form class="form-inline mr-auto navbar-search w-100">
+                                      <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                          <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </li>
+                          <li class="nav-item dropdown no-arrow" role="presentation"></li>
+                      </ul><span class="d-none d-lg-inline mr-2 text-gray-600 small" style="background-color: rgba(0,181,214,0.1);padding: 6px;font-size: 15px;" title="Your Name "><span class="d-none d-lg-inline mr-2 text-gray-600 small" style="font-size: 15px;">Welcome back doctor&nbsp;&nbsp;</span>Valerie
+                      Luna</span><img class="border rounded-circle img-profile" data-toggle="tooltip" data-bs-tooltip="" data-placement="bottom" src="assets/img/avatars/avatar1.jpeg" style="width: 60px;height: 60px;" title="Profile">
+                      <!-- Start: Split Button Light --><a class="btn btn-light btn-icon-split" role="button"><span class="text-black-50 icon" data-toggle="tooltip" data-bs-tooltip="" data-placement="bottom" style="margin-left: 10px;" title="Sign Out"><i class="fas fa-sign-out-alt"></i></span></a>
+                      <!-- End: Split Button Light -->
+                      <!-- Start: Split Button Light --><a class="btn btn-light btn-icon-split" role="button"></a>
+                      <!-- End: Split Button Light -->
+                  </div>
+              </nav>
+              <div class="container-fluid">
+                  <div class="row mb-3">
+                      <div class="col-lg-4">
+                          <div class="card shadow mb-4">
+                              <div class="card-header py-3">
+                                  <p class="m-0 font-weight-bold" style="color: #007bff;">Test History</p>
+                              </div>
+                              <div class="card-body">
+                                  <ul class="list-group">
+                                      <li class="list-group-item"><span>List Group Item 1</span></li>
+                                      <li class="list-group-item"><span>List Group Item 2</span></li>
+                                      <li class="list-group-item"><span>List Group Item 3</span></li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-8">
+                          <div class="row mb-3 d-none">
+                              <div class="col">
+                                  <div class="card text-white bg-primary shadow">
+                                      <div class="card-body">
+                                          <div class="row mb-2">
+                                              <div class="col">
+                                                  <p class="m-0">Peformance</p>
+                                                  <p class="m-0"><strong>65.2%</strong></p>
+                                              </div>
+                                              <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                          </div>
+                                          <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col">
+                                  <div class="card text-white bg-success shadow">
+                                      <div class="card-body">
+                                          <div class="row mb-2">
+                                              <div class="col">
+                                                  <p class="m-0">Peformance</p>
+                                                  <p class="m-0"><strong>65.2%</strong></p>
+                                              </div>
+                                              <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                          </div>
+                                          <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <div class="card shadow mb-3">
+                                      <div class="card-header py-3">
+                                          <p class="m-0 font-weight-bold" style="color: #007bff;">Do a Test</p>
+                                      </div>
+                                      <div class="card-body">
+                                          <form>
+                                              <div class="form-row">
+                                                  <div class="col">
+                                                      <div class="form-group"><label for="email"><strong>Patient selected</strong><br></label><input class="form-control" type="text" placeholder="P-ID" name="last_name" style="margin: 0;margin-top: 4px;"><input class="form-control"
+                                                              type="email" placeholder="Patient Name" name="pID" style="margin-top: 7px;"><span class="text-info d-none d-lg-inline mr-2 text-gray-600 small" style="padding: 2px;margin-left: 2px;margin-top: 6px;">Pick the patien from the thable below.</span></div>
+                                                  </div>
+                                              </div>
+                                              <div class="form-row">
+                                                  <div class="col">
+                                                      <!-- Start: WebArt - Modal Open -->
+                                                      <div id="modal-open">
+                                                          <div class="modal fade" role="dialog" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel">
+                                                              <div class="modal-dialog" role="document">
+                                                                  <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                          <h4 class="modal-title">Modal Title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                                                      <div class="modal-body">
+                                                                          <p>The content of your modal.</p>
+                                                                      </div>
+                                                                      <div class="modal-footer"><button class="btn btn-warning" data-dismiss="modal" style="background-color:rgb(255,139,160);" type="button">Close</button></div>
+                                                                  </div>
+                                                              </div>
+                                                          </div><label for="email" style="margin-right: 40px;"><strong>Add the list of audios recorded from the patient</strong><br></label>
+                                                          <div class="custom-file"><input type="file" id="inputGroupFile03" class="custom-file-input" aria-describedby="inputGroupFileAddon03"><label class="custom-file-label" for="inputGroupFile03">Choose file<br></label></div>
+                                                          <input
+                                                              type="file" data-toggle="tooltip" data-bs-tooltip="" class="file-input" title="Add Audio Samples"></div>
+                                                      <!-- End: WebArt - Modal Open -->
+                                                      <!-- Start: Custom file input v03 -->
+                                                      <div class="input-group">
+                                                          <div class="input-group-prepend"></div>
+                                                      </div>
+                                                      <!-- End: Custom file input v03 -->
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card shadow">
+                      <div class="card-body text-left">
+                          <!-- Start: Navbar White -->
+                          <nav class="navbar navbar-light navbar-expand bg-white text-center shadow">
+                              <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                                  <p class="m-0 font-weight-bold" style="color: #007bff;">Patients</p>
+                                  <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                      <div class="text-left input-group"><input class="bg-light form-control border-0 small" type="text" data-toggle="tooltip" data-bs-tooltip="" placeholder="Search for ..." title="Search the list">
+                                          <div class="input-group-append"><button class="btn btn-primary text-left py-0" data-toggle="tooltip" data-bs-tooltip="" type="button" style="background-color: #007bff;" title="Enter to search"><i class="fas fa-search"></i></button></div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </nav>
+                          <!-- End: Navbar White -->
+                          <div class="table-responsive text-nowrap table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                              <table class="table dataTable my-0" id="dataTable">
+                                  <thead>
+                                      <tr style="font-size: 14px;">
+                                          <th class="text-nowrap text-sm-center m-auto visible" style="filter: blur(0px);">P-ID</th>
+                                          <th>Name</th>
+                                          <th>DOB</th>
+                                          <th>Phone</th>
+                                          <th>Address</th>
+                                          <th>Email</th>
+                                          <th>Last Visit</th>
+                                          <th class="text-center">Manage</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr style="font-size: 13px;">
+                                          <td>33</td>
+                                          <td>Andre Andy</td>
+                                          <td>Accountant</td>
+                                          <td>Tokyo</td>
+                                          <td>2008/11/28 sdfdsfdsfdsfdsfdsfdsfdsfds</td>
+                                          <td class="text-left">Everyone@example.com</td>
+                                          <td>2008/11/28</td>
+                                          <td class="text-center" style="padding: 8px;"><i class="fas fa-trash text-white" data-toggle="tooltip" data-bs-tooltip="" style="background-color: #ff0f00;padding: 5px;border-radius:10px;" title="Delete Patient"></i><i class="far fa-edit text-white" data-toggle="tooltip"
+                                                  data-bs-tooltip="" style="background-color: #00b2ff;padding: 5px;margin-right: 0;margin-left: 12px;5px;border-radius:10px;" title="Edit details"></i></td>
+                                      </tr>
+                                  </tbody>
+                                  <tfoot>
+                                      <tr></tr>
+                                  </tfoot>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card shadow mb-5"></div>
+              </div>
+          </div>
 
 
 
+          <footer class="bg-white sticky-footer">
+              <div class="container my-auto">
+                  <div class="text-center my-auto copyright"><span>Copyright © Kodemen 2020</span></div>
+              </div>
+          </footer>
+      </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+  <script src="assets/js/script.min.js"></script>
 
-                ignore iGNORE
-
-
-
-
- -->
-<!-- Top navigation -->
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/register-student">
-    <img class="brand-logo" src="assets/logo-positronx-white.svg" alt="positronX.io Logo">
-    <span class="dasboard-text">Dashboard
-    </span>
-  </a>
-</nav>
-<!-- Sidebar navigation -->
-<div class="row">
-  <div class="container-fluid">
-    <nav class="col-md-2 d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active">
-              <i class="fas fa-user"></i>User Profile
-            </a>
-          </li>
-          <!-- Calling SignOut() Api from AuthService -->
-          <li class="nav-item">
-            <a class="nav-link" (click)="authService.SignOut()">
-              <i class="fas fa-sign-out-alt"></i>Log out
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- Main content -->
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="inner-adjust">
-
-        <div class="pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">User Profile</h1>
-        </div>
-
-      </div>
-    </main>
-
-  </div>
-</div>
-
-
-<!-- Show user data when logged in -->
-<div class="row" *ngIf="authService.userData as user">
-  <div class="col-md-12">
-    <div class="media">
-      <img class="align-self-start mr-5 img-thumbnail rounded-circle"
-        src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
-      <div class="media-body">
-        <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-        <p>User ID: <strong>{{user.uid}}</strong></p>
-        <p>Email: <strong>{{user.email}}</strong></p>
-        <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- (click)="authService.SignOut()" -->
