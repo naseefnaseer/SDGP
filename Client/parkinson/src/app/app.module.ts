@@ -19,7 +19,6 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { MatSelectModule } from '@angular/material/select';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-import { DoTestComponent } form './components/test/do-test.component';
 
 
 // Firebase services + enviorment module
@@ -40,7 +39,8 @@ import { EmailConrollerComponent } from '../app/components/email-conroller/email
 import { FooterComponent } from './components/footer/footer.component';
 import { AudioUploadComponent } from './audio-upload/audio-upload.component';
 import { PatientRegistrationComponent } from './components/patient-registration/patient-registration.component';
-import { DoTestComponent } from './components/test/do-test.component';
+import { SpeechTestComponent } from './components/dashboard/speech-test/speech-test.component';
+import { PatientsComponent } from './components/dashboard/patients/patients.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,9 @@ import { DoTestComponent } from './components/test/do-test.component';
     FooterComponent,
     AudioUploadComponent,
     PatientRegistrationComponent,
-    DoTestComponent,
+    SpeechTestComponent,
+    PatientsComponent,
+
   ],
   imports: [
     HttpClientModule,
