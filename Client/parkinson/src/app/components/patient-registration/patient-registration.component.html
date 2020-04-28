@@ -1,129 +1,164 @@
-<title>Patient Registration</title>
-<main class="page login-page">
-  <section class="clean-block clean-form dark">
-
-    <div class="container ds">
-
-      <div class="block-heading" [ngStyle]="form()">
-        <h2 class="text-info"
-          style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.3)); margin-top:13px; ">
-          <p class="ds">Add Patient</p>
-        </h2>
-        <p style="font-size:21px; ">
-          <span class="ds text-muted">Enter the detail of your patient, to register the patient.</span>
-        </p>
-      </div>
-
-      <form [formControlName] id="wizard" #f="ngForm" (ngSubmit)="submitDetails(f)" name="f" standalone="true"
-        [ngStyle]="form()">
-
-        <div class="form-group text-center"
-          style="margin-top:-10px; padding-bottom:-11px; font-size:17px; color:#3b99e0; font-family:Roboto, sans-serif; ">
-          <p class="ds ">Patient details</p>
-        </div>
-
-        <div class="form-group">
-          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">
-            Name
-          </label>
-          <div class="row">
-            <div class="col-md-6">
-              <input type="text" placeholder="First" class="form-control ds" #fName ngModel #fName="ngModel"
-                name="fName" /></div>
-            <div class="col-md-6">
-              <input type="text" placeholder="Last" class="form-control ds" #lName ngModel #lName="ngModel"
-                name="lName" /></div>
+<body id="page-top">
+  <div id="wrapper">
+      <div class="d-flex flex-column" id="content-wrapper">
+          <div id="content">
+              <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                  <div class="container-fluid">
+                      <h3 class="text-dark mb-0">Dashboard</h3>
+                  </div>
+              </nav>
+              <div class="container-fluid">
+                  <div class="row mb-3">
+                      <div class="col-lg-4">
+                          <div class="card shadow mb-4">
+                              <div class="card-header py-3 border-left-info">
+                                  <p class="m-0 font-weight-bold" style="color: #007bff;">Test History</p>
+                              </div>
+                              <div class="card-body">
+                                  <h4 class="small font-weight-bolder">Account setup<span class="float-right">Complete!</span></h4>
+                                  <div class="progress progress-sm mb-3">
+                                      <div class="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"><span class="sr-only">20%</span></div>
+                                  </div>
+                                  <h4 class="small font-weight-bolder">Account setup<span class="float-right">Complete!</span></h4>
+                                  <div class="progress progress-sm mb-3">
+                                      <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"><span class="sr-only">40%</span></div>
+                                  </div>
+                                  <h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
+                                  <div class="progress progress-sm mb-3">
+                                      <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"><span class="sr-only">60%</span></div>
+                                  </div>
+                                  <h4 class="small font-weight-bold">Payout Details<span class="float-right">80%</span></h4>
+                                  <div class="progress progress-sm mb-3">
+                                      <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"><span class="sr-only">80%</span></div>
+                                  </div>
+                                  <h4 class="small font-weight-bolder">Account setup<span class="float-right">Complete!</span></h4>
+                                  <div class="progress progress-sm mb-3">
+                                      <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"><span class="sr-only">100%</span></div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-8">
+                          <div class="row mb-3 d-none">
+                              <div class="col">
+                                  <div class="card text-white bg-primary shadow">
+                                      <div class="card-body">
+                                          <div class="row mb-2">
+                                              <div class="col">
+                                                  <p class="m-0">Peformance</p>
+                                                  <p class="m-0"><strong>65.2%</strong></p>
+                                              </div>
+                                              <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                          </div>
+                                          <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col">
+                                  <div class="card text-white bg-success shadow">
+                                      <div class="card-body">
+                                          <div class="row mb-2">
+                                              <div class="col">
+                                                  <p class="m-0">Peformance</p>
+                                                  <p class="m-0"><strong>65.2%</strong></p>
+                                              </div>
+                                              <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                          </div>
+                                          <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <div class="card shadow mb-3">
+                                      <div class="card-header py-3 border-left-primary">
+                                          <p class="m-0 font-weight-bold" style="color: #007bff;">Do a Test</p>
+                                      </div>
+                                      <div class="card-body" style="padding: 0px;padding-top: 0px;padding-bottom: 0px;padding-left: 0px;">
+                                          <form style="padding: 15px;" formcontrolname f="ngForm" name="f" standalone="true">
+                                              <div class="form-row" style="height: auto;">
+                                                  <div class="col-lg-10" style="height: 140px;">
+                                                      <div class="form-group" style="padding: 0px;margin-bottom: 0px;height: 129px;"><label class="text-nowrap" for="fname" style="width: auto;"><strong>Patient selected</strong><br /></label><label class="text-nowrap border rounded shadow-sm" for="search" style="width: 50;margin: 0;margin-top: 0px;margin-left: 68px;background-color: #007bff;color: #ffffff;padding: 1px;padding-right: 11px;"
+                                                              href="#search"><strong> + Pick</strong><br /></label>
+                                                          <h4 class="small font-weight-light">Pick from table below</h4><input type="text" class="form-control mt-1" placeholder="P-ID" name="pID" pid="ngModel" ngmodel /><input type="email" class="form-control" placeholder="Patient Name"
+                                                              name="pname" ngmodule pname="ngModel" /></div>
+                                                  </div>
+                                              </div>
+                                              <div class="form-row" style="padding: 13px;margin-left: 0;padding-bottom: -14px;">
+                                                  <div class="col text-center text-sm-center text-md-center text-lg-center text-xl-left" style="padding: 6;"><label for="email" style="width: 214px;margin-top: 7px;"><strong>Import audio samples</strong><br /></label>
+                                                      <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                          <div class="form-control border-info text-nowrap " data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i>Click here to add the audio samples.<span class="fileinput-filename"></span></div><span class="input-group-addon btn btn-default btn-file"><span class="fileinput-exists">Change</span><input
+                                                              multiple type="file" name="..." /></span><a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a></div><a class="btn btn-info text-center border rounded shadow d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center btn-icon-split fileinput-new"
+                                                          role="button" style="margin-top: -24px;padding: 4px;"><span class="text-white-50 icon" style="margin-top: 0px;color: 0;background-color: rgba(255,255,255,0);"><i class="fas fa-check-circle" style="font-size: 19px;width: 23px;color: #ffffff;"></i></span><span class="text-uppercase text-center text-white d-lg-flex align-content-center align-self-center justify-content-lg-center align-items-lg-center mx-3 text-white">Proceed Prediction</span></a></div>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card shadow" style="padding: px;">
+                      <div class="card-header py-3 border-left-info">
+                          <p class="m-0 font-weight-bold" style="color: #007bff;">Patients</p>
+                      </div>
+                      <form style="padding: 15px;">
+                          <div class="form-row" style="height: auto;">
+                              <div class="col"><a class="btn btn-success active text-center border rounded shadow float-right btn-icon-split" role="button" data-toggle="tooltip" title="Add new patient" style="margin: 0;padding-bottom: -3px;margin-bottom: 9px;margin-left: 0;margin-right: 0;"><span class="text-white-50 icon"><i class="fas fa-plus"></i></span><span class="text-white text" style="margin: 0;padding-left: 10px;">Add </span></a>
+                                  <form
+                                      class="form-inline ">
+                                      <div><input class="form-control border-info border-1" type="search" size="40" id="search" placeholder="Search" /></div>
+                      </form>
+                      <div class="table-responsive shadow-sm table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info" style="filter: blur(0px);padding: -6px;">
+                          <table class="table dataTable my-0" id="dataTable">
+                              <thead>
+                                  <tr class="shadow-sm" style="font-size: 14px;">
+                                      <th class="text-nowrap" style="filter: blur(0px);width: 50px;">P-ID</th>
+                                      <th class="text-nowrap" style="width: 62px;">First Name</th>
+                                      <th class="text-nowrap" style="width: 62px;">Last Name</th>
+                                      <th class="text-nowrap text-left" style="width: 40px;max-width: 72px;min-width: 0px;">Gender</th>
+                                      <th class="text-nowrap text-left" style="width: 14px;max-width: 32px;min-width: 0px;">Age</th>
+                                      <th class="text-left">DOB</th>
+                                      <th class="text-left">Phone</th>
+                                      <th class="text-left">Address</th>
+                                      <th class="text-left" style="width: 108px;">Email</th>
+                                      <th class="text-center" style="width: 120px;">Last Visit</th>
+                                      <th class="text-center" style="width: 50px;">Manage</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr class="text-nowrap" style="font-size: 13px;">
+                                      <td>33</td>
+                                      <td class="text-nowrap" style="width: 91px;">dfghjklkfdfghjklkjh</td>
+                                      <td class="text-nowrap text-left" style="width: 91px;">randy</td>
+                                      <td class="text-nowrap text-left" style="width: 91px;">male</td>
+                                      <td class="text-nowrap text-left" style="width: 91px;">10</td>
+                                      <td class="text-left" style="width: 61px;">20/07/2020</td>
+                                      <td class="text-left" style="width: 61px;">Tokyo</td>
+                                      <td class="text-nowrap text-left" style="padding-right: -7px;width: 2px;">2008/11/28 sdfdsfdsfdsfdsfdsfdsfdsfds hjyuikjhtyuik</td>
+                                      <td class="text-left" style="width: 74px;">example.example.@example.com</td>
+                                      <td class="text-center" style="width: 122px;">2008/11/28</td>
+                                      <td class="text-nowrap text-center border rounded-0 d-inline-flex d-xl-flex flex-row justify-content-around align-items-stretch align-content-stretch align-self-baseline flex-nowrap m-auto" style="height: 40;padding: 7px;width: 74px;"><button class="btn btn-success btn-sm btn-circle ml-1" type="button" style="font-size: 16;width: 30;height: 30;"><i class="icon ion-edit text-white" style="font-size: 12;"></i></button><button class="btn btn-danger btn-sm btn-circle ml-1"
+                                              type="button" style="padding: 0;margin: 0;width: 30;height: 30;"><i class="fas fa-trash text-white" style="width: 30px;"></i></button></td>
+                                  </tr>
+                              </tbody>
+                              <tfoot>
+                                  <tr></tr>
+                              </tfoot>
+                          </table>
+                      </div>
+                      </div>
+                      </div>
+                      </form>
+                      <div class="card-body" style="padding: 27px;padding-top: 0;padding-right: 0;padding-bottom: 0;padding-left: 0;"></div>
+                  </div>
+              </div>
           </div>
-        </div>
-
-        <div class="form-group">
-          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">
-            Date of Birth
-          </label>
-          <div class="row">
-            <div class="col-md-6">
-              <input type="date" class="form-control ds" ngModel #dob="ngModel" name="dob" />
-            </div>
-
-            <div class="col-md-6">
-              <mat-select placeholder="Gender" class="form-control ds" [(value)]="gender">
-                <mat-option ngModel value="Male">Male</mat-option>
-                <mat-option ngModel value="Female">Female</mat-option>
-              </mat-select>
-            </div>
-
-          </div>
-        </div>
-
-
-        <div class="form-group">
-          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">Phone</label>
-          <div>
-            <input type="email" placeholder="example@example.com" class="form-control ds" ngModel #phone="ngModel"
-              name="phone" />
-          </div>
-        </div>
-
-
-        <div class="form-group">
-          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">
-            Address</label>
-          <div>
-            <input type="text" class="form-control ds" ngModel #address="ngModel" name="address" />
-          </div>
-        </div>
-
-
-        <div class="form-group">
-          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">E-mail</label>
-          <div>
-            <input type="email" placeholder="Example@mail.com" class="form-control ds" ngModel #email="ngModel"
-              name="email" />
-            <span style="font-size: smaller; color: red;" [ngStyle]="mailerror()">Invalid E-Mail address.</span>
-          </div>
-        </div>
-
-
-        <button type="submit" class="btn btn-primary btn-block ds" type="submit">
-          Register Patient
-        </button>
-        <p></p>
-        <mat-progress-bar mode="indeterminate" [ngClass]="{'invisible': !isLoading,'visible':isLoading}">
-        </mat-progress-bar>
-        <div class="form-group text-center"
-          style="margin-top:16px; padding-bottom:-11px; font-size:14px; color:#3b99e0; font-family:Roboto, sans-serif; ">
-        </div>
-      </form>
-
-    </div>
-
-    <div class="block-heading" [ngStyle]="message()">
-      <h2 class="text-info"
-        style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.3)); margin-top:13px; ">
-        <p class="ds">Patient added successful</p>
-      </h2>
-
-    </div>
-
-    <form action="signin" [formGroup] class="ds rounded" id="successMessage" [ngStyle]="message()">
-      <div class="form-group text-center"
-        style="margin-top:0px;padding-bottom:0;font-size:20px;color:#3b99e0;font-family:Roboto, sans-serif;">
-        <p class="ds " style="font-size: large;">
-          New Patient record has been created. This patients record will be visible only to you doctor. <br>
-        </p>
-      </div>
-
-      <button class="btn btn-primary btn-block ds" type="button" routerLink="dashboard" #signin>
-        Dashboard</button>
-    </form>
-
-    <div class="form-group text-center"
-      style="margin-top:41px; padding-bottom:-11px; font-size:0px; color:#00b5d6; font-family:Roboto, sans-serif; ">
-      <a routerLink="/dashboard" class="text-center" style="font-size:14px; ">
-        Back to dashboard
-      </a>
-
-    </div>
-
-  </section>
-</main>
+          <footer class="bg-white sticky-footer" style="margin-top: 38px;">
+              <div class="container my-auto">
+                  <div class="text-center my-auto copyright"><span>Copyright © Kodemen 2020</span></div>
+              </div>
+          </footer>
+      </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+</body>

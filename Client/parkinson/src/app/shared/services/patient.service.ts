@@ -17,4 +17,11 @@ export class PatientService {
       data // patient details
     );
   }
+
+  public upload(formData) {
+    return this.httpClient.post<any>("https://www.file.io/", formData, {
+      reportProgress: true,
+      observe: "events",  
+    });
+  }
 }

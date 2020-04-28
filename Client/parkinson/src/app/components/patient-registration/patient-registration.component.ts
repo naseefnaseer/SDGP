@@ -16,7 +16,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./patient-registration.component.scss'],
 })
 export class PatientRegistrationComponent implements OnInit {
-  
   gender = 'Not Specified';
   isMatchMail = true;
   isLoading = false;
@@ -63,7 +62,6 @@ export class PatientRegistrationComponent implements OnInit {
         this.isLoading = false;
 
         this.openSnackBar('Patient creation Unsuccessful !', 'ok');
-
       }
     );
   }

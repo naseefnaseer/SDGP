@@ -1,23 +1,151 @@
 <div class="card shadow mb-3">
   <div class="card-header py-3 border-left-primary">
-      <p class="m-0 font-weight-bold" style="color: #007bff;">Do a Test</p>
+    <p class="m-0 font-weight-bold" style="color: #007bff;">Do a Test</p>
   </div>
-  <div class="card-body" style="padding-top: 0px;"><span class="text-white text">Add New Patient</span>
-      <form>
-          <div class="form-row">
-              <div class="col-lg-8" style="height: 146px;">
-                  <div class="form-group" style="padding: -13px;"><label for="email" style="width: 214px;"><strong>Patient selected</strong><br /></label><input type="email" class="form-control" placeholder="Patient Name" name="pID" /><input type="text" class="form-control mt-1" placeholder="P-ID"
-                          name="last_name" /><span class="d-none d-lg-inline mr-2 text-gray-600 small text-info">Pick the patien from the below table.</span></div>
-              </div>
-              <div class="col text-nowrap or"></div>
+  <div
+    class="card-body"
+    style="padding: 20px; padding-top: 10px; padding-bottom: 32px;"
+  >
+    <form class="text-center">
+      <div class="form-row text-center">
+        <div class="col text-center" style="padding: px; padding-top: 0px;">
+          <label
+            class="text-gray-900"
+            for="email"
+            style="width: 131px; margin: 0;"
+            ><strong>Patient selected</strong><br
+          /></label>
+          <h1 class="small font-weight-light" style="margin: 2;">
+            Pick patient from the list below
+          </h1>
+        </div>
+      </div>
+      <div
+        class="form-row text-center d-xl-flex align-items-xl-center"
+        style="padding: 6px; padding-top: 0; padding-bottom: 0;"
+      >
+        <div class="col-xl-2 offset-xl-2 text-nowrap text-center mt-1">
+          <label
+            data-toggle="tooltip"
+            class="col-form-label text-right border rounded shadow-sm ml-1"
+            style="
+              width: 91px;
+              background-color: #007bff;
+              color: rgb(255, 255, 255);
+              padding: px;
+              padding-right: 20px;
+              padding-left: 10px;
+            "
+            href="#pick"
+            title="Pick a patient from list"
+            for="pick"
+            ><strong>+ Pick </strong><br
+          /></label>
+        </div>
+        <div
+          class="col-xl-2 text-center d-xl-flex"
+          style="
+            padding: 0px;
+            padding-top: 0px;
+            margin-right: 5px;
+            margin-left: 5px;
+          "
+        >
+          <input
+            type="text"
+            class="form-control mt-1"
+            placeholder="Patient ID"
+            name="pID"
+            style="margin: 0px; margin-left: 5px;"
+          />
+        </div>
+        <div
+          class="col-xl-4 text-center"
+          style="padding: 0px; padding-top: 0px;"
+        >
+          <input
+            type="text"
+            class="form-control mt-1"
+            placeholder="Name"
+            name="name"
+            style="margin: 0px; margin-left: 5px; margin-right: 0px;"
+          />
+        </div>
+      </div>
+      <div class="form-row text-center" style="padding: 5;">
+        <div
+          class="col text-center border-info"
+          style="
+            padding: px;
+            padding-top: 0px;
+            margin-top: 4px;
+            margin-right: 30px;
+            margin-left: 30px;
+          "
+        >
+          <label
+            class="text-gray-900"
+            for="email"
+            style="width: 214px; margin-top: 7px;"
+            ><strong>Import audio samples</strong><br
+          /></label>
+
+          <div
+            class="fileinput fileinput-new border-info input-group"
+            data-provides="fileinput"
+          >
+            <div
+              class="form-control text-nowrap bg-dark text-white rounded"
+              data-trigger="fileinput"
+              style="margin-bottom: -10px;"
+            >
+              <i class="glyphicon glyphicon-file fileinput-exists"></i><i class="fas fa-plus"></i> Click here to add the audio
+              samples.<span class="fileinput-filename"></span>
+
+              <input
+                type="file"
+                #fileUpload
+                id="fileUpload"
+                name="fileUpload"
+                multiple="multiple"
+                accept="image/*"
+              />
+
+            </div>
+            <span class="input-group-addon btn btn-default btn-file text-danger"
+              ><span class="fileinput-exists" style="margin: 15px;">Change</span
+              ><input multiple type="file" name="file-picker" /></span
+            ><a
+              href="#"
+              class="input-group-addon btn btn-default fileinput-exists"
+              data-dismiss="fileinput"
+              >Remove</a
+            >
           </div>
-          <div class="form-row" style="padding: 13px;">
-              <div class="col" style="padding: 17;"><label for="email" style="width: 214px;margin-top: 7px;"><strong>Import audio samples</strong><br /></label>
-                  <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                      <div class="form-control border-info text-nowrap " data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i>Click here to add the audio samples.<span class="fileinput-filename"></span></div><span class="input-group-addon btn btn-default btn-file"><span class="fileinput-exists">Change</span><input
-                          multiple type="file" name="..." /></span><a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a></div><a class="btn btn-info border rounded d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center btn-icon-split fileinput-new"
-                      role="button" style="margin-top: -24px;padding: 4px;"><span class="text-white-50 icon" style="margin-top: 0px;color: 0;background-color: rgba(255,255,255,0);"><i class="fas fa-check-circle" style="font-size: 19px;width: 23px;color: #ffffff;"></i></span><span class="text-uppercase text-center text-white d-lg-flex align-content-center align-self-center justify-content-lg-center align-items-lg-center mx-3 text-white">Proceed Prediction</span></a></div>
-          </div>
-      </form>
+          <a
+            class="btn btn-success border rounded shadow-sm d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center btn-icon-split fileinput-new rounded"
+            role="button"
+            data-toggle="tooltip"
+            style="margin-top: -5px; padding: 4px;"
+            title="Proceed Test"
+            ><span
+              class="text-white-50 icon"
+              style="
+                margin-top: 0px;
+                color: 0;
+                background-color: rgba(255, 255, 255, 0);
+              "
+              ><i
+                class="fas fa-check-circle"
+                style="font-size: 19px; width: 23px; color: #ffffff;"
+              ></i></span
+            ><span
+              class="text-uppercase text-center text-white d-lg-flex align-content-center align-self-center justify-content-lg-center align-items-lg-center mx-3 text-white"
+              >Proceed Prediction</span
+            ></a
+          >
+        </div>
+      </div>
+    </form>
   </div>
 </div>
