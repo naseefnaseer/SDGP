@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
+var connection = mongoose.createConnection("mongodb://localhost/Parkinsons");
+autoIncrement.initialize(connection);
+
+/**
+ * Mongoose Schema for Doctors
+ */
 
 var doctorSchema = new mongoose.Schema({
-    doctorID: {
-        type: String,
-        required: true,
-        unique: true
-    },
     doctorUserName: {
         type: String,
         required: true,
@@ -13,24 +15,25 @@ var doctorSchema = new mongoose.Schema({
     },
     doctorPassword: {
         type: String,
-        required: true,
+        required: false,
         unique: false
     },
 
     firstName: {
         type: String,
         default: ''
-    },
+    },  
     lastName: {
         type: String,
         default: ''
     },
     address: String,
-    phone: String,
+    phone: String
 });
 
-var doctor = new mongoose.model('Doctor', doctorSchema);
+// Auto plugin used for the _id of the Doctor Colection
+doctorSchema.plugin(autoIncrement.plugin, 'Doctor');
 
-// module.exports = doctor;
+var doctor = new mongoose.model('Doctor', doctorSchema);
 
 module.exports = mongoose.model('Doctor', doctorSchema);
