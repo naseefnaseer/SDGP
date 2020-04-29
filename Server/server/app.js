@@ -1,9 +1,9 @@
 var createError = require('http-errors');
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cors = require('cors');
 var connection = require('./server/config/connection');
 var patientsRouter = require('./server/routes/patient');
 var doctorsRouter = require('./server/routes/doctor');
@@ -28,7 +28,8 @@ app.use('/api/patients', patientsRouter);
 app.use('/api/doctors', doctorsRouter);
 app.use('/api/tests', testsRouter);
 
-// catch 404 and forward to error handler 
+
+// catch 404 and forward to error handler   
 app.use(function(req, res, next) {
   next(createError(404));
 });
