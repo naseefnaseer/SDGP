@@ -3,7 +3,14 @@ var router = express.Router();
 var test = require('../controller/test');
 const multer  = require('multer') //use multer to upload blob data
 const upload = multer(); // set m
+const fileupload =require('express-fileupload');
 
+router.use(fileupload({
+    useTempFiles:false,
+    tempFileDir:"/AudioRecords/"
+}))
+ 
+ 
 
 // router.post('/', upload.any('audio'), test.create);
 
@@ -12,7 +19,7 @@ const upload = multer(); // set m
  _**/
 
 
-router.post('/', upload.single('p84'), test.create);
+router.post('/', test.create);
 
 /**
  _ TO get the test using testID

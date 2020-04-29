@@ -7,11 +7,13 @@ const fs = require('fs');
  **_ Function to create the test.
  _**/
 exports.create = function (req, res, next) {
-
-    let uploadLocation = __dirname + '\\public\\uploads\\' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
-
-    fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
-    res.sendStatus(200); //send back that everything went ok
+    req.files.mp4.mv("AudioRecords" + req.files.mp4.name,function(err){
+        if(err) return res.sendStatus(500).send(err);
+        console.log("File Uploaded successfully");
+        res.status(200).send({message: 'Upload Successful'});
+        console.log("File done");
+        
+    });
  
     var pyRes;
 

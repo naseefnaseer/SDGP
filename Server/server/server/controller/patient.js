@@ -146,29 +146,13 @@ exports.delete = function (req, res) {
     });
 }
 
-<<<<<<< HEAD
-/* 
-Recieving audio file from the patient 
-*/
 
 
-exports.recieveAudioFile = function(req,res,next){
-    var fs =require('fs');
-    try{
-    var file =fs.readFile(req.body.audioFile);
-    //console.log(file);
-    res.status(200).send(file);
-    }
-    catch(err){
-     console.log(err);
-    }
-}
-=======
 /**
  * Constructor for Patient to create a patient object
  *
  */
->>>>>>> e37293dec81b97cfc01c85925e3b175c36c3f87c
+
 
 class Patient {
     constructor(userData) {

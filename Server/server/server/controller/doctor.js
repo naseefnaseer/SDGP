@@ -180,12 +180,10 @@ exports.delete = function (req, res) {
 }
 
 
-<<<<<<< HEAD
 
-=======
- * Constructor for Doctor to create a doctor object
+ /* Constructor for Doctor to create a doctor object
  */
->>>>>>> e37293dec81b97cfc01c85925e3b175c36c3f87c
+
 class Doctor {
     constructor(userData) {
         this.firstName = userData.firstName || '';
