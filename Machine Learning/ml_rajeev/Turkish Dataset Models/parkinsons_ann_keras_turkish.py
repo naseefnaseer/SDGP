@@ -10,13 +10,13 @@ y = dataset.iloc[:, 27].values #dependent variable
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 12)
 
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
-X_test = sc.transform(X_test)
+X_test = sc.transform(X_test) # need to call fit transfrom first to use transform
 
 
 # Importing the Keras libraries and packages
@@ -47,7 +47,7 @@ classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = [
           #metrics = criteria used to evaluate the model
 
 # Fitting the ANN to the Training set
-classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 50)
+classifier.fit(X_train, y_train, batch_size = 300, nb_epoch = 50)
 #.fit(#X_train = matrix of features
       #y_train = dependent var
       #batch_size = no of observations per one weight update
@@ -58,9 +58,13 @@ classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 50)
 # Predicting the Test set results
 y_pred = classifier.predict(X_test) #returns a probability between 0 and 1
 y_pred = (y_pred > 0.5) #threshold for binary value - use higher threshold for medical applications?
+#=== returns true if y_pre>0.5 else returns false 
+y_pred_train = classifier.predict(X_train) #returns a probability between 0 and 1
+y_pred_train = (y_pred_train > 0.5)
+
 
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix, accuracy_score
-cm = confusion_matrix(y_test, y_pred)
-accuracy_score(y_test,y_pred)
-print("accuracy of ANN = ", accuracy_score(y_test,y_pred))
+#cm = confusion_matrix(y_test, y_pred)
+print(" testing accuracy of ANN = ", accuracy_score(y_test,y_pred))
+print(" training accuracy of ANN = ", accuracy_score(y_train,y_pred_train))
