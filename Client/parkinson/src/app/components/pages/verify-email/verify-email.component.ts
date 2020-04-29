@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../../shared/services/auth.service";
+import { AuthService } from "../../../shared/services/auth.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-verify-email",
   templateUrl: "./verify-email.component.html",
-  styleUrls: ["./verify-email.component.css"]
+  styleUrls: ["./verify-email.component.scss"],
 })
 export class VerifyEmailComponent implements OnInit {
   title: string;
@@ -52,7 +52,7 @@ export class VerifyEmailComponent implements OnInit {
   }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 3500
+      duration: 3500,
     });
   }
 }

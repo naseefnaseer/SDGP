@@ -1,0 +1,129 @@
+<title>Patient Registration</title>
+<main class="page login-page">
+  <section class="clean-block clean-form dark">
+
+    <div class="container ds">
+
+      <div class="block-heading" [ngStyle]="form()">
+        <h2 class="text-info"
+          style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.3)); margin-top:13px; ">
+          <p class="ds">Add Patient</p>
+        </h2>
+        <p style="font-size:21px; ">
+          <span class="ds text-muted">Enter the detail of your patient, to register the patient.</span>
+        </p>
+      </div>
+
+      <form [formControlName] id="wizard" #f="ngForm" (ngSubmit)="submitDetails(f)" name="f" standalone="true"
+        [ngStyle]="form()">
+
+        <div class="form-group text-center"
+          style="margin-top:-10px; padding-bottom:-11px; font-size:17px; color:#3b99e0; font-family:Roboto, sans-serif; ">
+          <p class="ds ">Patient details</p>
+        </div>
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">
+            Name
+          </label>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text" placeholder="First" class="form-control ds" #fName ngModel #fName="ngModel"
+                name="fName" /></div>
+            <div class="col-md-6">
+              <input type="text" placeholder="Last" class="form-control ds" #lName ngModel #lName="ngModel"
+                name="lName" /></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">
+            Date of Birth
+          </label>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="date" class="form-control ds" ngModel #dob="ngModel" name="dob" />
+            </div>
+
+            <div class="col-md-6">
+              <mat-select placeholder="Gender" class="form-control ds" [(value)]="gender">
+                <mat-option ngModel value="Male">Male</mat-option>
+                <mat-option ngModel value="Female">Female</mat-option>
+              </mat-select>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">Phone</label>
+          <div>
+            <input type="email" placeholder="example@example.com" class="form-control ds" ngModel #phone="ngModel"
+              name="phone" />
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">
+            Address</label>
+          <div>
+            <input type="text" class="form-control ds" ngModel #address="ngModel" name="address" />
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">E-mail</label>
+          <div>
+            <input type="email" placeholder="Example@mail.com" class="form-control ds" ngModel #email="ngModel"
+              name="email" />
+            <span style="font-size: smaller; color: red;" [ngStyle]="mailerror()">Invalid E-Mail address.</span>
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-block ds" type="submit">
+          Register Patient
+        </button>
+        <p></p>
+        <mat-progress-bar mode="indeterminate" [ngClass]="{'invisible': !isLoading,'visible':isLoading}">
+        </mat-progress-bar>
+        <div class="form-group text-center"
+          style="margin-top:16px; padding-bottom:-11px; font-size:14px; color:#3b99e0; font-family:Roboto, sans-serif; ">
+        </div>
+      </form>
+
+    </div>
+
+    <div class="block-heading" [ngStyle]="message()">
+      <h2 class="text-info"
+        style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.3)); margin-top:13px; ">
+        <p class="ds">Patient added successful</p>
+      </h2>
+
+    </div>
+
+    <form action="signin" [formGroup] class="ds rounded" id="successMessage" [ngStyle]="message()">
+      <div class="form-group text-center"
+        style="margin-top:0px;padding-bottom:0;font-size:20px;color:#3b99e0;font-family:Roboto, sans-serif;">
+        <p class="ds " style="font-size: large;">
+          New Patient record has been created. This patients record will be visible only to you doctor. <br>
+        </p>
+      </div>
+
+      <button class="btn btn-primary btn-block ds" type="button" routerLink="dashboard" #signin>
+        Dashboard</button>
+    </form>
+
+    <div class="form-group text-center"
+      style="margin-top:41px; padding-bottom:-11px; font-size:0px; color:#00b5d6; font-family:Roboto, sans-serif; ">
+      <a routerLink="/dashboard" class="text-center" style="font-size:14px; ">
+        Back to dashboard
+      </a>
+
+    </div>
+
+  </section>
+</main>

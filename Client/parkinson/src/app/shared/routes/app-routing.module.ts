@@ -3,18 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Required components for which route services to be activated
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
-import { ForgotPasswordComponent } from '../../components/forgot-password/forgot-password.component';
-import { SignInComponent } from '../../components/sign-in/sign-in.component';
-import { SignUpComponent } from '../../components/sign-up/sign-up.component';
-import { VerifyEmailComponent } from '../../components/verify-email/verify-email.component';
-import { PatientRegistrationComponent } from '../../components/patient-registration/patient-registration.component';
+import { ForgotPasswordComponent } from '../../components/pages/forgot-password/forgot-password.component';
+import { SignInComponent } from '../../components/pages/sign-in/sign-in.component';
+import { SignUpComponent } from '../../components/pages/sign-up/sign-up.component';
+import { VerifyEmailComponent } from '../../components/pages/verify-email/verify-email.component';
+import { PatientRegistrationComponent } from '../../components/pages/patient-registration/patient-registration.component';
 
 // Import canActivate guard services
 import { AuthGuard } from '../guard/auth.guard';
-import { NewPasswordComponent } from 'src/app/components/new-password/new-password.component';
+import { NewPasswordComponent } from 'src/app/components/pages/new-password/new-password.component';
 import { PreSignedGuard } from '../guard/secure-inner-pages.guard';
-import { Error404Component } from 'src/app/components/error404/error404.component';
-import { EmailConrollerComponent } from 'src/app/components/email-conroller/email-conroller.component';
+import { Error404Component } from 'src/app/components/pages/error404/error404.component';
+import { EmailConrollerComponent } from '../../components/pages/email-conroller/email-conroller.component';
 
 
 // Include route guard in routes array

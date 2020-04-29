@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../../shared/services/Patient';
+import { Patient } from '../../../shared/services/Patient';
 import {
   HttpErrorResponse,
   HttpResponse,
   HttpResponseBase,
 } from '@angular/common/http';
-import { PatientService } from '../../shared/services/patient.service';
+import { PatientService } from '../../../shared/services/patient.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { async } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./patient-registration.component.scss'],
 })
 export class PatientRegistrationComponent implements OnInit {
+
   gender = 'Not Specified';
   isMatchMail = true;
   isLoading = false;
@@ -37,6 +38,7 @@ export class PatientRegistrationComponent implements OnInit {
       firstName: f.value.fName,
       lastName: f.value.lName,
       dob: f.value.dob,
+      email:"",
       gender: this.gender,
       phone: f.value.phone,
       address: f.value.address,
@@ -62,6 +64,7 @@ export class PatientRegistrationComponent implements OnInit {
         this.isLoading = false;
 
         this.openSnackBar('Patient creation Unsuccessful !', 'ok');
+
       }
     );
   }

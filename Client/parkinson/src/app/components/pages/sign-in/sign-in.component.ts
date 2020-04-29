@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css'],
+  styleUrls: ['./sign-in.component.scss'],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
 
 })

@@ -1,48 +1,72 @@
+<link rel="stylesheet" href="../../../../assets/css/dashboad-new.css" />
 <div class="card shadow">
-  <nav class="navbar navbar-light navbar-expand bg-white shadow file-input-area static-top border-left-info py-3">
-      <div class="container-fluid">
-          <p class="m-0 font-weight-bold mr-2" style="color: #007bff;">Patients</p>
-      </div>
-  </nav>
-  <div class="card-body" style="padding: 17px;padding-top: 8px;"><a class="btn btn-success active text-center border rounded float-right btn-icon-split" role="button" data-toggle="tooltip" title="Add new patient" style="margin: 0;padding-bottom: -3px;margin-bottom: 9px;margin-left: 0;margin-right: 0;"><span class="text-white-50 icon"><i class="fas fa-plus"></i></span><span class="text-white text" style="margin: 0;padding-left: 10px;">Add </span></a>
-      <form
-          class="form-inline ">
-          <div><input class="form-control border-info border-1" type="search" size="40" placeholder="Search" /></div>
-          </form>
-          <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info" style="filter: blur(0px);">
-              <table class="table dataTable my-0" id="dataTable">
-                  <thead>
-                      <tr style="font-size: 14px;">
-                          <th class="text-nowrap" style="filter: blur(0px);">P-ID</th>
-                          <th>Full Name</th>
-                          <th class="text-center">Gender</th>
-                          <th class="text-center">DOB</th>
-                          <th>Phone</th>
-                          <th class="text-center">Address</th>
-                          <th>Email</th>
-                          <th class="text-center">Last Visit</th>
-                          <th class="text-center">Manage</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr class="text-nowrap" style="font-size: 13px;">
-                          <td>33</td>
-                          <td class="text-nowrap" style="width: 91px;">Andre Andy</td>
-                          <td class="text-nowrap text-center" style="width: 91px;">Male</td>
-                          <td class="text-center" style="width: 61px;">2008/11/28<br /></td>
-                          <td style="width: 61px;">Tokyo</td>
-                          <td class="text-nowrap" style="padding-right: -7px;width: 2px;">2008/11/28 sdfdsfdsfdsfdsfdsfdsfdsfds hjyuikjhtyuik</td>
-                          <td>2008/11/28</td>
-                          <td class="text-center">2008/11/28</td>
-                          <td class="text-nowrap text-center border rounded-0 d-inline-flex d-xl-flex flex-row justify-content-around align-items-stretch align-content-stretch align-self-baseline flex-nowrap m-auto"
-                              style="height: 40;padding: 7px;"><button class="btn btn-success btn-sm btn-circle ml-1" type="button" style="font-size: 16;width: 30;height: 30;"><i class="icon ion-edit text-white" style="font-size: 12;"></i></button><button class="btn btn-danger btn-sm btn-circle ml-1"
-                                  type="button" style="padding: 0;margin: 0;width: 30;height: 30;"><i class="fas fa-trash text-white" style="width: 30px;"></i></button></td>
-                      </tr>
-                  </tbody>
-                  <tfoot>
-                      <tr></tr>
-                  </tfoot>
-              </table>
-          </div>
+  <div data-toggle="tooltip" class="card-header py-3 border-left-primary" title="Patients Available">
+    <p class="m-0 font-weight-bold" style="color: #007bff;">Patients </p>
+  </div>
+  <div class="card-body text-nowrap" style="padding: 20px;padding-top: 10px;"><a
+      class="btn btn-success active text-center border rounded shadow-sm float-right btn-icon-split" role="button"
+      data-toggle="tooltip" title="Add new patient"
+      style="margin: 0;padding-bottom: -3px;margin-bottom: 9px;margin-left: 0;margin-right: 0;"><span
+        class="text-white-50 icon"><i data-toggle="tooltip" data-placement="left" class="fa fa-plus text-white"
+          style="width: 12px;" title="Delete"></i></span><span class="text-white text"
+        style="margin: 0;padding-left: 10px;">Add </span></a>
+    <form class="form-inline ">
+      <div><input data-toggle="tooltip" #search title="Search patients" class="form-control border-info border-1"
+          type="search" size="40" id="pick" placeholder="Search" /></div>
+    </form>
+    <div class="table-responsive text-nowrap shadow-sm table mt-2" id="dataTable" role="grid"
+      aria-describedby="dataTable_info" style="filter: blur(0px);">
+      <table class="table dataTable my-0" id="dataTable">
+        <thead class="shadow-sm">
+          <tr class="text-left text-gray-700" style="font-size: 14px;">
+            <th class="text-nowrap text-center text-gray-700" style="filter: blur(0px);width: 67px;">P-ID</th>
+            <th class="text-left">First Name</th>
+            <th class="text-left">Last Name</th>
+            <th class="text-center" style="width: 75px;">Gender</th>
+            <th class="text-center" style="width: 66px;">Age</th>
+            <th class="text-center">DOB</th>
+            <th>Phone</th>
+            <th class="text-left">Address</th>
+            <th>Email</th>
+            <th class="text-center" style="width: 72px;">Last Visit</th>
+            <th class="text-center" data-toggle="tooltip" style="width: 49px;" title="Manage Patients">Manage</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of list">
+          <tr  focus class="text-nowrap text-left " style="font-size: 13px;">
+            <td class="text-center"> {{item.pID}} </td>
+            <td class="text-nowrap text-left" style="width: 91px;"> {{item.firstName}} </td>
+            <td class="text-nowrap" style="width: 91px;"> {{item.lastName}} </td>
+            <td class="text-nowrap text-center" style="width: 77px;"> {{item.gender}} </td>
+            <td class="text-nowrap text-center" style="width: 52px;">98</td>
+            <td class="text-center" style="width: 61px;"> {{item.dob}} </td>
+            <td style="width: 61px;"> {{item.phone}} </td>
+            <td class="text-nowrap" style="padding-right: -7px;width: 3px;"> {{item.address}} </td>
+            <td style="width: 101px;"> {{item.email}} </td>
+            <td class="text-center">2008/11/28</td>
+            <td
+              class="text-nowrap text-center border rounded-0 d-inline-flex d-xl-flex flex-row justify-content-around align-items-stretch align-content-stretch align-self-baseline flex-nowrap m-auto"
+              style="height: 40;padding: 7px;">
+
+              <button class="btn btn-success btn-sm btn-circle ml-1" data-toggle="tooltip" type="button"
+                style="  font-size: 20;width: 30;  height: 30;" title="Edit">
+                <i data-toggle="tooltip" data-placement="right" class="fa fa-pencil text-white" style="  font-size: 12;"
+                  title="Edit">
+                </i></button>
+
+              <button class="btn btn-danger btn-sm btn-circle ml-1" type="button"
+                style="padding: 0;margin: 0;font-size: 12;width: 30;height: 30;">
+                <i data-toggle="tooltip" data-placement="left" class="fa fa-trash text-white" style="width: 30px;"
+                  title="Delete">
+                </i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr></tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
 </div>

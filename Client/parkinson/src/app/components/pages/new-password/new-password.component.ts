@@ -1,12 +1,12 @@
 import { ActivatedRoute, Router } from "@angular/router";
-import { AuthService } from "../../shared/services/auth.service";
+import { AuthService } from "../../../shared/services/auth.service";
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-new-password",
   templateUrl: "./new-password.component.html",
-  styleUrls: ["./new-password.component.css"]
+  styleUrls: ["./new-password.component.scss"]
 })
 export class NewPasswordComponent implements OnInit {
   code: string = "Code";
