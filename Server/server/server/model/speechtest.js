@@ -5,10 +5,19 @@ var connection = mongoose.createConnection("mongodb://localhost/Parkinsons");
 
 autoIncrement.initialize(connection);
 
+/**
+ * Mongoose Schema for Speech tests of patients
+ */
+
 var testSchema = new mongoose.Schema({
     testResult:{
         type: Boolean,
         required: true
+    },
+    updrs: {
+        type: String,
+        required: true,
+        default: '0'
     },
     doctorID: {
         type: mongoose.Schema.Types.Mixed,
@@ -26,6 +35,7 @@ var testSchema = new mongoose.Schema({
     },
 });
 
+// Auto Incrementer for the speechTest id
 
 testSchema.plugin(autoIncrement.plugin, 'SpeechTest');
 

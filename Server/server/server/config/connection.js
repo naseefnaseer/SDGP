@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-// We need to difine the URL
+// Defining mongo URL
 var URL = process.env.URL || 'mongodb://localhost/Parkinsons';
 
 mongoose.set('useCreateIndex', true);
@@ -14,8 +14,7 @@ mongoose.connect(URL, {
     useNewUrlParser: true,
     useCreateIndex: true
 });
-//Models
-// require('../model/user');
+
 var db = mongoose.connection;
 
 //We enebled the Listener
