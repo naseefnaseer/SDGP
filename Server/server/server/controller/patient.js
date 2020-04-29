@@ -44,6 +44,8 @@ exports.find = function (req, res) {
             return;
         }
         if (response) {
+            console.log("Hello !!!!!!!");
+            
             res.status(200).send(response);
             return;
         }

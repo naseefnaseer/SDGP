@@ -23,6 +23,7 @@ var patientSchema = new mongoose.Schema({
     dob: String,
     address: String, 
     phone: String,
+    lastVisit: String
 }); 
  
 

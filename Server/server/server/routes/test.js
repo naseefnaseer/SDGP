@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var test = require('../controller/test');
+<<<<<<< HEAD
 const multer  = require('multer') //use multer to upload blob data
 const upload = multer(); // set m
 const fileupload =require('express-fileupload');
+=======
+const fileupload = require('express-fileupload');
+// const multer  = require('multer') //use multer to upload blob data
+// const upload = multer(); // set m
+>>>>>>> 81074b5df3f2a54249b9ee4ff4e5f6a1369c07fb
 
 router.use(fileupload({
     useTempFiles:false,
@@ -18,7 +24,12 @@ router.use(fileupload({
  **_ To create the New Test
  _**/
 
+  
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 81074b5df3f2a54249b9ee4ff4e5f6a1369c07fb
 router.post('/', test.create);
 
 /**
@@ -26,7 +37,7 @@ router.post('/', test.create);
  _/
  */
 router.get('/test/:testID', test.find);
-
+ 
 /**
  _ TO get all the tests using docID
  _/
