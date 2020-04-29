@@ -1,22 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var test = require('../controller/test');
-<<<<<<< HEAD
-const multer  = require('multer') //use multer to upload blob data
-const upload = multer(); // set m
-const fileupload =require('express-fileupload');
-=======
-const fileupload = require('express-fileupload');
-// const multer  = require('multer') //use multer to upload blob data
-// const upload = multer(); // set m
->>>>>>> 81074b5df3f2a54249b9ee4ff4e5f6a1369c07fb
+var fileupload =require('express-fileupload');
+
 
 router.use(fileupload({
-    useTempFiles:false,
-    tempFileDir:"/AudioRecords/"
+    useTempFiles:true,
+    tempFileDir:"/audio_recordings/"
 }))
  
- 
+
+
 
 // router.post('/', upload.any('audio'), test.create);
 
@@ -26,10 +20,6 @@ router.use(fileupload({
 
   
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 81074b5df3f2a54249b9ee4ff4e5f6a1369c07fb
 router.post('/', test.create);
 
 /**
