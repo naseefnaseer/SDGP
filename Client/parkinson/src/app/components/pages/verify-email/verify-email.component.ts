@@ -9,6 +9,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ["./verify-email.component.scss"],
 })
 export class VerifyEmailComponent implements OnInit {
+  
   title: string;
   isVerified: boolean;
   code: any;
@@ -48,7 +49,7 @@ export class VerifyEmailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.userData;
+    this.authService.userDoctor;
   }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {

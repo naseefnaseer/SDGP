@@ -4,6 +4,9 @@ import { MatDialog } from "@angular/material/dialog";
 import { PatientList } from "../patient-list/dialog.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TestResultComponent } from '../test-result/test-result.component';
+import { PatientService } from '../../../shared/services/patient.service';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: "app-speech-test",
@@ -25,10 +28,25 @@ export class SpeechTestComponent implements OnInit {
   // files imoported
   lable = 'Click here to import the audio';
   canProceed: boolean;
+  testForm: FormGroup;
 
 
-  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) { }
-  ngOnInit() { }
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private formBuilder: FormBuilder,
+    private patientService: PatientService
+  ) { }
+  ngOnInit() {
+
+    this.testForm = this.formBuilder.group({
+      samples: [''],
+      doctorID: [''],
+      patientID: ['']
+
+    });
+
+  }
 
 
   // Pop up dialog to select the patient from the list
@@ -84,14 +102,17 @@ export class SpeechTestComponent implements OnInit {
 
   // Get audio samples
   getSample(samples: FileList) {
-    this.audioSample = samples;
+    if (samples.length !== 0) {
 
-    // re setting the lable
-    this.lable = samples.length + " Sample(s) Attached";
+      this.testForm.get('samples').setValue(samples);
 
-    // test can be proceeded
-    this.canProceed = true;
-    this.proceedBtnLable ='Proceed Test';
+      // re setting the lable
+      this.lable = samples.length + " Sample(s) Attached";
+
+      // test can be proceeded
+      this.canProceed = true;
+      this.proceedBtnLable = 'Proceed Test';
+    }
 
   }
 
@@ -102,12 +123,38 @@ export class SpeechTestComponent implements OnInit {
     this.canProceed = false;
 
   }
+
+
+
   proceedTest() {
     if (this.canProceed) {
-      this.openSnackBar("Proceeding the test","OK");
+      
+      this.openSnackBar("Proceeding the test", "OK");
+
+      this.showResult();
+
+      this.patientService.analyseSample(this.testForm).subscribe(
+        (observer: HttpResponse<JSON>) => {
+          console.log(observer);
+
+          this.openSnackBar('Test carried out successful', 'ok');
+        },
+        (err: HttpErrorResponse) => {
+          // error notifier
+
+          console.log(err.error);
+          console.log(err.name);
+          console.log(err.message);
+          console.log(err.status);
+
+          this.openSnackBar('Test Unsuccessful !', 'ok');
+
+        }
+      );
+
     }
     else {
-      this.openSnackBar("Please select the audio samples","close");
+      this.openSnackBar("Please select the audio samples", "close");
     }
   }
 

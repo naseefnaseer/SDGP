@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../services/user';
+import { User } from './userDoctor';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -11,7 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class AuthService {
-  userData: any;
+
+  userDoctor: any;
   // Save logged in user data
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
@@ -25,8 +26,8 @@ export class AuthService {
 
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        this.userDoctor = user;
+        localStorage.setItem('user', JSON.stringify(this.userDoctor));
         JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', null);
@@ -44,6 +45,14 @@ export class AuthService {
       );
 
       this.SetUserData(result.user);
+
+      console.log(result);
+
+      console.log('***************************************************');
+
+      console.log(result.user);
+
+
       this.ngZone.run(() => {
         this.router.navigate(['dashboard-g']);
       });
@@ -122,6 +131,7 @@ export class AuthService {
     try {
       const result = await this.afAuth.auth.signInWithPopup(provider);
       this.SetUserData(result.user);
+      console.log(result.user);
 
       this.ngZone.run(async () => {
         this.openSnackBar('Welcome', '');
@@ -140,14 +150,14 @@ export class AuthService {
       `users/${user.uid}`
     );
 
-    const userData: User = {
+    const userDoctor: User = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       proPicURL: user.photoURL,
       isEmailVerified: user.emailVerified
     };
-    return userRef.set(userData, {
+    return userRef.set(userDoctor, {
       merge: true
     });
   }
