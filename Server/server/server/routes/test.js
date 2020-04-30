@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var test = require('../controller/test');
-const fileupload = require('express-fileupload');
-// const multer  = require('multer') //use multer to upload blob data
-// const upload = multer(); // set m
+var fileupload =require('express-fileupload');
+
+
+router.use(fileupload({
+    useTempFiles:true,
+    tempFileDir:"/audio_recordings/"
+}))
+ 
+
 
 
 // router.post('/', upload.any('audio'), test.create);
@@ -13,7 +19,6 @@ const fileupload = require('express-fileupload');
  _**/
 
   
-
 
 router.post('/', test.create);
 

@@ -4,12 +4,20 @@ patientController = require('./patient')
 /**
  **_ Function to create the test.
  _**/
+ 
 exports.create = function (req, res, next) {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+      }
 
-    // let uploadLocation = __dirname + '\\public\\uploads\\' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
-
-    // fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
-    // res.sendStatus(200); //send back that everything went ok
+    req.files.p_audio.mv("/audio_recordings/" + req.files.p_audio.name,function(err){
+        if(err){ 
+            return res.status(500).send(err)
+        };
+        console.log("File Uploaded successfully");
+        // res.status(200).send({message: 'Upload Successful'});
+        
+    }); 
  
     // var pyRes; 
     

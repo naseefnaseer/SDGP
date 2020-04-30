@@ -148,10 +148,13 @@ exports.delete = function (req, res) {
     });
 }
 
+
+
 /**
  * Constructor for Patient to create a patient object
  *
  */
+
 
 class Patient {
     constructor(userData) {
