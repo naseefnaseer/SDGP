@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Patient } from "src/app/shared/services/Patient";
 import { MatDialog } from "@angular/material/dialog";
 import { PatientList } from "../patientList/dialog.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: "app-speech-test",
@@ -16,25 +17,27 @@ export class SpeechTestComponent implements OnInit {
 
   // sample array to upload
   audioSample: FileList = null;
+  proceedBtnTitle = 'Cannot Proceed Test. Please add samples.';
+  proceedBtnLable = 'attach samples to proceed test';
+
 
   // files imoported
   lable = 'Click here to import the audio';
+  canProceed: boolean;
 
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) { }
   ngOnInit() { }
 
 
-
+  // Pop up dialog to select the patient from the list
   openDialog(): void {
     const dialogRef = this.dialog.open(PatientList);
 
     dialogRef.afterClosed().subscribe(
       (result) => {
-        console.log("The list was closed");
 
-        console.log(result);
-
+        // console.log(result);
 
         if (result !== undefined) {
           // Select the patient
@@ -53,21 +56,42 @@ export class SpeechTestComponent implements OnInit {
   }
 
 
-
+  // Get audio samples
   getSample(samples: FileList) {
     this.audioSample = samples;
-    this.lable = '';
 
-    for (let i = 0; i < samples.length; i++) {
+    // re setting the lable
+    this.lable = samples.length + " Sample(s) Attached";
 
-      console.log(
-        this.lable += samples[i].name + ' | '
-      );
+    // test can be proceeded
+    this.canProceed = true;
+    this.proceedBtnLable ='Proceed Test';
 
+  }
+
+  // Clear the selection
+  clear() {
+    this.lable = 'Click here to import the audio';
+    this.isSelected = false;
+    this.canProceed = false;
+
+  }
+  proceedTest() {
+    if (this.canProceed) {
+      this.openSnackBar("Proceeding the test","OK");
+    }
+    else {
+      this.openSnackBar("Please select the audio samples","close");
     }
   }
 
-  clear(){
-    this.isSelected = false;
+  /**
+   * @param msg the message of the nasck bar
+   * @param btn button
+   */
+  openSnackBar(msg: string, btn: string) {
+    this.snackBar.open(msg, btn, {
+      duration: 2000
+    });
   }
 }

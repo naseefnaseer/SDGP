@@ -9,7 +9,7 @@
       height: 220px;
     ">
         <form class="text-center">
-            <div class="form-col text-center" style="padding: 5;">
+            <div class="form-col text-center text-nowrap" style="padding: 5;">
                 <div class="col text-center border-info" *ngIf="!isSelected" style="
             padding: px;
             padding-top: 0px;
@@ -22,8 +22,8 @@
                         Pick patient from the list below
                     </h1>
 
-                    <button class="btn text-nowrap text-center border rounded shadow-sm ml-1" data-toggle="tooltip"
-                        title="Add new patient" style="
+                    <button   class="btn text-nowrap text-center border rounded shadow-sm ml-1" style="cursor:pointer;" data-toggle="tooltip"
+                        style="
               width: 147px;
               background-color: #169b6b;
               color: rgb(255, 255, 255);
@@ -32,7 +32,7 @@
                         <i class="fa fa-address-card"></i><strong> New Patient</strong><br />
                     </button>
 
-                    <button class="text-nowrap btn text-center border rounded shadow-sm ml-1" data-toggle="tooltip"
+                    <button class="text-nowrap btn text-center border rounded shadow-sm ml-1"  style="cursor:no-drop;" data-toggle="tooltip"
                         for="pick" href="#pick" title="Pick a patient from list" (click)="openDialog()" style="
               width: 147px;
               background-color: #007bff;
@@ -94,8 +94,8 @@
                             </table>
                         </div><i data-toggle="tooltip"
                         (click)="clear()"
-                            class="fa fa-remove rounded flex-column align-items-end text-white "
-                            style="color: #d81e05;background-color: #d81e05;font-size: 21px;padding: 4px;padding-bottom: 3px;margin-bottom: 9px;"
+                            class="fa fa-remove rounded flex-column mx-3 align-items-end text-white "
+                            style="color: #d81e05; cursor: pointer; background-color: #d81e05;font-size: 21px;padding: 4px;padding-bottom: 3px;margin-bottom: 9px;"
                             title="Deselect the patient"></i>
                     </div>
 
@@ -104,28 +104,29 @@
 
                         <label class="text-gray-900" for="email" style="width: 214px;margin-top: 7px;font-size: 18px;">
 
-                            <strong>Import audio samples</strong>
+                            <strong>Import audio samples <i class="material-icons text-info" style="cursor: help;" title="The audio must be *.wav extention">info_outline</i></strong>
 
                             <br /></label>
                         <a style="cursor: pointer;"
                             class="btn  btn-file border rounded shadow-sm d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center bg-dark text-whitete rounded p-1"
                             role="button" data-toggle="tooltip" style="margin: 0;margin-top: 0px;padding: 4px;">
-                            <span class="text-white-50 icon"
+                            <span class="text-white-50 icon btn"
                                 style="margin-top: 0px;color: 0;background-color: rgba(255,255,255,0);">
 
                                 <i class="material-icons"
                                     style="font-size: 19px;width: 23px;color: #ffffff;margin-top: 3px;">queue</i></span><span
                                 class="text-uppercase  text-center text-white d-lg-flex align-content-center align-self-center justify-content-lg-center align-items-lg-center mx-3 text-white">
                                 {{lable}}
-                                <!-- Accepts only wav files               -->
+                                <!-- Accepts only wav files  -->
 
                             </span><input name="file-picker" type="file" multiple accept="audio/wav" id="file"
                                 (change)="getSample($event.target.files)" /></a>
 
 
-                        <a class="btn btn-success border rounded shadow-sm d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center btn-icon-split fileinput-new rounded mt-2"
+                        <a  class="btn btn-success border rounded shadow-sm d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center btn-icon-split fileinput-new rounded mt-2"
                             role="button" data-toggle="tooltip"
-                            style="margin: 0;margin-top: 0px;padding: 4px;margin-left: 0px;" title="Proceed Test"><span
+                            (click)="proceedTest()"
+                            style="margin: 0;margin-top: 0px;padding: 4px;margin-left: 0px;" title="{{proceedBtnTitle}}"><span
                                 class="text-white-50 icon"
                                 style="margin-top: 0px;color: 0;background-color: rgba(255,255,255,0);">
 
@@ -133,8 +134,9 @@
                                     style="font-size: 19px;width: 23px;color: #ffffff;margin-top: 3px;">send</i>
 
                             </span><span
-                                class="text-uppercase text-center text-white d-lg-flex align-content-center align-self-center justify-content-lg-center align-items-lg-center mx-1 text-white">Proceed
-                                Prediction</span></a>
+                                class="text-uppercase text-center text-white d-lg-flex align-content-center align-self-center justify-content-lg-center align-items-lg-center mx-1 text-white">
+                                {{proceedBtnLable}}
+                              </span></a>
                     </div>
                 </div>
             </div>
