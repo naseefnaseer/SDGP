@@ -22,7 +22,7 @@
                         Pick patient from the list below
                     </h1>
 
-                    <button   class="btn text-nowrap text-center border rounded shadow-sm ml-1" style="cursor:pointer;" data-toggle="tooltip"
+                    <button (click)="showResult()"  class="btn text-nowrap text-center border rounded shadow-sm ml-1" style="cursor:pointer;" data-toggle="tooltip"
                         style="
               width: 147px;
               background-color: #169b6b;
@@ -33,7 +33,7 @@
                     </button>
 
                     <button class="text-nowrap btn text-center border rounded shadow-sm ml-1"  style="cursor:no-drop;" data-toggle="tooltip"
-                        for="pick" href="#pick" title="Pick a patient from list" (click)="openDialog()" style="
+                        for="pick" href="#pick" title="Pick a patient from list" (click)="showList()" style="
               width: 147px;
               background-color: #007bff;
               color: rgb(255, 255, 255);

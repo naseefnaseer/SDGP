@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Patient } from "src/app/shared/services/Patient";
 import { MatDialog } from "@angular/material/dialog";
-import { PatientList } from "../patientList/dialog.component";
+import { PatientList } from "../patient-list/dialog.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TestResultComponent } from '../test-result/test-result.component';
 
 @Component({
   selector: "app-speech-test",
@@ -31,7 +32,32 @@ export class SpeechTestComponent implements OnInit {
 
 
   // Pop up dialog to select the patient from the list
-  openDialog(): void {
+  showResult(): void {
+    const dialogRef = this.dialog.open(TestResultComponent);
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+
+        // console.log(result);
+
+        if (result !== undefined) {
+          // Select the patient
+          this.patient = result;
+          // Hide the selector
+          console.log(result);
+          this.isSelected = true;
+
+        } else {
+          this.isSelected = false;
+          // Snack bar
+        }
+
+      });
+
+  }
+
+  // Pop up dialog to select the patient from the list
+  showList(): void {
     const dialogRef = this.dialog.open(PatientList);
 
     dialogRef.afterClosed().subscribe(

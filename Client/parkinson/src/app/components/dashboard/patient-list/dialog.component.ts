@@ -17,7 +17,7 @@ export class PatientList {
     this.list = patients;
   }
 
-  onNoClick(): void {
+  close(): void {
     this.dialogRef.close();
   }
 
@@ -25,5 +25,4 @@ export class PatientList {
     this.dialogRef.close(p);
   }
 
-  ngOnInit() { }
 }
