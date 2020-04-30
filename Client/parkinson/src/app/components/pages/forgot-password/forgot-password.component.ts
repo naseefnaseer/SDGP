@@ -8,7 +8,7 @@ import { AuthService } from "../../../shared/services/auth.service";
 })
 export class ForgotPasswordComponent implements OnInit {
   isLoading: boolean;
-  isSuccess = false;
+  isSuccess: boolean;
   constructor(public authService: AuthService) {}
 
   ngOnInit() {}

@@ -25,9 +25,9 @@ export class PatientRegistrationComponent implements OnInit {
   constructor(
     public snackBar: MatSnackBar,
     public patientService: PatientService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   // POST
   submitDetails(f: NgForm) {
@@ -38,7 +38,8 @@ export class PatientRegistrationComponent implements OnInit {
       firstName: f.value.fName,
       lastName: f.value.lName,
       dob: f.value.dob,
-      email:"",
+      email: f.value.email,
+      age: '-',
       gender: this.gender,
       phone: f.value.phone,
       address: f.value.address,

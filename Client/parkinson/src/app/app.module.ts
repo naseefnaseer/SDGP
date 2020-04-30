@@ -40,8 +40,7 @@ import { AudioUploadComponent } from "./audio-upload/audio-upload.component";
 import { PatientRegistrationComponent } from "./components/pages/patient-registration/patient-registration.component";
 import { SpeechTestComponent } from "./components/dashboard/speech-test/speech-test.component";
 import { PatientsComponent } from "./components/dashboard/patients/patients.component";
-import { PickPatientComponent } from "./components/dashboard/pick-patient/pick-patient.component";
-import { PatientList } from "./components/dashboard/pick-patient/dialog.component";
+import { PatientList } from "./components/dashboard/patientList/dialog.component";
 
 @NgModule({
   declarations: [
@@ -59,9 +58,8 @@ import { PatientList } from "./components/dashboard/pick-patient/dialog.componen
     PatientRegistrationComponent,
     SpeechTestComponent,
     PatientsComponent,
-    PickPatientComponent,
     PatientList,
-    ],
+  ],
   imports: [
     HttpClientModule,
     AngularFireAuthModule,
@@ -71,13 +69,13 @@ import { PatientList } from "./components/dashboard/pick-patient/dialog.componen
     BrowserAnimationsModule,
     MatSelectModule,
     BrowserModule,
-    MatButtonModule,
     FormsModule,
     MatDialogModule,
+    MatButtonModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [PatientList],
   providers: [

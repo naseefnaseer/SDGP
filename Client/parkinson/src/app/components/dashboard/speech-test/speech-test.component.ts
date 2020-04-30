@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Patient } from "src/app/shared/services/Patient";
+import { MatDialog } from "@angular/material/dialog";
+import { PatientList } from "../patientList/dialog.component";
 
 @Component({
   selector: "app-speech-test",
@@ -8,11 +10,52 @@ import { Patient } from "src/app/shared/services/Patient";
 })
 export class SpeechTestComponent implements OnInit {
 
+  isSelected: boolean;
+  patient: Patient; // selected patient
+  isValidsample: boolean;
 
-  constructor() {
+  // sample array to upload
+  audioSample: FileList = null;
+
+
+  constructor(public dialog: MatDialog) { }
+  ngOnInit() { }
+
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(PatientList);
+
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        console.log("The list was closed");
+
+        console.log(result);
+
+
+        if (result !== undefined) {
+          // Select the patient
+          this.patient = result;
+          // Hide the selector
+          console.log(result);
+          this.isSelected = true;
+
+        } else {
+          this.isSelected = false;
+          // Snack bar
+        }
+
+      });
 
   }
 
 
-  ngOnInit() {}
+
+  getSample(samples: FileList) {
+    this.audioSample = samples;
+
+    console.log(samples);
+
+  }
+
 }

@@ -1,16 +1,49 @@
 <div class="card shadow mb-3">
-  <div class="card-header py-3 border-left-primary">
-    <p class="m-0 font-weight-bold" style="color: #007bff;">Do a Test</p>
-  </div>
+    <div class="card-header py-3 border-left-primary">
+        <p class="m-0 font-weight-bold" style="color: #007bff;">Do a Test</p>
+    </div>
+    <div class="card-body" style="
+      padding: 1px;
+      padding-top: 10px;
+      padding-bottom: 20px;
+      height: 220px;
+    ">
+        <form class="text-center">
+            <div class="form-row text-center" style="padding: 5;">
+                <div class="col text-center border-info" *ngIf="!isSelected" style="
+            padding: px;
+            padding-top: 0px;
+            margin-top: 4px;
+            margin-right: 30px;
+            margin-left: 28px;
+          ">
+                    <label class="text-gray-900" for="email"><strong>Select patient</strong><br
+          /></label>
+                    <h1 class="small font-weight-light" style="margin: 2; font-size: 16px;">
+                        Pick patient from the list below
+                    </h1>
 
-  <div class="card-body" style="padding: 1px;padding-top: 10px;padding-bottom: 20px;height: 180px;">
-    <form class="text-center">
+                    <button class="btn text-nowrap text-center border rounded shadow-sm ml-1" data-toggle="tooltip" title="Add new patient" style="
+              width: 147px;
+              background-color: #169b6b;
+              color: rgb(255, 255, 255);
+              padding: 11px;
+            ">
+            <i class="fa fa-address-card"></i><strong> New Patient</strong
+            ><br />
+          </button>
 
-      <app-pick-patient> </app-pick-patient>
+                    <button class="text-nowrap btn text-center border rounded shadow-sm ml-1" data-toggle="tooltip" for="pick" href="#pick" title="Pick a patient from list" (click)="openDialog()" style="
+              width: 147px;
+              background-color: #007bff;
+              color: rgb(255, 255, 255);
+              padding: 11px;
+            ">
+            <i class="fa fa-user"></i><strong> Pick </strong><br />
+          </button>
+                </div>
 
-
-
-      <div hidden class="col text-center border-info border rounded" style="
+                <div class="col text-center border-info border rounded" *ngIf="isSelected" style="
             padding: px;
             padding-top: 0px;
             margin-top: 4px;
@@ -19,95 +52,89 @@
             padding-right: 20px;
             padding-left: 20px;
           ">
-        <label class="text-center text-gray-900 tex"
-          style="width: 214px; margin: 10px; margin-top: 0; margin-bottom: 0;">
-          <strong>Selected patient</strong>
+                    <label class="text-center text-gray-900" style="width: 214px; margin: 10px; margin-top: 0; margin-bottom: 0;"><strong>Selected patient</strong><br
+          /></label>
 
-          <br />
-
-        </label>
-        <div class="table-responsive text-nowrap shadow-sm table mt-2" id="dataTable-1" role="grid"
-          aria-describedby="dataTable_info" style="filter: blur(0px);">
-          <table class="table dataTable my-0" id="dataTable">
-            <thead class="shadow-sm">
-              <tr class="text-left shadow-sm text-gray-700" style="font-size: 16px; height: 0px;"></tr>
-            </thead>
-            <tbody>
-              <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
-                <td class="text-left" style="
+                    <div class="table-responsive text-nowrap shadow-sm table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
+                        <table class="table dataTable my-0" id="dataTable">
+                            <thead class="shadow-sm">
+                                <tr class="text-left shadow-sm text-gray-700" style="font-size: 16px; height: 0px;"></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+                                    <td class="text-left" style="
                       padding: 0;
                       padding-left: 15px;
                       height: 11px;
                       width: 1px;
                     ">
-                  Patient ID
-                </td>
-                <td class="text-center" style="padding: 0; width: 10px;">
-                  :
-                </td>
-                <td class="text-left font-weight-bold" style="
+                                        Patient ID
+                                    </td>
+                                    <td class="text-center" style="padding: 0; width: 10px;">
+                                        :
+                                    </td>
+                                    <td class="text-left font-weight-bold" style="
                       padding: 0;
                       padding-left: 17px;
                       height: 11px;
                       width: 117px;
                     ">
-                  - - -
-                </td>
-              </tr>
-              <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
-                <td class="text-left" style="
+                                        {{ patient.pID }}
+                                    </td>
+                                </tr>
+                                <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+                                    <td class="text-left" style="
                       padding: 0;
                       padding-left: 15px;
                       height: 11px;
                       width: 1px;
                     ">
-                  Full Name
-                </td>
-                <td class="text-center" style="padding: 0; width: 10px;">
-                  :
-                </td>
-                <td class="text-left font-weight-bold" style="
+                                        Full Name
+                                    </td>
+                                    <td class="text-center" style="padding: 0; width: 10px;">
+                                        :
+                                    </td>
+                                    <td class="text-left font-weight-bold" style="
                       padding: 0;
                       padding-left: 17px;
                       height: 11px;
                       width: 117px;
                     ">
-                  - - -
-                </td>
-              </tr>
-              <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
-                <td class="text-left" style="
+                                        {{ patient.firstName }} {{ patient.lastName }}
+                                    </td>
+                                </tr>
+                                <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+                                    <td class="text-left" style="
                       padding: 0;
                       padding-left: 15px;
                       height: 11px;
                       width: 1px;
                     ">
-                  Age
-                </td>
-                <td class="text-center" style="padding: 0; width: 10px;">
-                  :
-                </td>
-                <td class="text-left font-weight-bold" style="
+                                        Age
+                                    </td>
+                                    <td class="text-center" style="padding: 0; width: 10px;">
+                                        :
+                                    </td>
+                                    <td class="text-left font-weight-bold" style="
                       padding: 0;
                       padding-left: 17px;
                       height: 11px;
                       width: 117px;
                     ">
-                  - - -
-                </td>
-              </tr>
-              <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;"></tr>
-              <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;"></tr>
-              <tr class="text-nowrap text-left" style="font-size: 13px;"></tr>
-              <tr class="text-nowrap text-left" style="font-size: 13px;"></tr>
-            </tbody>
-            <tfoot>
-              <tr></tr>
-            </tfoot>
-          </table>
-        </div>
-        <i class="fas fa-backspace flex-column align-items-end text-white rounded-lg" data-toggle="tooltip"
-          title="Deselect the patient" style="
+                                        {{ patient.age }}
+                                    </td>
+                                </tr>
+                                <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;"></tr>
+                                <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;"></tr>
+                                <tr class="text-nowrap text-left" style="font-size: 13px;"></tr>
+                                <tr class="text-nowrap text-left" style="font-size: 13px;"></tr>
+                            </tbody>
+                            <tfoot>
+                                <tr></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <i class="fa fa-trash flex-column align-items-end text-white rounded-lg" data-toggle="tooltip" title="Deselect the patient" style="
               color: #d81e05;
               background-color: #d81e05;
               font-size: 21px;
@@ -115,10 +142,9 @@
               padding-bottom: 3px;
               margin-bottom: 9px;
             "></i>
+                </div>
 
-
-
-        <div hidden class="col text-center border-info border rounded" style="
+                <div *ngIf="isSelected" class="col text-center border-info border rounded" style="
             padding: px;
             padding-top: 0px;
             margin-top: 4px;
@@ -127,34 +153,51 @@
             padding-right: 20px;
             padding-left: 20px;
           ">
-          <label class="text-gray-900" for="email"
-            style="width: 214px; margin-top: 7px; font-size: 18px;"><strong>Import audio
-              samples</strong><br /></label><a
-            class="btn btn-success border rounded shadow-sm d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center bg-dark text-whitete rounded p-1"
-            data-toggle="tooltip" role="button" style="margin: 0; margin-top: 0px; padding: 4px;">
-            <span
-              class="input-group-addon btn btn-default btn-file form-control text-nowrap bg-dark text-white rounded">
-              <i class="fas fa-plus"></i> Click here to import the audio
+                    <label class="text-gray-900" for="email" style="width: 214px; margin-top: 7px; font-size: 18px;"><strong>Import audio samples</strong><br
+          /></label>
+                    <a class="btn btn-success border rounded shadow-sm d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center bg-dark text-whitete rounded p-1" data-toggle="tooltip"
+                        role="button" style="margin: 0; margin-top: 0px; padding: 4px;">
+                        <span class="input-group-addon btn btn-default btn-file form-control text-nowrap bg-dark text-white rounded">
+              <i class="fa fa-plus btn file-input-lable"></i> Click here to
+              import the audio
 
-              <input name="file-picker" type="file" multiple />
+              <!-- Accepts only wav files               -->
+              <input
+                name="file-picker"
+                type="file"
+                multiple
+                accept="audio/wav"
+                id="file"
+                (change)="getSample($event.target.files)"
+              />
             </span>
-          </a>
-          <a class="btn btn-success border rounded shadow-sm d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center btn-icon-split fileinput-new rounded mt-2"
-            data-toggle="tooltip" title="Proceed Test" role="button" style="
+                    </a>
+                    <a class="btn btn-success border rounded shadow-sm d-sm-flex d-lg-flex flex-row justify-content-center align-self-center flex-nowrap justify-content-sm-center justify-content-lg-center align-items-lg-center btn-icon-split fileinput-new rounded mt-2" data-toggle="tooltip"
+                        title="Proceed Test" role="button" style="
               margin: 0;
               margin-top: 0px;
               padding: 4px;
               margin-left: 0px;
               margin-bottom: 16px;
-            "><span class="text-white-50 icon" style="
+            "><span
+              class="text-white-50 icon"
+              style="
                 margin-top: 0px;
                 color: 0;
                 background-color: rgba(255, 255, 255, 0);
-              "><i class="fas fa-check-circle" style="font-size: 19px; width: 23px; color: #ffffff;"></i></span><span
-              class="text-uppercase text-center text-white d-lg-flex align-content-center align-self-center justify-content-lg-center align-items-lg-center mx-3 text-white">Proceed
-              Prediction</span></a>
-        </div>
-      </div>
-    </form>
-  </div>
+              "
+              ><i
+                class="fa fa-check-circle shadow"
+                style="font-size: 19px; width: 23px; color: #ffffff;"
+              ></i
+            ></span>
+            <span
+              class="text-uppercase py-2 text-center text-white d-lg-flex align-content-center align-self-center justify-content-lg-center align-items-lg-center mx-3 text-white"
+            > Proceed Prediction
+            </span>
+          </a>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
