@@ -17,6 +17,9 @@ export class SpeechTestComponent implements OnInit {
   // sample array to upload
   audioSample: FileList = null;
 
+  // files imoported
+  lable = 'Click here to import the audio';
+
 
   constructor(public dialog: MatDialog) { }
   ngOnInit() { }
@@ -53,9 +56,18 @@ export class SpeechTestComponent implements OnInit {
 
   getSample(samples: FileList) {
     this.audioSample = samples;
+    this.lable = '';
 
-    console.log(samples);
+    for (let i = 0; i < samples.length; i++) {
 
+      console.log(
+        this.lable += samples[i].name + ' | '
+      );
+
+    }
   }
 
+  clear(){
+    this.isSelected = false;
+  }
 }
