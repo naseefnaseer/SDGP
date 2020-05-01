@@ -43,6 +43,7 @@ import { SpeechTestComponent } from './components/dashboard/speech-test/speech-t
 import { PatientsComponent } from './components/dashboard/patients/patients.component';
 import { PatientList } from './components/dashboard/patient-list/dialog.component';
 import { TestResultComponent } from './components/dashboard/test-result/test-result.component';
+import { AccountManageComponent } from './components/pages/account-manage/account-manage.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { TestResultComponent } from './components/dashboard/test-result/test-res
     PatientsComponent,
     PatientList,
     TestResultComponent,
+    AccountManageComponent,
   ],
   imports: [
     HttpClientModule,

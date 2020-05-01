@@ -25,11 +25,12 @@
                 <th class="text-center" style="width: 66px;">Age</th>
             </tr>
         </thead>
-        <tbody *ngFor="let item of list" class="dialog-row">
+        <tbody *ngFor="let item of patients" class="dialog-row">
 
-            <tr class="text-nowrap text-left active list-group-item-action " cdkFocusInitial style="font-size: 13px;" (click)="select(item)">
+            <tr class="text-nowrap text-left active list-group-item-action "
+            cdkFocusInitial style="font-size: 13px;" (click)="select(item)">
 
-                <td class="text-center"> {{item.pID}} </td>
+                <td class="text-center"> {{item._id}} </td>
                 <td class="text-nowrap text-left" style="width: 91px;"> {{item.firstName}} </td>
                 <td class="text-nowrap" style="width: 91px;"> {{item.lastName}} </td>
                 <td class="text-nowrap text-center" style="width: 77px;"> {{item.gender}} </td>

@@ -2,15 +2,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
   <title>Dashboard </title>
-  <!-- <link rel="stylesheet" href="../../../assets/bootstrap/css/bootstrap.min.css" /> -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" />
-  <!-- <link rel="stylesheet" href="../../../assets/css/dashboad-new.css" /> -->
 </head>
 
 <body id="page-top">
   <div id="wrapper">
     <div class="d-flex flex-column" id="content-wrapper">
       <div id="content">
+
         <nav *ngIf="authService.userDocor as user"
           class="navbar navbar-light navbar-expand bg-white shadow d-sm-flex flex-row align-content-center align-items-sm-center mb-4 topbar static-top p-1">
           <div class="container-fluid">
@@ -21,29 +20,41 @@
                   <div></div>
                 </div>
               </div>
-            </div><span mat-icon-button [matMenuTriggerFor]="appMenu" style="cursor: pointer;" class="d-none d-md-inline mr-2 text-dark">{{user.displayName}}</span>
+            </div>
 
-            <img mat-icon-button [matMenuTriggerFor]="appMenu" class="img-fluid round mr-2 rounded-circle" style="width: 40px; cursor: pointer;" src="{{users.photoURL}}" />
+            <span mat-icon-button style="font-family: 'Montserrat Alternates', sans-serif;"
+              [matMenuTriggerFor]="appMenu" style="cursor: pointer;" class="d-none d-md-inline mr-2 text-dark">
+              {{user.displayName}}
+            </span>
+
+            <img mat-icon-button [matMenuTriggerFor]="appMenu" class="img-fluid round mr-2 rounded-circle"
+              style="width: 40px; cursor: pointer;" src="{{user.photoURL}}" />
             <mat-menu #appMenu="matMenu" class="rounde-1 m-0">
 
-              <div class="d-lg-flex justify-content-lg-center">
-                <img class="img-fluid round rounded-circle" style="width: 40px;" src="{{users.photoURL}}" />
+              <div class="card-body d-flex justify-content-center">
+                <img class="img-fluid round rounded-circle" style="width: 50px;" src="{{user.photoURL}}" />
               </div>
 
-              <a mat-menu-item>
+              <a mat-menu-item routerLink="/account" style="font-family: 'Montserrat Alternates', sans-serif;">
                 <span class="fa fa-cog">
-                  Account
                 </span>
-               </a>
-               <a mat-menu-item (click)="sets()">
-                <span class="fa fa-refresh">
-                  load
+                Account
+              </a>
+
+              <a mat-menu-item style="font-family: 'Montserrat Alternates', sans-serif;">
+                <span class="fa fa-volume-control-phone">
                 </span>
-               </a>
-              <a mat-menu-item><span class="fa fa-sign-out "></span> Sign Out</a>
+                Contact Us
+              </a>
+              <a mat-menu-item (click)="authService.SignOut()"
+                style="font-family: 'Montserrat Alternates', sans-serif;">
+                <span class="fa fa-sign-out ">
+                </span> Sign Out
+              </a>
             </mat-menu>
           </div>
         </nav>
+
         <div class="container-fluid">
           <div class="row mb-3">
             <div class="col-lg-4">
@@ -141,6 +152,7 @@
             </div>
           </div>
 
+          <!-- Patients List Viewer -->
           <app-patients></app-patients>
 
         </div>
@@ -149,16 +161,15 @@
       <footer class="bg-white sticky-footer" *ngIf="authService.userDocor as user" style="margin-top: 42px;">
         <div class="container my-auto">
           <div class="text-center my-auto copyright">
-            <span>Copyright © Kodemen 2020</span>{{user.displayName}}
+            <span>Copyright © Kodemen 2020</span>
           </div>
-          <img class="circle" src="{{user.photoURL}}" height="100px" width="100px" alt="dd">
         </div>
       </footer>
     </div>
 
 
-    <!-- <a data-toggle="tooltip" class="border rounded-circle shadow d-in`line scroll-to-top pt-1" (click)="authService.SignOut()" title="Go to the top"><i class=" material-icons">keyboard_arrow_up</i></a> -->
-    <a class="border rounded-circle shadow d-inline scroll-to-top pt-1" (click)="sets()" title="cre"><i
+    <!-- <a data-toggle="tooltip" class="border rounded-circle shadow d-inline scroll-to-top pt-1" (click)="authService.SignOut()" title="Go to the top"><i class=" material-icons">keyboard_arrow_up</i></a> -->
+    <a class="border rounded-circle shadow d-inline scroll-to-top pt-1" href="#page-top" title="Go to the top"><i
         class=" material-icons">keyboard_arrow_up</i></a>
   </div>
 </body>

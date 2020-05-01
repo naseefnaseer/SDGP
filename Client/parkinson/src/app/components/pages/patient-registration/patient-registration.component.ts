@@ -22,6 +22,8 @@ export class PatientRegistrationComponent implements OnInit {
   isLoading = false;
   isSuccess = false;
 
+  response: any;
+
   constructor(
     public snackBar: MatSnackBar,
     public patientService: PatientService
@@ -31,8 +33,20 @@ export class PatientRegistrationComponent implements OnInit {
 
   // POST
   submitDetails(f: NgForm) {
+    if (
+      f.value.fName === '' ||
+      f.value.lName === '' ||
+      f.value.dob === '' ||
+      f.value.email === '' ||
+      this.gender === 'Not Specified' ||
+      f.value.phone === '' ||
+      f.value.phone.length() > 9 ||
+      f.value.address === ''
+    ) {
+      this.openSnackBar('Inalid Details', 'ok')
+    }
+
     // console.log(f.value);
-    console.log(this.gender);
     const patient: Patient = {
       pID: -1,
       firstName: f.value.fName,
@@ -45,51 +59,34 @@ export class PatientRegistrationComponent implements OnInit {
       address: f.value.address,
     };
 
+
     // console.log(patient);
     this.isLoading = true;
 
     this.patientService.sendPostRequest(patient).subscribe(
       (observer: HttpResponse<JSON>) => {
+        console.log(observer);
+
+        this.response = observer;
+
         this.isSuccess = true;
         this.isLoading = false;
         this.openSnackBar('Patient Added Successfully.', 'ok');
       },
-      (err: HttpErrorResponse) => {
+      (err: HttpResponse<JSON>) => {
         // error notifier
         this.isSuccess = false;
 
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
         console.log(err.status);
+        console.log(err.statusText);
+        console.log(err.headers);
         this.isLoading = false;
+
 
         this.openSnackBar('Patient creation Unsuccessful !', 'ok');
 
       }
     );
-  }
-
-  message(): Object {
-    if (this.isSuccess) {
-      return { display: 'block' };
-    } else {
-      return { display: 'none' };
-    }
-  }
-
-  form(): Object {
-    if (this.isSuccess) {
-      return { display: 'none' };
-    } else {
-      return { display: 'block' };
-    }
-  }
-
-  mailerror(): Object {
-    return this.isMatchMail
-      ? { visibility: 'hidden' }
-      : { visibility: 'visible' };
   }
 
   set selectGen(val: string) {

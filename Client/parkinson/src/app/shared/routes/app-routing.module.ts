@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from '../../components/pages/forgot-password/forgot-password.component';
 import { SignInComponent } from '../../components/pages/sign-in/sign-in.component';
+import { AccountManageComponent } from "../../components/pages/account-manage/account-manage.component";
 import { SignUpComponent } from '../../components/pages/sign-up/sign-up.component';
 import { VerifyEmailComponent } from '../../components/pages/verify-email/verify-email.component';
 import { PatientRegistrationComponent } from '../../components/pages/patient-registration/patient-registration.component';
@@ -31,12 +32,17 @@ const routes: Routes = [
   },
 
   {
-    path: '***',
+    path: '*',
     redirectTo: '/404'
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account',
+    component: AccountManageComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -80,7 +86,7 @@ const routes: Routes = [
     canActivate: [PreSignedGuard]
   },
   {
-    path: 'new-patient',
+    path: 'register-patient',
     component: PatientRegistrationComponent,
     canActivate: [AuthGuard]
   },

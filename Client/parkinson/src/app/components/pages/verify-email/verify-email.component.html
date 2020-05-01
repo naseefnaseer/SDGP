@@ -3,7 +3,7 @@
   <section class="clean-block clean-form dark">
     <div class="container ds">
 
-      <div class="block-heading" *ngIf="authService.userData as user">
+      <div class="block-heading" *ngIf="authService.userDocor as user">
 
         <h2 class="text-info"
           style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); margin-top:13px; ">
@@ -11,7 +11,7 @@
         </h2>
 
         <!-- Form -->
-        <form [formGroup] class="ds rounded" *ngIf="authService.userData as user">
+        <form [formGroup] class="ds rounded" *ngIf="authService.userDocor as user">
           <div class="form-group" style="margin-top:24px; font-size: larger;" [ngStyle]="isRegisted()">
             <p class="text-center">We have sent a confirmation email to <br> <strong
                 class=" text-info">{{user.email.toUpperCase()}}</strong>.</p>

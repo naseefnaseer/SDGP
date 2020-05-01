@@ -90,10 +90,10 @@ export class AuthService {
   async VerifyEmail(code: string): Promise<boolean> {
     await this.afAuth.auth
       .applyActionCode(code)
-      .then(function(_resp) {
+      .then(function (_resp) {
         return true;
       })
-      .catch(function(_error) {
+      .catch(function (_error) {
         return false;
       });
     return false;
@@ -148,7 +148,7 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      proPicURL: user.photoURL,
+      photoURL: user.photoURL,
       isEmailVerified: user.emailVerified
     };
     return userRef.set(userDocor, {
@@ -167,17 +167,21 @@ export class AuthService {
     firebase
       .auth()
       .confirmPasswordReset(code, newPassword)
-      .then(function() {
+      .then(function () {
         this.router.navigate("/");
       })
-      .catch(function(e) {
+      .catch(function (e) {
         this.openSnackBar(e.message, "OK");
       });
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3500
+  /**
+   * @param msg the message of the nasck bar
+   * @param btn button
+   */
+  openSnackBar(msg: string, btn: string) {
+    this._snackBar.open(msg, btn, {
+      duration: 2000
     });
   }
 }

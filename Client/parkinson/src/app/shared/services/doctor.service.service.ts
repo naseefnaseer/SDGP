@@ -6,10 +6,10 @@ import { FormGroup } from '@angular/forms';
 @Injectable({
   providedIn: 'root',
 })
-export class PatientService {
+export class DoctorService {
 
 
-  private url = 'http://localhost:4000/api';
+  private url = 'http://localhost:4000/api/';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -21,13 +21,6 @@ export class PatientService {
     );
   }
 
-  public upload(formData: FormGroup) {
-    return this.httpClient.post<any>('https://www.file.io/', formData, {
-      reportProgress: true,
-      observe: 'events',
-    });
-  }
-
   public analyseSample(formData: FormGroup): any {
 
     return this.httpClient.post<any>(
@@ -36,12 +29,4 @@ export class PatientService {
     );
 
   }
-
-  public getList() {
-    return this.httpClient.get<any>(
-      this.url + '/patients/list' // url
-      );
-  }
-
-
 }

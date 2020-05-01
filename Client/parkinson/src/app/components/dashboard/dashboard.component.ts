@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from "@angular/router";
+
 import { User } from '../../shared/services/user';
 
 
@@ -12,6 +13,7 @@ import { User } from '../../shared/services/user';
 export class DashboardComponent implements OnInit {
 
   users: User;
+  showAccount = false;
 
 
   constructor(
@@ -22,12 +24,12 @@ export class DashboardComponent implements OnInit {
     this.users = this.authService.userDocor;
     console.log(this.users);
 
-   }
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  sets(){
-    this.users = this.authService.userDocor;
+  accManage() {
+    this.showAccount = !this.showAccount;
   }
 
 }
