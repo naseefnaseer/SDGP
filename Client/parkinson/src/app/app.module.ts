@@ -18,6 +18,7 @@ import { NewPasswordComponent } from './components/pages/new-password/new-passwo
 import { SignInComponent } from '../app/components/pages/sign-in/sign-in.component';
 import { MatSelectModule } from '@angular/material/select';
 import { SignUpComponent } from '../app/components/pages/sign-up/sign-up.component';
+import {MatMenuModule} from '@angular/material/menu';
 import { VerifyEmailComponent } from './components/pages/verify-email/verify-email.component';
 
 // Firebase services + enviorment module
@@ -69,6 +70,7 @@ import { TestResultComponent } from './components/dashboard/test-result/test-res
     AngularFirestoreModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatMenuModule,
     MatSelectModule,
     BrowserModule,
     FormsModule,

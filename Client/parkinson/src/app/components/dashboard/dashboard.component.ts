@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../../shared/services/user';
 
 
 @Component({
@@ -10,17 +11,23 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  users: User;
+
+
   constructor(
     public authService: AuthService,
     public router: Router,
-    public ngZone: NgZone
-  ) { }
+    public ngZone: NgZone,
+  ) {
+    this.users = this.authService.userDocor;
+    console.log(this.users);
 
-  ngOnInit() {   }
+   }
 
-  get(){
-    console.log(this.authService.userDoctor);
+  ngOnInit() {}
+
+  sets(){
+    this.users = this.authService.userDocor;
   }
-
 
 }

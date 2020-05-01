@@ -570,3 +570,124 @@ a:hover {
 .border {
   border: 1px solid #e3e6f0!important;
 }
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item .nav-link:active {
+  color: #858796;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item .nav-link:hover {
+  color: #b7b9cc;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+  color: #d1d3e2;
+}
+
+.topbar .nav-item .nav-link:focus, .topbar .nav-item:focus {
+  outline: none;
+}
+
+.dropdown-toggle {
+  white-space: nowrap;
+}
+
+a {
+  color: #4e73df;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.d-none {
+  display: none!important;
+}
+
+@media (min-width:992px) {
+  .d-lg-inline {
+    display: inline!important;
+  }
+}
+
+.text-gray-600 {
+  color: #858796!important;
+}
+
+.rounded-circle {
+  border-radius: 50%!important;
+}
+
+img, svg {
+  vertical-align: middle;
+}
+
+img {
+  border-style: none;
+}
+
+.topbar .nav-item .nav-link {
+  height: 4.375rem;
+  display: flex;
+  align-items: center;
+  padding: 0 .75rem;
+}
+
+.sidebar .nav-item .nav-link, .topbar .nav-item .nav-link {
+  position: relative;
+}
+
+.sidebar .nav-item .nav-link, .topbar .nav-item .nav-link {
+  position: relative;
+}
+
+.topbar .nav-item .nav-link {
+  height: 4.375rem;
+  display: flex;
+  align-items: center;
+  padding: 0 .75rem;
+}
+
+.navbar-nav .nav-link {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.dropdown .dropdown-toggle {
+  position: relative;
+}
+
+.navbar-expand .navbar-nav .nav-link {
+  padding-right: .5rem;
+  padding-left: .5rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,.5);
+}
+
+.sidebar .nav-item .nav-link .img-profile, .topbar .nav-item .nav-link .img-profile {
+  height: 2rem;
+  width: 2rem;
+}
