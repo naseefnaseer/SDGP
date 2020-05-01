@@ -6,8 +6,8 @@ import pandas as pd
 # Importing the dataset
 trainDataset = pd.read_csv('Parkinsons Train Data.csv')
 testDataset = pd.read_csv('Parkinsons Test Data.csv')
+#sriLankanData = pd.read_csv('Sri Lankan Dataset unoptimized.csv')
 sriLankanData = pd.read_csv('Sri Lankan Dataset.csv')
-
 
 
 X = trainDataset.iloc[:, 1: 26].values #matrix of independent features
@@ -21,8 +21,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, rand
 
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler, MinMaxScaler 
+sc_processed = StandardScaler()
 sc = StandardScaler()
-mm = MinMaxScaler()
+#mm = MinMaxScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 X_SriLankan = sc.transform(X_SriLankan)
