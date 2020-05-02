@@ -28,10 +28,20 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 
 // Auth service
-import { AuthService } from "./shared/services/auth.service";
-import { EmailConrollerComponent } from "../app/components/email-conroller/email-conroller.component";
-import { FooterComponent } from './components/footer/footer.component';
-import { HomePageComponent } from './home-page/home-page.component';
+import { AuthService } from './shared/services/auth.service';
+import { EmailConrollerComponent } from './components/pages/email-conroller/email-conroller.component';
+import { FooterComponent } from './components/pages/footer/footer.component';
+import { MatTableModule } from '@angular/material/table';
+import { AudioUploadComponent } from './audio-upload/audio-upload.component';
+import { PatientRegistrationComponent } from './components/pages/patient-registration/patient-registration.component';
+import { SpeechTestComponent } from './components/dashboard/speech-test/speech-test.component';
+import { PatientsComponent } from './components/dashboard/patients/patients.component';
+import { PatientList } from './components/dashboard/patient-list/dialog.component';
+import { TestResultComponent } from './components/dashboard/test-result/test-result.component';
+import { MatPaginatorModule } from '@angular/material';
+import { AccountManageComponent } from './components/pages/account-manage/account-manage.component';
+import { RegisterResponseComponent } from './components/dashboard/new-patient-form/register-response/register-response.component';
+import { NewPatientFormComponent } from './components/dashboard/new-patient-form/new-patient-form.component';
 
 @NgModule({
   declarations: [
