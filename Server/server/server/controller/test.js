@@ -1,41 +1,56 @@
 var testService = require('../service/test');
-const axios = require('axios');
-const fs = require('fs');
-
+patientController = require('./patient')
 
 /**
  **_ Function to create the test.
  _**/
-exports.create = function (req, res, next) {
-
-    let uploadLocation = __dirname + '\\public\\uploads\\' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
-
-    fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
-    res.sendStatus(200); //send back that everything went ok
  
-    var pyRes;
+exports.create = function (req, res, next) {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+      }
 
+    req.files.p_audio.mv("/audio_recordings/" + req.files.p_audio.name,function(err){
+        if(err){ 
+            return res.status(500).send(err)
+        };
+        console.log("File Uploaded successfully");
+        // res.status(200).send({message: 'Upload Successful'});
+        
+    }); 
+ 
+    // var pyRes; 
+    
     /**
      * axios is a http client. Here it is used to send the location of the patient's audio file to the flask restAPI
      */
 
-    axios.post('http://localhost:5000/get_prediction', req.file)
-    .then((res) => {
-        pyRES = res.data
-    }).catch((err) => {
-        console.error(err);
-    });
+    // axios.post('http://localhost:5000/get_prediction', req.file) 
+    // .then((res) => {
+    //     pyRES = res.data
+    // }).catch((err) => {
+    //     console.error(err); 
+    // });
 
-    console.log(pyRes);
-    
-    var body = new Test(pyRes);
-    if (!body.doctorID || !body.patientID || !body.testResult   ) {
+    // console.log(pyRes);
+
+    var sbody = {
+        doctorID: 1,
+        patientID: 2,
+        testResult: true,
+        updrs: 23.45 
+    }
+
+
+    var body = new Test(sbody);
+    if (!body.doctorID || !body.patientID ) {
         res.status(400).send({message : "Required Details are missing"});
-        console.log(body);         
         return;
     }
     testService.createTest(body, function(error, response){
         if(response){
+            // id = body.patientID
+            // patientController.updateById()
             res.status(200).send(response);
         }
         else if (error){  
@@ -53,7 +68,7 @@ exports.find = function (req, res) {
     var params = req.params || {};
     var query = {
         _id: parseInt(params.testID)
-    };
+    }; 
     if (!query) {
         res.status(500).send({message: "Bad Request"});
         return;
@@ -63,13 +78,14 @@ exports.find = function (req, res) {
             res.status(404).send({message : error});
             return;
         }
-        if (response) {
+        if (response) {                  
             res.status(200).send(response);
             return;
         }
         if (!response) {
             res.status(204).send({message: "No Data Found"});
-        }
+            return;
+        } 
     });
 }
 
@@ -206,6 +222,7 @@ class Test {
         this.patientID = userData.patientID || '';
         this.doctorID = userData.doctorID || '';
         this.updrs = userData.updrs;
+        this.testDate = new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
     }
 }
 

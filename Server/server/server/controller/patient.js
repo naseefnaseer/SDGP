@@ -44,6 +44,8 @@ exports.find = function (req, res) {
             return;
         }
         if (response) {
+            console.log("Hello !!!!!!!");
+            
             res.status(200).send(response);
             return;
         }
@@ -146,10 +148,13 @@ exports.delete = function (req, res) {
     });
 }
 
+
+
 /**
  * Constructor for Patient to create a patient object
  *
  */
+
 
 class Patient {
     constructor(userData) {

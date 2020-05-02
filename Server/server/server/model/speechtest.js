@@ -17,7 +17,7 @@ var testSchema = new mongoose.Schema({
     updrs: {
         type: String,
         required: true,
-        default: '0'
+        default: ''
     },
     doctorID: {
         type: mongoose.Schema.Types.Mixed,
@@ -30,9 +30,9 @@ var testSchema = new mongoose.Schema({
         required: true
     },
     testDate: {
-        type : Date,
-        default: Date.now
-    },
+        type : String,
+        default: '-'
+    }
 });
 
 // Auto Incrementer for the speechTest id
@@ -42,4 +42,4 @@ testSchema.plugin(autoIncrement.plugin, 'SpeechTest');
 var test = new mongoose.model('Test', testSchema);
 
 module.exports = mongoose.model('SpeechTest', testSchema);
-   
+    

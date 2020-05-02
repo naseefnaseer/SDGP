@@ -8,7 +8,6 @@ var patient = require('../controller/patient');
  _**/
 router.post('/', patient.create);
 
-
 /**
  _ TO get the  registered patient using patientID
  _/
@@ -19,7 +18,7 @@ router.get('/patient/:patientID', patient.find);
  _ TO get all the registered patients
  _/
  */
-router.get('/patient', patient.findAll);
+router.get('/list', patient.findAll);
 
 
 /**
