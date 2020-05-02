@@ -20,7 +20,7 @@ export class NewPatientFormComponent implements OnInit {
   gender = 'Not Specified';
   isMatchMail = true;
   isLoading = false;
-  isSuccess = false;
+  isSuccess = true;
 
   response: any;
 
