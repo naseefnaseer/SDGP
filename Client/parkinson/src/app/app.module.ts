@@ -55,7 +55,16 @@ import { NewPatientFormComponent } from './components/dashboard/new-patient-form
     SignUpComponent,
     VerifyEmailComponent,
     FooterComponent,
-    HomePageComponent
+    HomePageComponent,
+    AudioUploadComponent,
+    PatientRegistrationComponent,
+    SpeechTestComponent,
+    PatientsComponent,
+    PatientList,
+    TestResultComponent,
+    AccountManageComponent,
+    RegisterResponseComponent,
+    NewPatientFormComponent,
   ],
   imports: [
     AngularFireAuthModule,
