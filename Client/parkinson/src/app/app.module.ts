@@ -39,7 +39,6 @@ import { EmailConrollerComponent } from './components/pages/email-conroller/emai
 import { FooterComponent } from './components/pages/footer/footer.component';
 import { MatTableModule } from '@angular/material/table';
 import { AudioUploadComponent } from './audio-upload/audio-upload.component';
-import { PatientRegistrationComponent } from './components/pages/patient-registration/patient-registration.component';
 import { SpeechTestComponent } from './components/dashboard/speech-test/speech-test.component';
 import { PatientsComponent } from './components/dashboard/patients/patients.component';
 import { PatientList } from './components/dashboard/patient-list/dialog.component';
@@ -63,7 +62,6 @@ import { NewPatientFormComponent } from './components/dashboard/new-patient-form
     VerifyEmailComponent,
     FooterComponent,
     AudioUploadComponent,
-    PatientRegistrationComponent,
     SpeechTestComponent,
     PatientsComponent,
     PatientList,

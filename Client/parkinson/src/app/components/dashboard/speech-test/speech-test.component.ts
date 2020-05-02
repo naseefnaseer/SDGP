@@ -39,7 +39,7 @@ export class SpeechTestComponent implements OnInit {
     private patientService: PatientService
   ) { }
   ngOnInit() {
-    this.newPatient()
+
     this.testForm = this.formBuilder.group({
       samples: [''],
       doctorID: [''],

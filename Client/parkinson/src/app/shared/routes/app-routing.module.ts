@@ -8,7 +8,6 @@ import { SignInComponent } from '../../components/pages/sign-in/sign-in.componen
 import { AccountManageComponent } from "../../components/pages/account-manage/account-manage.component";
 import { SignUpComponent } from '../../components/pages/sign-up/sign-up.component';
 import { VerifyEmailComponent } from '../../components/pages/verify-email/verify-email.component';
-import { PatientRegistrationComponent } from '../../components/pages/patient-registration/patient-registration.component';
 
 // Import canActivate guard services
 import { AuthGuard } from '../guard/auth.guard';
@@ -84,11 +83,6 @@ const routes: Routes = [
     path: 'email-controller',
     component: EmailConrollerComponent,
     canActivate: [PreSignedGuard]
-  },
-  {
-    path: 'register-patient',
-    component: PatientRegistrationComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: '404',

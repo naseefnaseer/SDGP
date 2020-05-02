@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientService {
+
+
 
 
   private url = 'http://localhost:4000/api';
@@ -40,7 +42,14 @@ export class PatientService {
   public getList() {
     return this.httpClient.get<any>(
       this.url + '/patients/list' // url
-      );
+    );
+  }
+
+
+  delete(id: number) {
+    let _id = { 'id': id };
+    // return this.httpClient.delete(this.url + '/delete',{ params: new HttpParams().set(_id))
+
   }
 
 

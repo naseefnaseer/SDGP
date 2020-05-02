@@ -4,10 +4,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
+import { map, filter, switchMap } from 'rxjs/operators';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserData } from './user';
 import { element } from 'protractor';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-patients',
@@ -15,6 +17,7 @@ import { element } from 'protractor';
   styleUrls: ['./patients.component.scss'],
 })
 export class PatientsComponent implements OnInit {
+
 
   columnHeader: string[] =
     ['id',
@@ -42,10 +45,27 @@ export class PatientsComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.isLoading = true;
-    this.patientService.getList().subscribe(
-      (response: HttpResponse<JSON>) => {
+    this.getPatientList();
+  }
 
-        const list = response.map(x => x);
+
+  ngOnInit() { }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  getPatientList() {
+    this.patientService.getList().subscribe(
+      (response: JSON) => {
+
+
+        const list = response.map((x) => x);
 
         // populate the data to the adapter
         this.dataSource = new MatTableDataSource(list);
@@ -67,22 +87,8 @@ export class PatientsComponent implements OnInit {
     );
   }
 
-
-  ngOnInit() {
-
-
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   refresh() {
+    this.getPatientList();
     const filterValue = '';
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -90,6 +96,11 @@ export class PatientsComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  deletePatient(p: number) {
+    this.patientService.delete(p);
+  }
+
 
   /**
    * @param msg the message of the nasck bar

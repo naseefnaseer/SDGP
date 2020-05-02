@@ -20,7 +20,7 @@ export class NewPatientFormComponent implements OnInit {
   gender = 'Not Specified';
   isMatchMail = true;
   isLoading = false;
-  isSuccess = true;
+  isSuccess = false;
 
   response: any;
 
@@ -35,24 +35,7 @@ export class NewPatientFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.patientService.analyseSample(this.data).subscribe(
-      (observer: HttpResponse<JSON>) => {
-        console.log(observer);
 
-        this.openSnackBar('Test carried out successful', 'ok');
-      },
-      (err: HttpErrorResponse) => {
-        // error notifier
-
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-
-        this.openSnackBar('Test Unsuccessful !', 'ok');
-
-      }
-    );
   }
 
 
