@@ -76,9 +76,7 @@ export class SpeechTestComponent implements OnInit {
           this.isSelected = false;
           // Snack bar
         }
-
       });
-
   }
 
 
@@ -112,7 +110,7 @@ export class SpeechTestComponent implements OnInit {
 
       this.openSnackBar("Proceeding the test", "OK");
 
-      const dialogRef = this.dialog.open(NewPatientFormComponent, { data: this.testForm });
+      const dialogRef = this.dialog.open(TestResultComponent, { data: this.testForm });
       dialogRef.disableClose = true;
 
     }

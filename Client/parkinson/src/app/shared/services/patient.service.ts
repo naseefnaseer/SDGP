@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root',
@@ -9,46 +10,55 @@ import { FormGroup } from '@angular/forms';
 export class PatientService {
 
 
-
-
-  private url = 'http://localhost:4000/api';
+  url = 'http://localhost:4000/api/patients';
 
   constructor(private httpClient: HttpClient) { }
 
   // post request
   public sendPostRequest(data: any): any {
     return this.httpClient.post<any>(
-      this.url + '/patients', // url
+      this.url + '/', // url
       data // patient details
     );
   }
 
-  public upload(formData: FormGroup) {
-    return this.httpClient.post<any>('https://www.file.io/', formData, {
-      reportProgress: true,
-      observe: 'events',
-    });
+  // post request
+  public sendEditChanges(data: any): any {
+    return this.httpClient.put<any>(
+      this.url + '/update/id', // url
+      data // patient details
+    );
   }
+
 
   public analyseSample(formData: FormGroup): any {
 
     return this.httpClient.post<any>(
-      this.url + '/patients', // url
+      this.url, // url
       formData // patient details
     );
-
   }
 
   public getList() {
     return this.httpClient.get<any>(
-      this.url + '/patients/list' // url
+      this.url + '/list' // url
     );
   }
 
 
-  delete(id: number) {
-    let _id = { 'id': id };
-    // return this.httpClient.delete(this.url + '/delete',{ params: new HttpParams().set(_id))
+  public delete(id: number) {
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        id
+      },
+    };
+    console.log(options);
+
+    return this.httpClient.delete(this.url + '/delete', options);
 
   }
 
