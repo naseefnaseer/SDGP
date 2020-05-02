@@ -1,3 +1,4 @@
+import { NewPatientFormComponent } from './../new-patient-form/new-patient-form.component';
 import { Component, OnInit } from "@angular/core";
 import { Patient } from "src/app/shared/services/Patient";
 import { MatDialog } from "@angular/material/dialog";
@@ -50,28 +51,9 @@ export class SpeechTestComponent implements OnInit {
 
 
   // Pop up dialog to select the patient from the list
-  showResult(): void {
-    const dialogRef = this.dialog.open(TestResultComponent);
+  newPatient(): void {
+    const dialogRef = this.dialog.open(NewPatientFormComponent);
     dialogRef.disableClose = true;
-    dialogRef.afterClosed().subscribe(
-      (result) => {
-
-        // console.log(result);
-
-        if (result !== undefined) {
-          // Select the patient
-          this.patient = result;
-          // Hide the selector
-          console.log(result);
-          this.isSelected = true;
-
-        } else {
-          this.isSelected = false;
-          // Snack bar
-        }
-
-      });
-
   }
 
   // Pop up dialog to select the patient from the list
@@ -121,36 +103,17 @@ export class SpeechTestComponent implements OnInit {
     this.lable = 'Click here to import the audio';
     this.isSelected = false;
     this.canProceed = false;
-
   }
 
 
 
   proceedTest() {
     if (this.canProceed) {
-      
+
       this.openSnackBar("Proceeding the test", "OK");
 
-      this.showResult();
-
-      this.patientService.analyseSample(this.testForm).subscribe(
-        (observer: HttpResponse<JSON>) => {
-          console.log(observer);
-
-          this.openSnackBar('Test carried out successful', 'ok');
-        },
-        (err: HttpErrorResponse) => {
-          // error notifier
-
-          console.log(err.error);
-          console.log(err.name);
-          console.log(err.message);
-          console.log(err.status);
-
-          this.openSnackBar('Test Unsuccessful !', 'ok');
-
-        }
-      );
+      const dialogRef = this.dialog.open(NewPatientFormComponent, { data: this.testForm });
+      dialogRef.disableClose = true;
 
     }
     else {

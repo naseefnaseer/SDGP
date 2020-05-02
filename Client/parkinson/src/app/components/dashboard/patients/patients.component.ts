@@ -16,17 +16,6 @@ import { element } from 'protractor';
 })
 export class PatientsComponent implements OnInit {
 
-
-  /** Constants used to fill up our data base. */
-  COLORS: string[] = [
-    'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-    'aqua', 'blue', 'navy', 'black', 'gray'
-  ];
-  NAMES: string[] = [
-    'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-    'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-  ];
-
   columnHeader: string[] =
     ['id',
       'firstName',
@@ -37,30 +26,38 @@ export class PatientsComponent implements OnInit {
       'address',
       'email',
       'phone',
-      'lastVisit'];
+      'lastVisit',
+      'manage'];
 
   dataSource: MatTableDataSource<Patient>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
+  isLoading: boolean;
+  isError: boolean;
+
   constructor(
     private patientService: PatientService,
     private snackBar: MatSnackBar
   ) {
+    this.isLoading = true;
     this.patientService.getList().subscribe(
       (response: HttpResponse<JSON>) => {
 
+        const list = response.map(x => x);
 
-        var list = response.map(x => x);
-
-        // Assign the data to the data source for the table to render
+        // populate the data to the adapter
         this.dataSource = new MatTableDataSource(list);
+
         this.openSnackBar('Patient Loaded Successfully.', 'ok');
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.isLoading = true;
+
       },
       (err: HttpResponse<Patient>) => {
+        this.isError = true;
         // error notifier
         console.log(err.status);
         console.log(err.statusText);
@@ -78,6 +75,15 @@ export class PatientsComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  refresh() {
+    const filterValue = '';
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {

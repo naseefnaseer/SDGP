@@ -46,7 +46,8 @@ import { PatientList } from './components/dashboard/patient-list/dialog.componen
 import { TestResultComponent } from './components/dashboard/test-result/test-result.component';
 import { MatPaginatorModule } from '@angular/material';
 import { AccountManageComponent } from './components/pages/account-manage/account-manage.component';
-import { RegisterResponseComponent } from './components/pages/patient-registration/register-response/register-response.component';
+import { RegisterResponseComponent } from './components/dashboard/new-patient-form/register-response/register-response.component';
+import { NewPatientFormComponent } from './components/dashboard/new-patient-form/new-patient-form.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { RegisterResponseComponent } from './components/pages/patient-registrati
     TestResultComponent,
     AccountManageComponent,
     RegisterResponseComponent,
+    NewPatientFormComponent,
   ],
   imports: [
     HttpClientModule,
@@ -90,7 +92,7 @@ import { RegisterResponseComponent } from './components/pages/patient-registrati
     MatProgressBarModule,
     ReactiveFormsModule
   ],
-  entryComponents: [PatientList, TestResultComponent],
+  entryComponents: [PatientList, TestResultComponent, NewPatientFormComponent],
   providers: [
     {
       provide: LocationStrategy,

@@ -9,9 +9,8 @@ table {
 
 .mat-header-cell {
   font-weight: bold;
-
 }
 
-.mat-cell{
-  border-left: 1px solid #e0e0e0;
+td {
+  text-overflow: inherit;
 }

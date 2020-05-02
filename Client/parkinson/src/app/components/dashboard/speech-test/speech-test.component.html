@@ -5,27 +5,26 @@
   <div class="card-body" style="
       padding-top: 10px;
       padding-bottom: 20px;
-      height: 220px;
+      height: auto;
     ">
     <form class="text-center">
       <div class="form-col text-center text-wrap">
 
-        <div class="col text-center border-info" style="padding: px;padding-top: 0px;margin-top: 4px;"><label
+        <div *ngIf="!isSelected" class="col text-center border-info" style="padding: px;padding-top: 0px;margin-top: 4px;"><label
             class="text-gray-900" for="email"><strong>Select patient</strong><br /></label>
           <h1 class="small font-weight-light" style="margin: 2;font-size: 16px;">Pick patient from the list below</h1>
 
-          <label data-toggle="tooltip"
-          routerLink="/register-patient"
-           class="text-nowrap text-center border rounded shadow-sm ml-1"
+          <label data-toggle="tooltip"  (click)="newPatient()"
+            class="text-nowrap text-center border rounded shadow-sm ml-1"
             style="width: auto;background-color:  #169b6b;cursor: pointer;color: rgb(255,255,255);padding: 11px;"
-            title="Pick a patient from list" ><i class="fa fa-address-card"></i>
+            title="Pick a patient from list"><i class="fa fa-address-card"></i>
 
             <strong>  New Patient</strong><br /></label>
           <label data-toggle="tooltip" class="text-nowrap text-center border rounded shadow-sm ml-1"
-          (click)="showList()"
+            (click)="showList()"
             style="width: 147px;background-color: #007bff; cursor: pointer; color: rgb(255,255,255);padding: 11px;"
-            title="Pick a patient from list" >
-            <i class="fa fa-user"></i><strong>   Pick </strong><br/></label>
+            title="Pick a patient from list">
+            <i class="fa fa-user"></i><strong> Pick </strong><br /></label>
         </div>
 
         <div *ngIf="isSelected" class="row text-center" style="padding: 5;">

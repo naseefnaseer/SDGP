@@ -31,11 +31,13 @@
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" class="form-control ds" id="password" #pass />
+          <input type="password" (keyup.enter)="SignIn(email.value,pass.value)" class="form-control ds" id="password"
+            #pass />
         </div>
 
         <div class="form-group">
-          <a  routerLink="/forgot-password" [queryParams]="{oobCode: null}" routerLinkActive="router-link-active" style="font-size:12px;">
+          <a routerLink="/forgot-password" [queryParams]="{oobCode: null}" routerLinkActive="router-link-active"
+            style="font-size:12px;">
             Forgot the password ? Reset.
           </a>
         </div>
