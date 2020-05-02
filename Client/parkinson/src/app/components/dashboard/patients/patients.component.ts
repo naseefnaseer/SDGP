@@ -1,32 +1,66 @@
+import { Patient } from './../../../shared/services/Patient';
 import { PatientService } from './../../../shared/services/patient.service';
-import { Component, OnInit } from "@angular/core";
-import { Patient } from "src/app/shared/services/Patient";
-import { DoctorService } from '../../../shared/services/doctor.service.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { UserData } from './user';
+import { element } from 'protractor';
 
 @Component({
-  selector: "app-patients",
-  templateUrl: "./patients.component.html",
-  styleUrls: ["./patients.component.scss"],
+  selector: 'app-patients',
+  templateUrl: './patients.component.html',
+  styleUrls: ['./patients.component.scss'],
 })
 export class PatientsComponent implements OnInit {
 
-  patients: any;
+
+  /** Constants used to fill up our data base. */
+  COLORS: string[] = [
+    'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
+    'aqua', 'blue', 'navy', 'black', 'gray'
+  ];
+  NAMES: string[] = [
+    'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
+    'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
+  ];
+
+  columnHeader: string[] =
+    ['id',
+      'firstName',
+      'lastName',
+      'gender',
+      'dob',
+      'age',
+      'address',
+      'email',
+      'phone',
+      'lastVisit'];
+
+  dataSource: MatTableDataSource<Patient>;
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
-    public patientService: PatientService,
+    private patientService: PatientService,
     private snackBar: MatSnackBar
-  ) {  }
-
-  ngOnInit(): void {
+  ) {
     this.patientService.getList().subscribe(
       (response: HttpResponse<JSON>) => {
-        this.patients = response;
-        console.log(this.patients);
+
+
+        var list = response.map(x => x);
+
+        // Assign the data to the data source for the table to render
+        this.dataSource = new MatTableDataSource(list);
         this.openSnackBar('Patient Loaded Successfully.', 'ok');
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-      (err: HttpResponse<JSON>) => {
+      (err: HttpResponse<Patient>) => {
         // error notifier
         console.log(err.status);
         console.log(err.statusText);
@@ -36,19 +70,30 @@ export class PatientsComponent implements OnInit {
     );
   }
 
-  OnInit() { }
 
-  editPatient() { }
+  ngOnInit() {
 
-  deletePatient() { }
+
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   /**
-     * @param msg the message of the nasck bar
-     * @param btn button
-     */
+   * @param msg the message of the nasck bar
+   * @param btn button
+   */
   openSnackBar(msg: string, btn: string) {
     this.snackBar.open(msg, btn, {
       duration: 2000
     });
+
   }
+
 }

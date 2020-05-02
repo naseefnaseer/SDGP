@@ -6,7 +6,7 @@ import {
   HttpResponseBase,
 } from '@angular/common/http';
 import { PatientService } from '../../../shared/services/patient.service';
-import { NgForm, FormsModule } from '@angular/forms';
+import { NgForm, FormsModule, FormGroup } from '@angular/forms';
 import { async } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -24,69 +24,77 @@ export class PatientRegistrationComponent implements OnInit {
 
   response: any;
 
+  f: FormGroup;
+
   constructor(
     public snackBar: MatSnackBar,
     public patientService: PatientService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
 
   // POST
   submitDetails(f: NgForm) {
+
     if (
       f.value.fName === '' ||
       f.value.lName === '' ||
       f.value.dob === '' ||
-      f.value.email === '' ||
       this.gender === 'Not Specified' ||
       f.value.phone === '' ||
-      f.value.phone.length() > 9 ||
+      f.value.phone.length < 9 ||
       f.value.address === ''
     ) {
       this.openSnackBar('Inalid Details', 'ok')
     }
+    else {
 
-    // console.log(f.value);
-    const patient: Patient = {
-      pID: -1,
-      firstName: f.value.fName,
-      lastName: f.value.lName,
-      dob: f.value.dob,
-      email: f.value.email,
-      age: '-',
-      gender: this.gender,
-      phone: f.value.phone,
-      address: f.value.address,
-    };
+      // console.log(f.value);
+      const patient: Patient = {
+        _id: -1,
+        firstName: f.value.fName,
+        lastName: f.value.lName,
+        dob: f.value.dob,
+        email: f.value.email.includes('@')
+          &&
+          f.value.email.includes('.') ? f.value.email : '-'
+        ,
+        age: '-',
+        gender: this.gender,
+        phone: f.value.phone,
+        address: f.value.address,
+      };
+
+      // console.log(patient);
+      this.isLoading = true;
+
+      this.patientService.sendPostRequest(patient).subscribe(
+        (observer: HttpResponse<JSON>) => {
+          console.log(observer);
+
+          this.response = observer;
+
+          this.isSuccess = true;
+          this.isLoading = false;
+          this.openSnackBar('Patient Added Successfully.', 'ok');
+        },
+        (err: HttpResponse<JSON>) => {
+          // error notifier
+          this.isSuccess = false;
+
+          console.log(err.status);
+          console.log(err.statusText);
+          console.log(err.headers);
+          this.isLoading = false;
 
 
-    // console.log(patient);
-    this.isLoading = true;
+          this.openSnackBar('Patient creation Unsuccessful !', 'ok');
 
-    this.patientService.sendPostRequest(patient).subscribe(
-      (observer: HttpResponse<JSON>) => {
-        console.log(observer);
-
-        this.response = observer;
-
-        this.isSuccess = true;
-        this.isLoading = false;
-        this.openSnackBar('Patient Added Successfully.', 'ok');
-      },
-      (err: HttpResponse<JSON>) => {
-        // error notifier
-        this.isSuccess = false;
-
-        console.log(err.status);
-        console.log(err.statusText);
-        console.log(err.headers);
-        this.isLoading = false;
-
-
-        this.openSnackBar('Patient creation Unsuccessful !', 'ok');
-
-      }
-    );
+        }
+      );
+    }
   }
 
   set selectGen(val: string) {
@@ -98,4 +106,6 @@ export class PatientRegistrationComponent implements OnInit {
       duration: 3500,
     });
   }
+
+
 }

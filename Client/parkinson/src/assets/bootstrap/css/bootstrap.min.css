@@ -33,7 +33,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Montserrat", sans-serif !important;
+  --font-family-sans-serif: "Montserrat", 'sans-Nunito', 'sans-serifserif' !important;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 *,
@@ -42,7 +42,7 @@
   box-sizing: border-box;
 }
 html {
-  font-family: 'Montserrat Alternates', sans-serif !important;
+  font-family: 'Montserrat','Nunito', sans-serif !important;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;

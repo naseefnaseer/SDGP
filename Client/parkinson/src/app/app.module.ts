@@ -18,7 +18,7 @@ import { NewPasswordComponent } from './components/pages/new-password/new-passwo
 import { SignInComponent } from '../app/components/pages/sign-in/sign-in.component';
 import { MatSelectModule } from '@angular/material/select';
 import { SignUpComponent } from '../app/components/pages/sign-up/sign-up.component';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { VerifyEmailComponent } from './components/pages/verify-email/verify-email.component';
 
 // Firebase services + enviorment module
@@ -37,13 +37,17 @@ import { environment } from '../environments/environment';
 import { AuthService } from './shared/services/auth.service';
 import { EmailConrollerComponent } from './components/pages/email-conroller/email-conroller.component';
 import { FooterComponent } from './components/pages/footer/footer.component';
+import { MatTableModule } from '@angular/material/table';
 import { AudioUploadComponent } from './audio-upload/audio-upload.component';
 import { PatientRegistrationComponent } from './components/pages/patient-registration/patient-registration.component';
 import { SpeechTestComponent } from './components/dashboard/speech-test/speech-test.component';
 import { PatientsComponent } from './components/dashboard/patients/patients.component';
 import { PatientList } from './components/dashboard/patient-list/dialog.component';
 import { TestResultComponent } from './components/dashboard/test-result/test-result.component';
+import { MatPaginatorModule } from '@angular/material';
 import { AccountManageComponent } from './components/pages/account-manage/account-manage.component';
+import { RegisterResponseComponent } from './components/pages/patient-registration/register-response/register-response.component';
+
 
 @NgModule({
   declarations: [
@@ -64,6 +68,7 @@ import { AccountManageComponent } from './components/pages/account-manage/accoun
     PatientList,
     TestResultComponent,
     AccountManageComponent,
+    RegisterResponseComponent,
   ],
   imports: [
     HttpClientModule,
@@ -73,10 +78,12 @@ import { AccountManageComponent } from './components/pages/account-manage/accoun
     AppRoutingModule,
     BrowserAnimationsModule,
     MatMenuModule,
+    MatPaginatorModule,
     MatSelectModule,
     BrowserModule,
     FormsModule,
     MatDialogModule,
+    MatTableModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
