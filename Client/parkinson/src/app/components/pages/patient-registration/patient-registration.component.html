@@ -1,0 +1,124 @@
+<title>Patient Registration</title>
+<main class="page ">
+  <section class="clean-block clean-form dark">
+
+    <div class="container ds">
+
+      <div class="block-heading" [hidden]="isSuccess">
+        <h2 class="text-info"
+          style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.3)); margin-top:13px; ">
+          <p class="ds">Add Patient</p>
+        </h2>
+        <p style="font-size:21px; ">
+          <span class="ds text-muted">Enter the detail of your patient, to register the patient.</span>
+        </p>
+      </div>
+
+
+
+      <form #f="ngForm" (ngSubmit)="submitDetails(f)" novalidate [hidden]="isSuccess">
+        <i class="text-danger small "> Required fields *</i>
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">
+            Name<span class="text-danger"> * </span>
+          </label>
+          <div class="row">
+            <div class="col-md-6">
+              <input required type="text" name="fName" ngModel placeholder="First" required #first="ngModel"
+                class="form-control " />
+            </div>
+
+            <div class="col-md-6">
+              <input required type="text" name="lName" ngModel placeholder="Last" class="form-control" /></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));" required>
+            Date of Birth <span class="text-danger"> * </span>
+          </label>
+          <div class="row">
+            <div class="col-md-6">
+              <input required type="date" class="form-control ds" ngModel name="dob" />
+            </div>
+
+            <div class="col-md-6">
+              <mat-select placeholder="Gender" class="form-control ds" [(value)]="gender">
+                <mat-option value="Male">Male</mat-option>
+                <mat-option value="Female">Female</mat-option>
+              </mat-select>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">Phone</label>
+          <span class="text-danger"> * </span>
+          <div>
+            <input required type="phone" placeholder="07x 000 0000" class="form-control ds" ngModel name="phone">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">
+            Address</label><span class="text-danger"> * </span>
+          <div>
+            <input required type="text" placeholder="No, Street, City .." class="form-control ds" ngModel
+              name="address" />
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">E-mail</label>
+          <div>
+            <input type="email" placeholder="Example@mail.com" class="form-control ds" ngModel name="email" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block ds" type="submit">
+          Register Patient
+        </button>
+        <p></p>
+        <mat-progress-bar mode="indeterminate" [hidden]="!isLoading">
+        </mat-progress-bar>
+        <div class="form-group text-center"
+          style="margin-top:16px; padding-bottom:-11px; font-size:14px; color:#3b99e0; font-family:Roboto, sans-serif; ">
+        </div>
+
+        <div class="form-group text-center" [hidden]="isSuccess"
+          style=" font-size:0px; color:#00b5d6; font-family:Roboto, sans-serif; ">
+          <a routerLink="/dashboard" class="text-center" style="font-size:14px; ">
+            Back to dashboard
+          </a>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="block-heading" [hidden]="!isSuccess">
+      <h2 class="text-info"
+        style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.3)); margin-top:13px; ">
+        <p class="ds">Patient added successful</p>
+      </h2>
+
+    </div>
+
+    <form action="" [formGroup] class="ds rounded" id="successMessage" [hidden]="!isSuccess">
+      <div class="form-group text-center"
+        style="margin-top:0px;padding-bottom:0;font-size:20px;color:#3b99e0;font-family:Roboto, sans-serif;">
+        <p class="ds " style="font-size: large;">
+          New Patient record has been created. This patients record will be visible only to you doctor. <br>
+        </p>
+      </div>
+      <app-register-response [patient]="response"></app-register-response>
+
+      <button class="btn btn-primary btn-block ds" type="button" routerLink="/dashboard">Dashboard</button>
+    </form>
+  </section>
+</main>

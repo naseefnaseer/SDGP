@@ -14,8 +14,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   providedIn: "root"
 })
 export class AuthService {
-  userData: any;
+
+  userDocor: any;
   // Save logged in user data
+
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -28,8 +30,8 @@ export class AuthService {
 
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        this.userData = user;
-        localStorage.setItem("user", JSON.stringify(this.userData));
+        this.userDocor = user;
+        localStorage.setItem("user", JSON.stringify(this.userDocor));
         JSON.parse(localStorage.getItem("user"));
       } else {
         localStorage.setItem("user", null);
@@ -39,14 +41,14 @@ export class AuthService {
   }
 
   // Sign in with email/password
-  async SignIn(email: string, password: string) {
+  async SignIn(email: string, password: string): Promise<boolean> {
     try {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(
         email,
         password
-        );
+      );
 
-        this.SetUserData(result.user);
+      this.SetUserData(result.user);
       this.ngZone.run(() => {
         this.router.navigate(["dashboard-g"]);
       });
@@ -54,10 +56,10 @@ export class AuthService {
         ? this.openSnackBar("Welcom Back", "OK")
         : this.SendVerificationMail();
 
-
       // return true;
     } catch (error) {
       window.alert(error.message);
+      return false;
 
       // return false;
     }
@@ -88,10 +90,10 @@ export class AuthService {
   async VerifyEmail(code: string): Promise<boolean> {
     await this.afAuth.auth
       .applyActionCode(code)
-      .then(function(_resp) {
+      .then(function (_resp) {
         return true;
       })
-      .catch(function(_error) {
+      .catch(function (_error) {
         return false;
       });
     return false;
@@ -142,14 +144,14 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
-    const userData: User = {
+    const userDocor: User = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      proPicURL: user.photoURL,
+      photoURL: user.photoURL,
       isEmailVerified: user.emailVerified
     };
-    return userRef.set(userData, {
+    return userRef.set(userDocor, {
       merge: true
     });
   }
@@ -165,17 +167,21 @@ export class AuthService {
     firebase
       .auth()
       .confirmPasswordReset(code, newPassword)
-      .then(function() {
+      .then(function () {
         this.router.navigate("/");
       })
-      .catch(function(e) {
+      .catch(function (e) {
         this.openSnackBar(e.message, "OK");
       });
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3500
+  /**
+   * @param msg the message of the nasck bar
+   * @param btn button
+   */
+  openSnackBar(msg: string, btn: string) {
+    this._snackBar.open(msg, btn, {
+      duration: 2000
     });
   }
 }

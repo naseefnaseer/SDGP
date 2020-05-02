@@ -38,7 +38,7 @@ $parkinson-theme: mat-light-theme($parkinson-primary, $parkinson-accent, $parkin
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$parkinson-primary: mat-palette($mat-light-green);
+$parkinson-primary: mat-palette($mat-blue);
 $parkinson-accent: mat-palette($mat-amber, A300, A400, A700);
 
 // The warn palette is optional (defaults to red).
@@ -91,8 +91,10 @@ body {
 }
 
 
-@import "../src/assets/bootstrap/css/bootstrap.min.css";
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
-@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css";
 
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+// @import "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css";
+
+@import "assets/bootstrap/css/bootstrap.min.css";
+@import "assets/bootstrap/css/dashboard.css";
 
