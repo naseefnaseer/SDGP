@@ -1,0 +1,70 @@
+<span class="form-control text-break mb-4 text-wrap text-center" style="font-family: Monteserat;">
+
+  <table class="table text-break my-0 border-rounded card-body mt-3 mb-3 border border-info" *ngIf="response as patient"
+    id="dataTable">
+
+    <tbody>
+      <tr class="text-wrap text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">Patient ID
+        </td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left " style="padding: 0;padding-left: 17px;height: 11px;width: 117px;">
+          {{patient._id}} </td>
+      </tr>
+      <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">First Name
+        </td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left " style="padding: 0;padding-left: 17px;height: 11px;width: 117px;">
+          {{patient.firstName}}</td>
+      </tr>
+      <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">Last Name</td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left " style="padding: 0;padding-left: 17px;height: 11px;width: 117px;">
+          {{patient.lastName}} </td>
+      </tr>
+      <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">Gender</td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left " style="padding: 0;padding-left: 17px;height: 11px;width: 117px;">
+          {{patient.gender}} </td>
+      </tr>
+      <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">D.O.B</td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left " style="padding: 0;padding-left: 17px;height: 11px;width: 117px;">
+          {{patient.dob}} </td>
+      </tr>
+      <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">Age</td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left " style="padding: 0;padding-left: 17px;height: 11px;width: 117px;">
+          {{patient.age}} </td>
+      </tr>
+      <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">Phone</td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left " style="padding: 0;padding-left: 17px;height: 11px;width: 117px;">
+          {{patient.phone}} </td>
+      </tr>
+      <tr class="text-wrap text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">Address</td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left text-break" style="padding: 0;padding-left: 17px;height: 11px;width: 60px;">
+          {{patient.address}} </td>
+      </tr>
+      <tr class="text-wrap text-break text-left shadow-none" style="font-size: 16px;">
+        <td class="text-left" style="padding: 0;padding-left: 15px;height: 11px;width: 1px;">E-Mail</td>
+        <td class="text-center" style="padding: 0;width: 10px;">:</td>
+        <td class="text-left text-break " style="padding: 0;padding-left: 17px;height: 11px;width: 117px;">
+          {{patient.email}} </td>
+      </tr>
+      <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;"></tr>
+      <tr class="text-nowrap text-left shadow-none" style="font-size: 16px;"></tr>
+      <tr class="text-nowrap text-left" style="font-size: 13px;"></tr>
+      <tr class="text-nowrap text-left" style="font-size: 13px;"></tr>
+    </tbody>
+
+  </table>
+</span>

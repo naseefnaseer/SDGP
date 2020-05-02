@@ -1,0 +1,105 @@
+<title>Sign Up</title>
+<main class="page login-page">
+  <section class="clean-block clean-form dark">
+
+    <div class="container ds">
+
+      <div class="block-heading">
+        <h2 class="text-info bg-gradient-primary ds"
+          style="font-size:42px; font-family:Montserrat, sans-serif; letter-spacing:4px; ">
+
+          <div>Welcome to
+            <i class="font-italic">Vocalson.</i></div>
+        </h2>
+        <p style="font-size:21px; ">
+          <span class="ds text-muted">Hello, Doctor. Les get started.</span>
+        </p>
+        <h2 class="text-info"
+          style="letter-spacing:-1px; filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.3)); margin-top:13px; ">
+          <p class="ds">Sign Up</p>
+        </h2>
+      </div>
+
+      <form [formGroup] class="ds rounded">
+        <div class="form-group text-center"
+          style="margin-top:-10px; padding-bottom:-11px; font-size:17px; color:#3b99e0; font-family:Roboto, sans-serif; ">
+          <p class="ds ">Enter a details.</p>
+        </div>
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">
+            Name
+          </label>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text" placeholder="First" class="form-control ds" #fname /></div>
+            <div class="col-md-6">
+              <input type="text" placeholder="Last" class="form-control ds" #lname /></div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">E-mail</label>
+          <div>
+            <input type="email" placeholder="example@example.com" class="form-control ds" #email />
+            <span style="font-size: smaller; color: red;" [ngStyle]="mailerror()">Invalid E-Mail address.</span>
+
+          </div>
+
+        </div>
+
+        <div class="form-group" style="margin-bottom:33px;margin-top:-18px;">
+          <label style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5)); ">
+            Password
+          </label>
+          <div class="row">
+            <div class="col-md-6">
+              <input #pass type="password" placeholder="New" class="form-control ds" #pass1 /></div>
+            <div class="col-md-6">
+              <input #passconf type="password" placeholder="Confirm" class="form-control ds" #pass2 />
+              <span style="font-size: smaller; color: red;" [ngStyle]="passerror()">Password did not match!</span></div>
+          </div>
+        </div>
+
+        <button (click)="signUpUser(email.value, fname.value,lname.value,pass1.value,pass2.value)" style="margin-top:-18px;"
+          class="btn btn-primary btn-block ds" type="button">
+          Register
+        </button>
+        <mat-progress-bar mode="indeterminate" [ngClass]="{'invisible': !isLoading,'visible':isLoading}">
+        </mat-progress-bar>
+        <div class="form-group text-center"
+          style="margin-top:16px; padding-bottom:-11px; font-size:14px; color:#3b99e0; font-family:Roboto, sans-serif; ">
+          <p class="ds font-weight-bold" style="margin-top:-10px;">- Or -</p>
+        </div>
+
+
+        <!-- Google authentification button -->
+
+        <div class="form-group text-center">
+          <button class="btn btn-primary btn-block ds p-lg-0" type="button" (click)="authService.GoogleAuth()">
+            <span>
+              <span class="fa fa-google" style="  font-size:1.6em; ">
+              </span>
+              <i style="font-size:1.6em;  margin: 2px; "> | </i>
+              Sign in with <b>Google</b>
+            </span>
+          </button>
+        </div>
+        <!-- Sign in nav button -->
+
+        <div class="form-group text-center"
+          style="margin-top:26px; padding-bottom:-11px; font-size:0px; color:#00b5d6; font-family:Roboto, sans-serif; ">
+          <a routerLink="/sign-in" class="text-center" style="  font-size:14px; ">
+            Already have an account?
+            <b style="  font-size:16px; ">
+              Sign In
+              <i class="fa fa-sign-in"></i>
+            </b>
+          </a>
+        </div>
+      </form>
+
+
+    </div>
+  </section>
+</main>

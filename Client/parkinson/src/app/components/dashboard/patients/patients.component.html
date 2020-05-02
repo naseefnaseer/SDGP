@@ -1,0 +1,110 @@
+<div class="card shadow">
+  <div data-toggle="tooltip" class="card-header py-3 border-left-primary" title="Patients Available">
+    <p class="m-0 font-weight-bold" style="color: #007bff;">Patients </p>
+  </div>
+
+  <div class="card-body " style="padding: 20px;padding-top: 10px;height: auto;">
+    <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+
+      <div class=" input-group">
+        <input (keyup)="applyFilter($event)" title="Search patients"
+          class="border-info border-left-primary  form-control border-info border-1" type="search" size="50"
+          placeholder="Search by : ID | Name | Address | Age | E-mail | Phone" />
+        <div class="input-group-append"><button (click)="refresh()" class="btn btn-primary icon-circle" type="reset"><i
+              class="fa fa-refresh"></i></button>
+        </div>
+      </div>
+    </form>
+
+
+
+    <div class="py-2 small">
+      <div class="shadow table" style="overflow: overlay;">
+        <table mat-table [dataSource]="dataSource" matSort  >
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th *matHeaderCellDef mat-sort-header class="text-nowrap"> P-ID </th>
+            <td *matCellDef="let row" class="text-nowrap"> {{row._id}} </td>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="firstName">
+            <th *matHeaderCellDef mat-sort-header class="text-nowrap"> First Name </th>
+            <td *matCellDef="let row" class="text-nowrap"> {{row.firstName}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="lastName">
+            <th *matHeaderCellDef mat-sort-header class="text-nowrap"> Last Name </th>
+            <td *matCellDef="let row" class="text-nowrap"> {{row.lastName}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="gender">
+            <th *matHeaderCellDef mat-sort-header class="text-nowrap"> Gender </th>
+            <td *matCellDef="let row" class="text-nowrap"> {{row.gender}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="dob">
+            <th *matHeaderCellDef mat-sort-header class="text-nowrap"> D.O.B </th>
+            <td *matCellDef="let row" class="text-nowrap"> {{row.dob}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="age">
+            <th *matHeaderCellDef mat-sort-header> Age </th>
+            <td *matCellDef="let row"> {{row.age}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="address">
+            <th *matHeaderCellDef mat-sort-header class="text-nowrap"> Address </th>
+            <td *matCellDef="let row"> {{row.address}} </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="email">
+            <th *matHeaderCellDef mat-sort-header class="text-nowrap"> E-Mail </th>
+            <td *matCellDef="let row"> {{row.email}} </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="phone">
+            <th *matHeaderCellDef mat-sort-header> Phone </th>
+            <td *matCellDef="let row" class="text-nowrap"> {{row.phone}} </td>
+          </ng-container>
+
+          <!-- Color Column -->
+          <ng-container matColumnDef="lastVisit">
+            <th *matHeaderCellDef mat-sort-header class="text-nowrap"> Last Visit </th>
+            <td *matCellDef="let row" class="text-nowrap"> {{row.lastVisit}} </td>
+          </ng-container>
+          <div class="col d-flex d-xl-flex justify-content-center justify-content-xl-center"><img
+              class="img-fluid bg-info shadow rounded-circle" style="width: 88px;margin: -11px;margin-bottom: 10px;"
+              src="default.png" /><span class="text-black-50 icon"></span></div>
+          <!-- Color Column -->
+          <ng-container matColumnDef="manage" stickyEnd>
+            <th *matHeaderCellDef mat-sort-header > Manage </th>
+            <td *matCellDef="let row" class="text-nowrap d-xl-flex justify-content-xl-center justify-content-center ">
+
+              <button mat-icon-button title="Edit">
+                <a class="fa fa-edit text-info" style="font-size: x-large;"> </a>
+              </button>
+
+              <button mat-icon-button title="Delete">
+                <a class="fa fa-trash-o text-danger" style="font-size: x-large;"> </a>
+
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnHeader"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnHeader;">
+          </tr>
+        </table>
+
+      </div>
+      <mat-paginator [pageSizeOptions]="[5,10,25,50, 100]"></mat-paginator>
+    </div>
+  </div>
+</div>
