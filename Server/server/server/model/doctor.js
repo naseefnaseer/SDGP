@@ -29,7 +29,8 @@ var doctorSchema = new mongoose.Schema({
     }
 });
 
-// Auto plugin used for the _id of the Doctor Colection
+// Auto Incrementer plugin for the Doctor _id
+
 doctorSchema.plugin(autoIncrement.plugin, 'Doctor');
 
 var doctor = new mongoose.model('Doctor', doctorSchema);

@@ -61,13 +61,9 @@ app.use(function(err, req, res, next) {
  */
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`)); 
 
 
 
 module.exports = app;
-<<<<<<< HEAD
   
-=======
- 
->>>>>>> f30426496d60660fa4626d3cd51b75a2015706e2

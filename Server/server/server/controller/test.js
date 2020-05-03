@@ -5,8 +5,6 @@ var axios = require('axios');
 
 
 
-
-
 /**
  **_ Function to create the test.
  _**/
@@ -27,24 +25,22 @@ exports.create = function (req, res, next) {
 
     var patientID = body.patientID;
 
-    var doctorID = body.doctorID;  
-
     updateData = {
         lastVisit: new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"})
     };
+
+    // Details that is required to sent to python restAPI
 
     reqML = {
         patientID: parseInt(patientID),
         timeStamp: updateData.lastVisit
     }
  
-    var testPred ={};
     /**
      * axios is a http client. Here it is used to send the location of the patient's audio file to the flask restAPI
      */
 
     
-    // async function getPredict(){
 
     axios.post('http://localhost:5000/predict', reqML) 
     .then(async (resp) => {
@@ -78,8 +74,6 @@ exports.create = function (req, res, next) {
     var newTest = new Test(body);
     testService.createTest(newTest, function(error, response){
         if(response){
-            // id = body.patientID
-            // patientController.updateById()
             res.status(200).send(response);
             return;
         }   
@@ -130,7 +124,7 @@ exports.find = function (req, res) {
 }
 
 /**
- _ Function to find all Tests done by a doctor from test collection using doctorID
+ _ Function to find all Tests done by a doctor from test collection using Doctor ID
  _/
  */
 exports.findAllByDoc = function (req, res) {
@@ -161,7 +155,7 @@ exports.findAllByDoc = function (req, res) {
 }
 
 /**
- _ Function to find all Tests done by a doctor from test collection using doctorID
+ _ Function to find all Tests done by a doctor from test collection using Patient ID
  _/
  */
 exports.findAllByPatient = function (req, res) {
@@ -215,7 +209,7 @@ exports.findAll = function (req, res) {
 
 
 /**
- **_ Function to update the test data  by the test ID.
+ **_ Function to update the test data  by the test ID. (Not used by the system)
  _**/
 exports.updateById = function (req, res) {
     var body = req.body;
@@ -264,7 +258,7 @@ exports.update = function (req, res) {
 
 /**
 /_*
- _ Function to delete the test from the collection
+ _ Function to delete the test from the collection using Test ID
  */
 
 exports.delete = function (req, res) {

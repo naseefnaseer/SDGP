@@ -15,7 +15,7 @@ mongoose.connect(URL, {
 
 var db = mongoose.connection;
 
-//Enabling the user
+//Enabling the DB connection
 db.on('error', () => {
     console.error('Error occured in db connection');
 });

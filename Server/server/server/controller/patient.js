@@ -3,7 +3,7 @@ var utilities = require('../service/utility');
 var mergeJSON = require("merge-json") ;
 
 /**
- **_ Function to create a patient in the collection.
+ **_ Function to create a patient in the patient collection.
  _**/
 exports.create = function (req, res, next) {
     
@@ -39,7 +39,7 @@ exports.create = function (req, res, next) {
 
  
 /**
- _ Function to find the registered patient from user collection using patient ID
+ _ Function to find the registered patient from patient collection using patient ID
  _/
  */
 exports.find = function (req, res) {
@@ -81,7 +81,7 @@ exports.find = function (req, res) {
 }
 
 /**
- _ Function to get all the registered patient documents
+ _ Function to get all the registered patient from patient collection
  */
 exports.findAll = function (req, res) {
     patientService.findAllPatient(async function (error, response) {
@@ -124,7 +124,7 @@ exports.findAll = function (req, res) {
 
 
 /**
- **_ Function to update the registered patient details using the patient id
+ **_ Function to update the registered patient details using the patient ID
  _**/
 exports.updateById = function (req, res) {
     var body = req.body;
@@ -148,7 +148,7 @@ exports.updateById = function (req, res) {
 }
 
 /**
- _ Function to update the registered patient details by filter condition. (Not used by th system)
+ _ Function to update the registered patient details by filter condition. (Not used by the system)
  _/
  */
 exports.update = function (req, res) {
@@ -172,7 +172,7 @@ exports.update = function (req, res) {
 
 /**
 /_*
- _ Function to delete the registered patient from collection.
+ _ Function to delete the registered patient from collection using Patient ID
  */
 
 exports.delete = function (req, res) {

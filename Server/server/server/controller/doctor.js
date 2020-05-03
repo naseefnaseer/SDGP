@@ -1,7 +1,5 @@
 var doctorService = require('../service/doctor');
 const Bcrypt = require("bcryptjs");
-var doctor = require('../model/doctor');
-
 
 
 /**
@@ -102,7 +100,7 @@ exports.findByEmail = function (req, res) {
 
 
 /**
- _ Function to validate the login 
+ _ Function to validate the login (Not used by the system)
  _/
  */
 
