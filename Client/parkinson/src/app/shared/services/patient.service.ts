@@ -56,7 +56,6 @@ export class PatientService {
         id
       },
     };
-    console.log(options);
 
     return this.httpClient.delete(this.url + '/delete', options);
 

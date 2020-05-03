@@ -44,7 +44,7 @@ export class EditPatientComponent implements OnInit {
   // POST
   submitDetails(f: NgForm) {
 
-    console.log(f.value);
+    // console.log(f.value);
 
     if (
       f.value.fName === '' ||
@@ -77,20 +77,20 @@ export class EditPatientComponent implements OnInit {
         }
       };
 
-      console.log(patient);
+      // console.log(patient);
 
       // console.log(patient);
       this.isLoading = true;
 
       this.patientService.sendEditChanges(patient).subscribe(
         (observer: HttpResponse<JSON>) => {
-          console.log(observer);
+          // console.log(observer);
 
           this.response = observer;
 
           this.isSuccess = true;
           this.isLoading = false;
-          this.notify.successSnack('Patient Added Successfully.');
+          this.notify.successSnack('Patient Edited Successfully.');
         },
         (err: HttpResponse<JSON>) => {
 
@@ -102,7 +102,7 @@ export class EditPatientComponent implements OnInit {
           console.log(err.headers);
           this.isLoading = false;
 
-          this.notify.errorSnack('Patient creation Unsuccessful !');
+          this.notify.errorSnack('Patient changes unsuccessful !');
 
         }
       );
@@ -118,7 +118,7 @@ export class EditPatientComponent implements OnInit {
     if (this.isSuccess) {
       this.dialogRef.close(true);
     } else {
-      this.close()
+      this.dialogRef.close();
     }
   }
 

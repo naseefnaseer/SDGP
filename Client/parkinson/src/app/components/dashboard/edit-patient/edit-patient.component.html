@@ -3,7 +3,7 @@
 
     <div class="block-heading">
       <h5 class="text-info text-center" [hidden]="isSuccess">Edit Patient Details</h5>
-      <h5 class="text-info text-center" [hidden]="!isSuccess">Patient Edited Successfully</h5>
+      <h5 class="text-info text-center" [hidden]="!isSuccess">Done</h5>
     </div>
     <hr>
     <form #f="ngForm" (ngSubmit)="submitDetails(f)" novalidate [hidden]="isSuccess">
@@ -88,7 +88,7 @@
     </form>
   </div>
 
-  <p class="text-center text-info" [hidden]="isSuccess">
+  <p class="text-center text-info" [hidden]="!isSuccess">
     Patient record has been edited succefully.
   </p>
 

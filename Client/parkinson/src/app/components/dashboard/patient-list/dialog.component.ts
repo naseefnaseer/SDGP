@@ -1,44 +1,41 @@
-import { Component, Inject } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Patient } from '../../../shared/services/Patient';
 import { PatientService } from '../../../shared/services/patient.service';
 import { HttpResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 @Component({
-  selector: "patient-list",
-  templateUrl: "./dialog.component.html",
-})
-export class PatientList {
 
-  list: Patient[];
-  patients: HttpResponse<JSON>;
+  // tslint:disable-next-line: component-selector
+  selector: 'patient-list',
+  templateUrl: './dialog.component.html',
+})
+export class PatientListComponent implements OnInit {
+
+  list: HttpResponse<JSON>;
 
   constructor(
-    public dialogRef: MatDialogRef<PatientList>,
+    public dialogRef: MatDialogRef<PatientListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Patient,
     private patientService: PatientService,
     private notify: NotificationService
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
     this.patientService.getList().subscribe(
       (response: HttpResponse<JSON>) => {
 
-        this.patients = response;
-        console.log(this.patients);
-        this.notify.successSnack('Patient Loaded Successfully.');
-
+        this.list = response;
       },
-      (err: HttpResponse<JSON>) => {
 
+      (err: HttpResponse<JSON>) => {
         // error notifier
         console.log(err.status);
         console.log(err.statusText);
         console.log(err.headers);
-        this.notify.errorSnack('Patient creation Unsuccessful !');
-
+        this.notify.errorSnack(`Server error code:${err.body} ! `);
       }
     );
   }

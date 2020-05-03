@@ -34,7 +34,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { environment } from '../environments/environment';
 
 // Auth service
-import { AccountManageComponent } from './components/pages/account-manage/account-manage.component';
 import { AudioUploadComponent } from './audio-upload/audio-upload.component';
 import { AuthService } from './shared/services/auth.service';
 import { ConfirmationComponent } from './shared/services/confirmation/confirmation';
@@ -45,7 +44,7 @@ import { MatPaginatorModule } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 import { NewPatientFormComponent } from './components/dashboard/new-patient-form/new-patient-form.component';
 import { NotificationService } from './shared/services/notification.service';
-import { PatientList } from './components/dashboard/patient-list/dialog.component';
+import { PatientListComponent } from './components/dashboard/patient-list/dialog.component';
 import { PatientsComponent } from './components/dashboard/patients/patients.component';
 import { RegisterResponseComponent } from './components/dashboard/new-patient-form/register-response/register-response.component';
 import { SpeechTestComponent } from './components/dashboard/speech-test/speech-test.component';
@@ -54,7 +53,6 @@ import { TestResultComponent } from './components/dashboard/test-result/test-res
 
 @NgModule({
   declarations: [
-    AccountManageComponent,
     AppComponent,
     AudioUploadComponent,
     ConfirmationComponent,
@@ -66,7 +64,7 @@ import { TestResultComponent } from './components/dashboard/test-result/test-res
     ForgotPasswordComponent,
     NewPasswordComponent,
     NewPatientFormComponent,
-    PatientList,
+    PatientListComponent,
     PatientsComponent,
     RegisterResponseComponent,
     SignInComponent,
@@ -99,7 +97,7 @@ import { TestResultComponent } from './components/dashboard/test-result/test-res
   entryComponents: [
     ConfirmationComponent,
     NewPatientFormComponent,
-    PatientList,
+    PatientListComponent,
     TestResultComponent,
     EditPatientComponent
   ],

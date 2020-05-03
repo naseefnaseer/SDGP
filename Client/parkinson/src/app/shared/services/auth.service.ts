@@ -1,3 +1,4 @@
+import { DoctorService } from './doctor.service.service';
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../services/user';
 import { auth } from 'firebase/app';
@@ -8,7 +9,6 @@ import {
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -23,6 +23,7 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
+    private doctorService: DoctorService,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     public notify: NotificationService
   ) {
@@ -67,17 +68,33 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  async SignUp(email: string, password: string) {
+  async SignUp(email: string, password: string, lName: string, fName: string) {
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(
         email,
         password
       );
+
+      const data = {
+        "firstName": fName,
+        "lastName": lName,
+        "email": email,
+        "password": password
+      }
+      console.log("async SignUp(" + data);
+      this.doctorService.sendPostRequest(data).subscribe(arg => console.log(arg));
+
+
       /* Call the SendVerificaitonMail() function when new user sign
       up and returns promise */
       this.SendVerificationMail();
       this.SetUserData(result.user);
+
+      this.notify.successSnack('Please check your e-mail for verification link');
+
     } catch (error) {
+      this.notify.errorSnack(error.message);
+
       window.alert(error.message);
     }
   }
@@ -109,6 +126,7 @@ export class AuthService {
       this.notify.infoSnack('Request sent successfull.!');
       return true;
     } catch (error) {
+
       this.notify.errorSnack(error.message);
       return false;
     }

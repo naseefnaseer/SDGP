@@ -1,18 +1,19 @@
-import { NewPatientFormComponent } from './../new-patient-form/new-patient-form.component';
-import { Component, OnInit } from "@angular/core";
-import { Patient } from "src/app/shared/services/Patient";
-import { MatDialog } from "@angular/material/dialog";
-import { PatientList } from "../patient-list/dialog.component";
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TestResultComponent } from '../test-result/test-result.component';
-import { PatientService } from '../../../shared/services/patient.service';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { AuthService } from './../../../shared/services/auth.service';
+import { DoctorService } from './../../../shared/services/doctor.service.service';
+import { NewPatientFormComponent } from './../new-patient-form/new-patient-form.component';
+import { Patient } from 'src/app/shared/services/Patient';
+import { PatientListComponent } from '../patient-list/dialog.component';
+import { TestResultComponent } from '../test-result/test-result.component';
 
 @Component({
-  selector: "app-speech-test",
-  templateUrl: "./speech-test.component.html",
-  styleUrls: ["./speech-test.component.scss"],
+  selector: 'app-speech-test',
+  templateUrl: './speech-test.component.html',
+  styleUrls: ['./speech-test.component.scss'],
 })
 export class SpeechTestComponent implements OnInit {
 
@@ -36,12 +37,13 @@ export class SpeechTestComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
-    private patientService: PatientService
+    private doctorService: DoctorService,
+    private authServices: AuthService
   ) { }
   ngOnInit() {
 
     this.testForm = this.formBuilder.group({
-      samples: [''],
+      auido: [''],
       doctorID: [''],
       patientID: ['']
 
@@ -58,7 +60,7 @@ export class SpeechTestComponent implements OnInit {
 
   // Pop up dialog to select the patient from the list
   showList(): void {
-    const dialogRef = this.dialog.open(PatientList);
+    const dialogRef = this.dialog.open(PatientListComponent);
 
     dialogRef.afterClosed().subscribe(
       (result) => {
@@ -84,10 +86,10 @@ export class SpeechTestComponent implements OnInit {
   getSample(samples: FileList) {
     if (samples.length !== 0) {
 
-      this.testForm.get('samples').setValue(samples);
+      this.testForm.get('auido').setValue(samples);
 
       // re setting the lable
-      this.lable = samples.length + " Sample(s) Attached";
+      this.lable = samples.length + 'Sample(s) Attached';
 
       // test can be proceeded
       this.canProceed = true;
@@ -108,14 +110,25 @@ export class SpeechTestComponent implements OnInit {
   proceedTest() {
     if (this.canProceed) {
 
-      this.openSnackBar("Proceeding the test", "OK");
+      // this.openSnackBar('Proceeding the test', 'OK');
 
-      const dialogRef = this.dialog.open(TestResultComponent, { data: this.testForm });
+      this.testForm.get('patientID').setValue(this.patient._id);
+
+      this.testForm.get('doctorID').setValue(
+        this.doctorService.getDoctorDetails(
+          this.authServices.userDocor.email
+        )
+      );
+
+      console.log(this.testForm);
+
+      const dialogRef = this.dialog.open(TestResultComponent);
       dialogRef.disableClose = true;
 
-    }
-    else {
-      this.openSnackBar("Please select the audio samples", "close");
+    } else {
+
+      this.openSnackBar('Please select the audio samples', 'close');
+
     }
   }
 

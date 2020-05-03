@@ -1,16 +1,15 @@
-import { Patient } from './../../../shared/services/Patient';
-import { PatientService } from './../../../shared/services/patient.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { NotificationService } from '../../../shared/services/notification.service';
-import { MatDialogRef, MatDialog } from '@angular/material';
-import { NewPatientFormComponent } from '../new-patient-form/new-patient-form.component';
-import { PatientList } from '../patient-list/dialog.component';
+
 import { ConfirmationComponent } from '../../../shared/services/confirmation/confirmation';
 import { EditPatientComponent } from '../edit-patient/edit-patient.component';
+import { NotificationService } from '../../../shared/services/notification.service';
+import { Patient } from './../../../shared/services/Patient';
+import { PatientService } from './../../../shared/services/patient.service';
 
 @Component({
   selector: 'app-patients',
@@ -67,9 +66,11 @@ export class PatientsComponent implements OnInit {
   }
 
   getPatientList() {
+
     this.patientService.getList().subscribe(
       (response: JSON) => {
 
+        // @ts-ignore
         const list = response.map((x: any) => x);
 
         // populate the data to the adapter
@@ -90,7 +91,7 @@ export class PatientsComponent implements OnInit {
         console.log(err.status);
         console.log(err.statusText);
         console.log(err.headers);
-        this.notify.errorSnack('Patient creation Unsuccessful !');
+        this.notify.errorSnack(`Server error code:${err.body} ! `);
       }
     );
   }
@@ -119,7 +120,7 @@ export class PatientsComponent implements OnInit {
               this.isModified = true;
               this.refresh();
             }, (error: HttpResponse<JSON>) => {
-              this.notify.errorSnack("Patient " + error.statusText + " | Deletion Unsuccessful!!!");
+              this.notify.errorSnack('Patient ' + error.statusText + ' | Deletion Unsuccessful!!!');
             }
           );
         }
@@ -141,7 +142,7 @@ export class PatientsComponent implements OnInit {
           this.isModified = true;
           this.refresh();
         } else {
-          this.notify.errorSnack("Session cancelled or error");
+          this.notify.infoSnack('Session closed');
         }
 
       }

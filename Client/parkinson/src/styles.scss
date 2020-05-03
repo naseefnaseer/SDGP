@@ -89,7 +89,13 @@ body {
   margin: 0;
   font-family: montserrat-medium, "Helvetica Neue", sans-serif;
 }
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
 
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
 
 
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
