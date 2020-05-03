@@ -133,6 +133,7 @@ def createAndSavePatientDataFile(id, timeStamp, prediction):
     writeFile = open("../patient_data/"+str(fileName) + '.' + str(prediction) + '.txt', 'w')
     writeFile.write(readFile.read())
     readFile.close()
+    writeFile.close()
 
 
 @app.route('/predict', methods=['POST'])
