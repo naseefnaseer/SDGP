@@ -1,6 +1,14 @@
+// Model used to do the CRUD operations
 var test = require('./../model/speechtest'); 
 
-// Create new doctor
+    /**
+     * Function to execute the create query to create the users.
+     * @param {*} data Test input data
+     * @param {*} callback callback function.
+     */
+
+
+// Create new Test
 exports.createTest = function (data, callback) {
     test.create(data).then((response) => {
         callback(null, response);

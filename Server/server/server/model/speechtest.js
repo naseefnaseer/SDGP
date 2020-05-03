@@ -35,7 +35,7 @@ var testSchema = new mongoose.Schema({
     }
 });
 
-// Auto Incrementer for the speechTest id
+// Auto Incrementer for the speechTest _id
 
 testSchema.plugin(autoIncrement.plugin, 'SpeechTest');
 

@@ -1,5 +1,12 @@
 // Model used to do the CRUD operations
 var doctor = require('./../model/doctor');
+
+    /**
+     * Function to execute the create query to create the users.
+     * @param {*} data Doctor input data
+     * @param {*} callback callback function.
+     */
+
  
 // Create new doctor
 exports.createDoctor = function (data, callback) {
@@ -10,18 +17,18 @@ exports.createDoctor = function (data, callback) {
     });
 };
 
-// Find doctor
+// Find Doctor
 exports.findDoctor = function (query, callback) {
     doctor.findOne(query, callback);
 }
 
-// Find doctor using email ID
+// Find Doctor using email ID
 exports.findDoctorUsingEmail = function (query, callback) {
     doctor.findOne(query, callback);
 }
 
 
-// Update doctor by ID
+// Update Doctor by ID
 exports.updateDoctorById = function (id, data, callback) {
     doctor.findByIdAndUpdate({
         _id: parseInt(id)
@@ -30,14 +37,14 @@ exports.updateDoctorById = function (id, data, callback) {
     });
 }
 
-// Update doctor by Querry
+// Update Doctor by Querry (Not used by the system)
 exports.updateDoctorByQuerry = function (query, data, options, callback) {
     doctor.findOneAndUpdate(query, data, options, (err, response) => {
         callback(err, response);
     });
 }
 
-// Delete doctor by Querry
+// Delete Doctor by Querry 
 exports.deleteDoctor = function (query, callback) {
     doctor.deleteOne(query, callback);
 }

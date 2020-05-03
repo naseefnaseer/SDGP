@@ -1,3 +1,4 @@
+// To get the age of the patient using DOB
 exports.getAge = async function (bDate) { 
     var dateString = bDate.split('-');
     var dob = new Date(parseInt(dateString[2]), dateString[1], dateString[0] )
@@ -11,3 +12,4 @@ exports.getAge = async function (bDate) {
     }
     return age;     
 }
+ 

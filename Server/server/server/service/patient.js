@@ -1,9 +1,10 @@
+// Model used to do the CRUD operations
 var patient = require('./../model/patient');
 
 
     /**
      * Function to execute the create query to create the users.
-     * @param {*} data user data
+     * @param {*} data Patient data
      * @param {*} callback callback function.
      */
  
