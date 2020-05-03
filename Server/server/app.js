@@ -7,12 +7,6 @@ var logger = require('morgan');
 var connection = require('./server/config/connection');
 var multer = require('multer');
 
-
-
-
-
-// var usersRouter = require('./routes/users');
-
 var patientsRouter = require('./server/routes/patient');
 var doctorsRouter = require('./server/routes/doctor');
 var testsRouter = require('./server/routes/test');
@@ -27,6 +21,7 @@ app.get('/', (req, res) =>{
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -62,8 +57,6 @@ app.use(function(err, req, res, next) {
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`)); 
-
-
 
 module.exports = app;
   
