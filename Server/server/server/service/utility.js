@@ -4,10 +4,9 @@ exports.getAge = async function (bDate) {
     var dob = new Date(parseInt(dateString[0]), dateString[1], dateString[2] )
     var newDate = new Date();
     var age = newDate.getFullYear() - dob.getFullYear();
-    var m = newDate.getUTCMonth() - dob.getUTCMonth();
-    var d = newDate.getDate() < dob.getDate();
+    var month = newDate.getUTCMonth() - dob.getUTCMonth();
     
-    if (m < 0 || (m === 0 && newDate.getDate() < dob.getDate())) {
+    if (month < 0 || (month === 0 && newDate.getDate() < dob.getDate())) {
         age--;
     }
     return age;     
