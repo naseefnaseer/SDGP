@@ -1,5 +1,4 @@
-"""
-Created on Fri May  1 17:39:24 2020
+"""Created on Fri May  1 17:39:24 2020
 @author: Rajeev Kodippily
 """
 from flask import Flask
@@ -13,11 +12,6 @@ import pandas as pd
 import numpy as np
 from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
-import keras
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.optimizers import Adam
-from sklearn.metrics import mean_squared_error
 import json
 
 app = Flask(__name__)
@@ -45,6 +39,13 @@ def getAttributesArray():
             if m == len(numbers) + 1:
                 break
     
+    #delete files in voice_data
+    '''
+    mydir = "../voice_data/"
+    filelist = [ f for f in os.listdir(mydir)]
+    for f in filelist:
+        os.remove(os.path.join(mydir, f))
+        '''
     return final_array
 
 
@@ -52,7 +53,7 @@ def getAttributesArray():
 #send results to server
 
 def getPredictions(array):
-     model = joblib.load('model_knn_24_features_only_vowel_training.pkl')
+     model = joblib.load('model_knn_24_features_only_vowel_training_mixed_data.pkl')
      predictions = 0
      probabilities = 0
      probabilities_list_1 = []
@@ -119,14 +120,30 @@ def getPredictions(array):
     
      return_probability = str(round(return_probability, 2))
      
-     return json.dumps({"prediction ":return_prediction, "probability":return_probability})
-    
+     return json.dumps({"prediction":return_prediction, "probability":return_probability})
+
+def createAndSavePatientDataFile(id, timeStamp, prediction):
+    fileName = str(id) + '.' + str(timeStamp)
+    fileName = fileName.replace('/', '_')
+    fileName = fileName.replace(':', '_')
+    fileName = fileName.replace(',', '.')
+    fileName = fileName.replace(' ', '')
+    print("filename ", fileName)
+    readFile = open("all_values.txt", "r")
+    writeFile = open("../patient_data/"+str(fileName) + '.' + str(prediction) + '.txt', 'w')
+    writeFile.write(readFile.read())
+    readFile.close()
+
 
 @app.route('/predict', methods=['POST'])
 def returnData():
      praat.extract() #extract the audio files
      array = getAttributesArray()   # extract the attributes
      jsonObject = getPredictions(array) #return prediction
+     data = request.get_json()
+     id = data['patientID']
+     timeStamp = data['timeStamp']
+     createAndSavePatientDataFile(id, timeStamp,  json.loads(jsonObject)['prediction'])
      return jsonObject
 
 if __name__ == '__main__':
