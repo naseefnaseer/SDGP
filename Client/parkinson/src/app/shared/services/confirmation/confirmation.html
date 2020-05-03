@@ -1,0 +1,22 @@
+<div class="block-heading">
+  <h5 class="text-info text-center">Confrimation</h5>
+</div>
+<div class="flex-column justify-content-lg-center align-items-lg-center text-center text-gray-400">
+
+  <hr>
+
+  <h6 class="text-center text-weight-bolder">Do you want to permenantly delete patient: <strong>{{name}}</strong> ? <br>
+    <i>This action cannot be undone.</i> </h6>
+
+  <div class="form-group text-center col">
+    <button mat-button color="primary" (click)="no()" class="m-3 btn text-weight-bold text-center border"
+      style="font-size:14px; ">
+      No
+    </button>
+    <span></span>
+    <button mat-button color="warn" (click)="yes()" class=" m-3 btn text-center text-weight-bold border"
+      style="font-size:14px; ">
+      Yes
+    </button>
+  </div>
+</div>

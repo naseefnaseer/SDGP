@@ -1,0 +1,100 @@
+<main class="page">
+  <div class="container ds">
+
+    <div class="block-heading">
+      <h5 class="text-info text-center" [hidden]="isSuccess">Edit Patient Details</h5>
+      <h5 class="text-info text-center" [hidden]="!isSuccess">Done</h5>
+    </div>
+    <hr>
+    <form #f="ngForm" (ngSubmit)="submitDetails(f)" novalidate [hidden]="isSuccess">
+      <i class="text-danger small "> Required fields *</i>
+      <div class="form-group">
+        <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">
+          Name<span class="text-danger"> * </span>
+        </label>
+        <div class="row">
+          <div class="col-md-6">
+            <input required type="text" [(ngModel)]="details.firstName" name="fName" ngModel placeholder="First"
+              required #first="ngModel" class="form-control " />
+          </div>
+
+          <div class="col-md-6">
+            <input required type="text" [(ngModel)]="details.lastName" name="lName" ngModel placeholder="Last"
+              class="form-control" /></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));" required>
+          Date of Birth <span class="text-danger"> * </span>
+        </label>
+        <div class="row">
+          <div class="col-md-6">
+            <input required type="date" [(ngModel)]="details.dob" class="form-control ds" ngModel name="dob" />
+          </div>
+
+          <div class="col-md-6">
+            <mat-select placeholder="Gender" class="form-control ds" [(value)]="gender">
+              <mat-option value="Male">Male</mat-option>
+              <mat-option value="Female">Female</mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">Phone</label>
+        <span class="text-danger"> * </span>
+        <div>
+          <input required type="phone" [(ngModel)]="details.phone" placeholder="07x 000 0000" class="form-control ds"
+            ngModel name="phone">
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">
+          Address</label><span class="text-danger"> * </span>
+        <div>
+          <input required type="text" [(ngModel)]="details.address" placeholder="No, Street, City .."
+            class="form-control ds" ngModel name="address" />
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">E-mail</label>
+        <div>
+          <input type="email" placeholder="Example@mail.com" [(ngModel)]="details.email" class="form-control ds" ngModel
+            name="email" />
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="text-nowrap text-center border rounded shadow-sm ml-1"
+          style="width: auto;background-color:  #169b6b;cursor: pointer;color: rgb(255,255,255);padding: 11px;"
+          title="Pick a patient from list">
+          <i class="fa fa-save"></i>
+          <strong> Save Edit</strong></button>
+      </div>
+
+      <p></p>
+      <mat-progress-bar mode="indeterminate" [hidden]="!isLoading">
+      </mat-progress-bar>
+      <div class="form-group text-center"
+        style="margin-top:16px; padding-bottom:-11px; font-size:14px; color:#3b99e0; font-family:Roboto, sans-serif; ">
+      </div>
+    </form>
+  </div>
+
+  <p class="text-center text-info" [hidden]="!isSuccess">
+    Patient record has been edited succefully.
+  </p>
+
+  <div class="form-group text-center">
+    <button mat-button color="warn" (click)="close()" class="text-center border" style="font-size:14px; ">
+      Close
+    </button>
+  </div>
+</main>
