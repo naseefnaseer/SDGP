@@ -1,0 +1,59 @@
+.header {
+	background-color: #fff;
+}
+
+.header .header-content {
+	padding-top: 8rem;
+	padding-bottom: 4rem;
+	text-align: center;
+}
+
+.header .text-container {
+	margin-bottom: 4rem;
+}
+
+.header h1 {
+	margin-bottom: 1.125rem;
+	font-size: 2.5rem;
+	line-height: 3.125rem;
+}
+
+.header .p-large {
+	margin-bottom: 1.875rem;
+}
+
+h1 {
+	color: #393939;
+	font: 700 3rem/3.5rem "Raleway", sans-serif;
+}
+
+h4 {
+	color: #393939;
+	font: 700 1.375rem/1.875rem "Raleway", sans-serif;
+}
+
+body, p {
+	color: #626262; 
+	font: 400 0.875rem/1.375rem "Raleway", sans-serif;
+}
+
+.p-large {
+	font: 400 1rem/1.5rem "Raleway", sans-serif;
+}
+.btn-solid-lg {
+	display: inline-block;
+	padding: 1.375rem 2.625rem 1.375rem 2.625rem;
+	border: 0.125rem solid #00bfd8;
+	border-radius: 2rem;
+	background-color: #00bfd8;
+	color: #fff;
+	font: 700 0.75rem/0 "Raleway", sans-serif;
+	text-decoration: none;
+	transition: all 0.2s;
+}
+
+.btn-solid-lg:hover {
+	background-color: transparent;
+	color: #00bfd8;
+	text-decoration: none;
+}
