@@ -7,17 +7,18 @@ import pandas as pd
 dataset = pd.read_csv('Train Data with UPDRS.csv')
 X = dataset.iloc[:, 1: 27].values #matrix of independent features
 y = dataset.iloc[:, 27].values #dependent variable
+y = y.reshape(y.shape[0], 1)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 12)
 
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler, MinMaxScaler #use min max scalar
 sc = StandardScaler()
 mm = MinMaxScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.transform(X_test) # need to call fit transfrom first to use transform
+X_train = mm.fit_transform(X_train)
+X_test = mm.transform(X_test) # need to call fit transfrom first to use transform
 
 
 # Importing the Keras libraries and packages
@@ -37,8 +38,9 @@ classifier.add(Dense(output_dim = 13, kernel_initializer='he_uniform', activatio
         #input_dim = no. of nodes in the input layer - this creates the input layer, only need this for the first hidden layer)
         
 # Adding the second hidden layer
-classifier.add(Dense(output_dim = 20, init = 'uniform', activation = 'relu'))
+classifier.add(Dense(output_dim = 13, init = 'uniform', activation = 'relu'))
 #classifier.add(Dense(output_dim = 5, init = 'uniform', activation = 'relu'))
+
 # Adding the output layer
 classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'linear')) #change the activation function to linear
 
@@ -49,7 +51,7 @@ classifier.compile("adam", loss="mse", metrics = ["mse"])
           #metrics = criteria used to evaluate the model
 
 # Fitting the ANN to the Training set
-classifier.fit(X_train, y_train, batch_size = 2, nb_epoch = 200)
+classifier.fit(X_train, y_train, batch_size = 3, nb_epoch = 200)
 #.fit(#X_train = matrix of features
       #y_train = dependent var
       #batch_size = no of observations per one weight update
@@ -72,7 +74,7 @@ pred_data = pd.read_csv('Parkinsons Test Data.csv', header=0)
 X_predTest = pred_data.iloc[:, :].values
 
 #scale using sc
-X_predTest = sc.transform(X_predTest)
+X_predTest = mm.transform(X_predTest)
 
 #predict the test set
 y_pred_test_set = classifier.predict(X_predTest)
