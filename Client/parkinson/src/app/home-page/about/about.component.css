@@ -1,0 +1,50 @@
+.cards-1 {
+	padding-top: 4rem;
+	padding-bottom: 1.625rem;
+    text-align: center;
+    background-color: #fff;
+}
+
+.cards-1 h2 {
+	margin-bottom: 1rem;
+}
+
+.cards-1 .card {
+	max-width: 21rem;
+	margin-right: auto;
+	margin-bottom: 4.5rem;
+	margin-left: auto;
+	padding: 3.25rem 2rem 2rem 2rem;
+	border: 1px solid #c4d8dc;
+	border-radius: 0.5rem;
+	background: transparent;
+}
+h2 {
+	color: #393939;
+	font: 700 2.25rem/2.75rem "Raleway", sans-serif;
+}
+
+.cards-1 .card {
+    display: inline-block;
+    max-width: 17.125rem;
+    vertical-align: top;
+}
+
+.cards-1 .col-lg-12 div.card:nth-child(3n+2) {
+    margin-right: 2rem;
+    margin-left: 2rem;
+}
+
+.cards-1 .card-title {
+	margin-bottom: 0.875rem;
+}
+
+.cards-1 .card-body {
+    padding: 0;
+}
+.p-heading {
+	margin-bottom: 3.875rem;
+}
+.p-large {
+	font: 400 1rem/1.5rem "Raleway", sans-serif;
+}
