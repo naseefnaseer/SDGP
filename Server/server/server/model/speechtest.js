@@ -14,7 +14,7 @@ var testSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    updrs: {
+    parkinsonProbability: {
         type: String,
         required: true,
         default: ''

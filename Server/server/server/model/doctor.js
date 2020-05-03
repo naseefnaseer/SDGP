@@ -8,12 +8,12 @@ autoIncrement.initialize(connection);
  */
 
 var doctorSchema = new mongoose.Schema({
-    doctorUserName: {
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    doctorPassword: {
+    password: {
         type: String,
         required: false,
         unique: false
@@ -26,9 +26,7 @@ var doctorSchema = new mongoose.Schema({
     lastName: {
         type: String,
         default: ''
-    },
-    address: String,
-    phone: String
+    }
 });
 
 // Auto plugin used for the _id of the Doctor Colection
@@ -36,4 +34,4 @@ doctorSchema.plugin(autoIncrement.plugin, 'Doctor');
 
 var doctor = new mongoose.model('Doctor', doctorSchema);
 
-module.exports = mongoose.model('Doctor', doctorSchema);
+module.exports = mongoose.model('Doctor', doctorSchema); 

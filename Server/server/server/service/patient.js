@@ -31,7 +31,7 @@ exports.findAllPatient = function (callback) {
 // Update patient by ID
 exports.updatePatientById = function (id, data, callback) {
     patient.findByIdAndUpdate({
-        patientID: id
+        _id: parseInt(id)
     }, data, (err, response) => {
         callback(err, response); 
     });
@@ -45,6 +45,6 @@ exports.updatePatientByQuerry = function (query, data, options, callback) {
 }
 
 // Delete doctor by Querry
-exports.deleteDoctor = function (query, callback) {
+exports.deletePatient = function (query, callback) {
     patient.deleteOne(query, callback);
 }

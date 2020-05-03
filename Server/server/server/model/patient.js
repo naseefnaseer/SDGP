@@ -22,8 +22,12 @@ var patientSchema = new mongoose.Schema({
     gender: String,
     dob: String,
     address: String, 
+    email: String,
     phone: String,
-    lastVisit: String
+    lastVisit: {
+        type: String,
+        default: '-'
+    }
 }); 
  
 

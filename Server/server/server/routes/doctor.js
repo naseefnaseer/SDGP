@@ -14,24 +14,29 @@ router.post('/', doctor.create);
 /**
  _ TO get the single user by their doctor id
  */
-router.get('/doctor/:doctorID', doctor.find);
+router.get('/doctor/id', doctor.find);
+
+/**
+ _ TO get the single user by their doctor id
+ */
+router.get('/doctor/email', doctor.findByEmail);
 
 
 /**
  _ TO get the single user by the doctor username 
- _/
+ _/ 
  */
-router.get('/doctor/:email/:pwd', doctor.login);
+router.get('/doctor/login', doctor.login);
 
 
 /**
  **_ To update user by doctor id
  _**/
-router.put('/updatebyid', doctor.updateById);
+router.put('/update/id', doctor.updateById);
 
 /**
  _ To update the user data by filter condition
- */
+ */ 
 router.put('/update', doctor.update);
 
 /**

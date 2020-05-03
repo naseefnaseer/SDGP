@@ -12,7 +12,7 @@ router.post('/', patient.create);
  _ TO get the  registered patient using patientID
  _/
  */
-router.get('/patient/:patientID', patient.find);
+router.get('/patient/id', patient.find);
 
 /**
  _ TO get all the registered patients
@@ -24,7 +24,7 @@ router.get('/list', patient.findAll);
 /**
  **_ To update the registered patient using id
  _**/
-router.put('/updatebyid', patient.updateById);
+router.put('/update/id', patient.updateById);
 
 /**
  _ To update the registered patient using querry

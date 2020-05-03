@@ -15,10 +15,16 @@ exports.findDoctor = function (query, callback) {
     doctor.findOne(query, callback);
 }
 
+// Find doctor using email ID
+exports.findDoctorUsingEmail = function (query, callback) {
+    doctor.findOne(query, callback);
+}
+
+
 // Update doctor by ID
 exports.updateDoctorById = function (id, data, callback) {
     doctor.findByIdAndUpdate({
-        doctorID: id
+        _id: parseInt(id)
     }, data, (err, response) => {
         callback(err, response);
     });
