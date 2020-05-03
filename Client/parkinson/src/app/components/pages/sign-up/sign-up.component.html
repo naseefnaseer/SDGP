@@ -42,7 +42,7 @@
           <label class="shadow-none" style="filter:drop-shadow(0px 1px 1px rgba(157,157,157,0.5));">E-mail</label>
           <div>
             <input type="email" placeholder="example@example.com" class="form-control ds" #email />
-            <span style="font-size: smaller; color: red;" [ngStyle]="mailerror()">Invalid E-Mail address.</span>
+            <span style="font-size: smaller; color: red;" [hidden]="isMatchMail">Invalid E-Mail address.</span>
 
           </div>
 
@@ -54,9 +54,9 @@
           </label>
           <div class="row">
             <div class="col-md-6">
-              <input #pass type="password" placeholder="New" class="form-control ds" #pass1 /></div>
+              <input #pass type="password" placeholder="New" class="form-control ds" #pass1 required/></div>
             <div class="col-md-6">
-              <input #passconf type="password" placeholder="Confirm" class="form-control ds" #pass2 />
+              <input #passconf type="password" placeholder="Confirm" class="form-control ds" #pass2  required/>
               <span style="font-size: smaller; color: red;" [ngStyle]="passerror()">Password did not match!</span></div>
           </div>
         </div>
@@ -65,8 +65,10 @@
           class="btn btn-primary btn-block ds" type="button">
           Register
         </button>
-        <mat-progress-bar mode="indeterminate" [ngClass]="{'invisible': !isLoading,'visible':isLoading}">
+
+        <mat-progress-bar mode="indeterminate" [hidden]="!isLoading">
         </mat-progress-bar>
+
         <div class="form-group text-center"
           style="margin-top:16px; padding-bottom:-11px; font-size:14px; color:#3b99e0; font-family:Roboto, sans-serif; ">
           <p class="ds font-weight-bold" style="margin-top:-10px;">- Or -</p>

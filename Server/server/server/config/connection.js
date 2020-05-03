@@ -5,8 +5,6 @@ var URL = process.env.URL || 'mongodb://localhost/Parkinsons';
 
 mongoose.set('useCreateIndex', true);
 
-// Make Mongoose use `findOneAndUpdate()`. Note that this option is `true`
-// by default, you need to set it to false.
 mongoose.set('useFindAndModify', false);
 
 //Connection establishment
@@ -17,7 +15,7 @@ mongoose.connect(URL, {
 
 var db = mongoose.connection;
 
-//We enebled the Listener
+//Enabling the DB connection
 db.on('error', () => {
     console.error('Error occured in db connection');
 });

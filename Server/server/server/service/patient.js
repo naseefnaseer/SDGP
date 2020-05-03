@@ -1,9 +1,10 @@
+// Model used to do the CRUD operations
 var patient = require('./../model/patient');
 
 
     /**
      * Function to execute the create query to create the users.
-     * @param {*} data user data
+     * @param {*} data Patient data
      * @param {*} callback callback function.
      */
  
@@ -31,7 +32,7 @@ exports.findAllPatient = function (callback) {
 // Update patient by ID
 exports.updatePatientById = function (id, data, callback) {
     patient.findByIdAndUpdate({
-        patientID: id
+        _id: parseInt(id)
     }, data, (err, response) => {
         callback(err, response); 
     });
@@ -45,6 +46,6 @@ exports.updatePatientByQuerry = function (query, data, options, callback) {
 }
 
 // Delete doctor by Querry
-exports.deleteDoctor = function (query, callback) {
+exports.deletePatient = function (query, callback) {
     patient.deleteOne(query, callback);
 }

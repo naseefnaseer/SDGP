@@ -5,10 +5,11 @@ import {
   HttpResponse,
   HttpResponseBase,
 } from '@angular/common/http';
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PatientService } from '../../../shared/services/patient.service';
 import { NgForm, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-patient-registration',
@@ -20,7 +21,7 @@ export class NewPatientFormComponent implements OnInit {
   gender = 'Not Specified';
   isMatchMail = true;
   isLoading = false;
-  isSuccess = true;
+  isSuccess = false;
 
   response: any;
 
@@ -29,30 +30,13 @@ export class NewPatientFormComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<NewPatientFormComponent>,
-    public snackBar: MatSnackBar,
+    public notify: NotificationService,
     public patientService: PatientService,
     @Inject(MAT_DIALOG_DATA) public data: FormGroup
   ) { }
 
   ngOnInit() {
-    this.patientService.analyseSample(this.data).subscribe(
-      (observer: HttpResponse<JSON>) => {
-        console.log(observer);
 
-        this.openSnackBar('Test carried out successful', 'ok');
-      },
-      (err: HttpErrorResponse) => {
-        // error notifier
-
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-
-        this.openSnackBar('Test Unsuccessful !', 'ok');
-
-      }
-    );
   }
 
 
@@ -70,10 +54,9 @@ export class NewPatientFormComponent implements OnInit {
       f.value.address === ''
     ) {
       if (!this.isClosed) {
-        this.openSnackBar('Inalid Details', 'ok')
+        this.notify.errorSnack('Inalid Details');
       }
-    }
-    else {
+    } else {
 
       // console.log(f.value);
       const patient: Patient = {
@@ -102,7 +85,7 @@ export class NewPatientFormComponent implements OnInit {
 
           this.isSuccess = true;
           this.isLoading = false;
-          this.openSnackBar('Patient Added Successfully.', 'ok');
+          this.notify.successSnack('Patient Added Successfully.');
         },
         (err: HttpResponse<JSON>) => {
           // error notifier
@@ -114,7 +97,7 @@ export class NewPatientFormComponent implements OnInit {
           this.isLoading = false;
 
 
-          this.openSnackBar('Patient creation Unsuccessful !', 'ok');
+          this.notify.errorSnack('Patient creation Unsuccessful !');
 
         }
       );
@@ -132,16 +115,6 @@ export class NewPatientFormComponent implements OnInit {
 
   select(p: Patient) {
     this.dialogRef.close(p);
-  }
-
-  /**
-    * @param msg the message of the nasck bar
-    * @param btn button
-    */
-  openSnackBar(msg: string, btn: string) {
-    this.snackBar.open(msg, btn, {
-      duration: 2000
-    });
   }
 
 }

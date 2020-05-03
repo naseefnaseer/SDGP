@@ -1,7 +1,5 @@
 var doctorService = require('../service/doctor');
 const Bcrypt = require("bcryptjs");
-var doctor = require('../model/doctor');
-
 
 
 /**
@@ -9,34 +7,33 @@ var doctor = require('../model/doctor');
  _**/
 exports.create = function (req, res, next) {    
 
-    
-
     var body = new Doctor(req.body);
-    if (!body.firstName || !body.lastName || !body.phone || !body.doctorUserName || !body.doctorPassword) {
+
+    if (!body.firstName || !body.lastName || !body.email || !body.password) {
         res.status(400).send({message: "Required details are missing"});
         return;
     }
-    body.doctorPassword = Bcrypt.hashSync(req.body.doctorPassword, 10);
+    body.password = Bcrypt.hashSync(req.body.password, 10);
     doctorService.createDoctor(body, function(error, response){
         if(response){
             res.status(200).send(response)
         }
         else if (error){
-            if (error.code == 11000){
-                console.log(error);
-                
-                res.status(400).send({
+            if (error.code == 11000){  
+                console.log(error.message);
+                             
+                res.status(202).send({
                     message: "User name is already used"
                 });
             }
             else{ 
-                res.status(400).send({message: error});
+                res.status(202).send({message: error});
             }
     
         }
 
     });
-    
+     
 }
 
 
@@ -45,15 +42,19 @@ exports.create = function (req, res, next) {
  _/
  */
 exports.find = function (req, res) {
-    var params = req.params || {};
-    var query = {
-        doctorID: params.doctorID
-    };
-    if (!query) {
+    var body = req.body || {};
+
+    if (!body.id) {
         res.status(400).send({message: "Bad Request"});
         return;
     }
+    
+    var query = {
+        _id: parseInt(body.id)
+    };
     doctorService.findDoctor(query, function (error, response) {
+        console.log(query);
+        
         if (error) {
             res.status(404).send({message: error});
             return;
@@ -63,13 +64,43 @@ exports.find = function (req, res) {
             return;
         }
         if (!response) {
-            res.status(204).send({message: "Doctor not found"});
+            res.status(202).send({message: "Doctor not found"});
         }
     });
 }
 
 /**
- _ Function to validate the login 
+ _ Function to find user from doctor collection using email ID
+ _/
+ */
+exports.findByEmail = function (req, res) {
+    var query = req.body;
+    
+    if (!query || !query.email) {
+        res.status(400).send({message: "Bad Request"});
+        return;
+    }
+    doctorService.findDoctor(query, function (error, response) {
+        console.log(query);
+        
+        if (error) {
+            res.status(404).send({message: error});
+            return;
+        }
+        if (response) {
+            res.status(200).send(response);
+            return;
+        }
+        if (!response) {
+            res.status(202).send({message: "Doctor not found"});
+            return;
+        }
+    });
+}
+
+
+/**
+ _ Function to validate the login (Not used by the system)
  _/
  */
 
@@ -98,7 +129,7 @@ exports.login = function (req, res) {
             return;
         }
         if (!response) {
-            res.status(204).send({message: "No User Found"});
+            res.status(202).send({message: "No User Found"});
         }
     });
 }
@@ -115,10 +146,16 @@ exports.updateById = function (req, res) {
         res.status(400).send({message: "Doctor ID is missing"});
         return;
     }
+    if (!body.data) {
+        res.status(400).send({message: "Update data is missing"});
+        return;
+    }
+
     var updateData = body.data || {}
+    
     doctorService.updateDoctorById(body.id, updateData, (err, response) => {
         if (response) {
-            res.status(200).send(response);
+            res.status(200).send({message : "Details are updated successfully"});
         } else if (err) {
             res.status(400).send({message: err});
         }
@@ -126,7 +163,7 @@ exports.updateById = function (req, res) {
 }
 
 /**
- _ Function to update the doctor details using filter condition.
+ _ Function to update the doctor details using filter condition. (Not used by the system)
  _/
  */
 exports.update = function (req, res) {
@@ -155,12 +192,14 @@ exports.update = function (req, res) {
 
 exports.delete = function (req, res) {
     var body = req.body || {};
-
-    var query = body.query;
-    if (!query) {
+    if (!body.id) {
         res.status(400).send({message: "Bad Request"});
         return;
     }
+    query = {
+        _id: parseInt(body.id)
+    }
+
     doctorService.deleteDoctor(query, function (error, response) {
         if (error) {
             res.status(400).send(error);
@@ -168,10 +207,10 @@ exports.delete = function (req, res) {
         }
         if (response) {            
             if (response.n === 1 && response.ok === 1) {
-                res.status(202).send(response);
+                res.status(200).send({message: "Successfully deleted"});
             }
             if (response.n === 0 && response.ok === 1) {
-                res.status(204).send({
+                res.status(202).send({
                     message: 'No data found'
                 });
             }
@@ -188,10 +227,8 @@ class Doctor {
     constructor(userData) {
         this.firstName = userData.firstName || '';
         this.lastName = userData.lastName || '';
-        this.doctorUserName = userData.doctorUserName || '';
-        this.doctorPassword = userData.doctorPassword || '';
-        this.address = userData.address || '';
-        this.phone = userData.phone || '';
+        this.email = userData.email || '';
+        this.password = userData.password || '';
     }
 }
 

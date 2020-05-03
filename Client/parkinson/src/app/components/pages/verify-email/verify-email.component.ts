@@ -22,7 +22,7 @@ export class VerifyEmailComponent implements OnInit {
   ) {
     this.code = this.activatedRoute.snapshot.paramMap.get("oobCode");
 
-    if (this.code !== "null") {
+    if (this.code != "null") {
       this.isVerified = true;
       if (this.authService.VerifyEmail(this.code)) {
         this.title = "Verification Successful";

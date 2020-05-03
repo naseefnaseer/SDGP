@@ -22,12 +22,16 @@ var patientSchema = new mongoose.Schema({
     gender: String,
     dob: String,
     address: String, 
+    email: String,
     phone: String,
-    lastVisit: String
+    lastVisit: {
+        type: String,
+        default: '-'
+    }
 }); 
  
 
-// Auto Incrementer for the speechTest id
+// Auto Incrementer plugin for the Patient _id
 
 patientSchema.plugin(autoIncrement.plugin, 'Patient');
 

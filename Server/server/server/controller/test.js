@@ -1,62 +1,93 @@
 var testService = require('../service/test');
-patientController = require('./patient')
+var patientService = require('../service/patient');
+var utilities = require('../service/utility');
+var axios = require('axios');
+
+
 
 /**
  **_ Function to create the test.
  _**/
  
 exports.create = function (req, res, next) {
-    if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
-      }
 
-    req.files.p_audio.mv("/audio_recordings/" + req.files.p_audio.name,function(err){
-        if(err){ 
-            return res.status(500).send(err)
-        };
-        console.log("File Uploaded successfully");
-        // res.status(200).send({message: 'Upload Successful'});
-        
-    }); 
- 
-    // var pyRes; 
-    
-    /**
-     * axios is a http client. Here it is used to send the location of the patient's audio file to the flask restAPI
-     */
+    var body = req.body || {};
 
-    // axios.post('http://localhost:5000/get_prediction', req.file) 
-    // .then((res) => {
-    //     pyRES = res.data
-    // }).catch((err) => {
-    //     console.error(err); 
-    // });
-
-    // console.log(pyRes);
-
-    var sbody = {
-        doctorID: 1,
-        patientID: 2,
-        testResult: true,
-        updrs: 23.45 
+    if (!req.files) {
+        res.status(400).send({message: 'No files were uploaded.'});
+        return ;
     }
 
-
-    var body = new Test(sbody);
     if (!body.doctorID || !body.patientID ) {
         res.status(400).send({message : "Required Details are missing"});
         return;
     }
-    testService.createTest(body, function(error, response){
-        if(response){
-            // id = body.patientID
-            // patientController.updateById()
-            res.status(200).send(response);
+
+    var patientID = body.patientID;
+
+    updateData = {
+        lastVisit: new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"})
+    };
+
+    // Details that is required to sent to python restAPI
+
+    reqML = {
+        patientID: parseInt(patientID),
+        timeStamp: updateData.lastVisit
+    }
+ 
+    /**
+     * axios is a http client. Here it is used to send the location of the patient's audio file to the flask restAPI
+     */
+
+    
+
+    axios.post('http://localhost:5000/predict', reqML) 
+    .then(async (resp) => {
+        
+        body.testResult = resp.data.prediction;
+        body.predictionProbability = resp.data.probability;
+
+
+
+        if(parseInt(resp.data.prediction) === 1 ){
+            body.testResult = true;
         }
-        else if (error){  
-            res.status(400).send({message: error});
+        else if(parseInt(resp.data.prediction) === 0){
+            body.testResult = false;
+        }
+
+        body.parkinsonProbability = resp.data.probability;
+        
+    
+    patientService.updatePatientById(patientID, updateData, (err, response) => {
+        if (response) {
+            console.log("Last Vist Changed");            
+        } else if (err) {
+            console.log("Last Visit unchanged");
+            
         }
     });
+
+    
+
+    var newTest = new Test(body);
+    testService.createTest(newTest, function(error, response){
+        if(response){
+            res.status(200).send(response);
+            return;
+        }   
+        else if (error){  
+            res.status(400).send({message: error}); 
+            return; 
+        }
+    });
+
+}).catch((err) => {
+    console.log(err);
+    return err;
+});
+
     
 }
 
@@ -65,14 +96,17 @@ exports.create = function (req, res, next) {
  _/
  */
 exports.find = function (req, res) {
-    var params = req.params || {};
-    var query = {
-        _id: parseInt(params.testID)
-    }; 
-    if (!query) {
-        res.status(500).send({message: "Bad Request"});
+    var body = req.body || {};
+
+    if (!body.id) {
+        res.status(400).send({message: "Bad Request"});
         return;
     }
+    
+    var query = {
+        _id: parseInt(body.id)
+    };
+
     testService.findTest(query, function (error, response) {
         if (error) {
             res.status(404).send({message : error});
@@ -83,25 +117,28 @@ exports.find = function (req, res) {
             return;
         }
         if (!response) {
-            res.status(204).send({message: "No Data Found"});
+            res.status(202).send({message: "No Data Found"});
             return;
         } 
     });
 }
 
 /**
- _ Function to find all Tests done by a doctor from test collection using doctorID
+ _ Function to find all Tests done by a doctor from test collection using Doctor ID
  _/
  */
 exports.findAllByDoc = function (req, res) {
-    var params = req.params || {};
-    var query = {
-        doctorID: parseInt(params.doctorID)
-    };
-    if (!query) {
-        res.status(500).send({message: "Bad Request"});
+    var body = req.body || {};
+
+    if (!body.id) {
+        res.status(400).send({message: "Bad Request"});
         return;
     }
+    
+    var query = {
+        doctorID: parseInt(body.id)
+    };
+
     testService.findAllTestByDoc(query, function (error, response) {
         if (error) {
             res.status(404).send({message : error});
@@ -112,13 +149,44 @@ exports.findAllByDoc = function (req, res) {
             return;
         }
         if (!response) {
-            res.status(204).send({message: "No Data Found"});
+            res.status(202).send({message: "No Data Found"});
         }
     });
 }
 
 /**
- _ Function to find all Tests by doc from test collection.
+ _ Function to find all Tests done by a doctor from test collection using Patient ID
+ _/
+ */
+exports.findAllByPatient = function (req, res) {
+    var body = req.body || {};
+
+    if (!body.id) {
+        res.status(400).send({message: "Bad Request"});
+        return;
+    }
+    
+    var query = {
+        patientID: parseInt(body.id)
+    };
+    testService.findAllTestByDoc(query, function (error, response) {
+        if (error) {
+            res.status(404).send({message : error});
+            return;
+        }
+        if (response) {
+            res.status(200).send(response);
+            return;
+        }
+        if (!response) {
+            res.status(202).send({message: "No Data Found"});
+        }
+    });
+}
+
+
+/**
+ _ Function to find all Tests from test collection.
  _/
  */
 exports.findAll = function (req, res) {
@@ -126,7 +194,7 @@ exports.findAll = function (req, res) {
     testService.findAllTest(function (error, response) {
         if (error) {
             res.status(404).send({message : error});
-            return;
+            return; 
         }
         if (response) {
             res.status(200).send(response);
@@ -141,7 +209,7 @@ exports.findAll = function (req, res) {
 
 
 /**
- **_ Function to update the test data  by the test ID.
+ **_ Function to update the test data  by the test ID. (Not used by the system)
  _**/
 exports.updateById = function (req, res) {
     var body = req.body;
@@ -150,7 +218,12 @@ exports.updateById = function (req, res) {
         res.status(400).send({message: "Test ID is missing"});
         return;
     }
+    if (!body.data) {
+        res.status(400).send({message: "Update data is missing"});
+        return;
+    }
     var updateData = body.data || {}
+
     testService.updateTestById(body.id, updateData, (err, response) => {
         if (response) {
             res.status(200).send(response);
@@ -161,7 +234,7 @@ exports.updateById = function (req, res) {
 }
 
 /**
- _ Function to update the test data by filter condition.
+ _ Function to update the test data by filter condition. (Not used by the system)
  _/
  */
 exports.update = function (req, res) {
@@ -185,15 +258,17 @@ exports.update = function (req, res) {
 
 /**
 /_*
- _ Function to delete the test from the collection
+ _ Function to delete the test from the collection using Test ID
  */
 
 exports.delete = function (req, res) {
     var body = req.body || {};
-    var query = body.query;
-    if (!query) {
+    if (!body.id) {
         res.status(400).send({message: "Bad Request"});
         return;
+    }
+    query = {
+        _id: parseInt(body.id)
     }
     testService.deleteTest(query, function (error, response) {
         if (error) {
@@ -202,11 +277,11 @@ exports.delete = function (req, res) {
         }
         if (response) {
             if (response.n === 1 && response.ok === 1) {
-                res.status(202).send(response);
+                res.status(200).send({message: "Patient successfully deleted"});
             }
             if (response.n === 0 && response.ok === 1) {
-                res.status(204).send({
-                    message: 'No data found'
+                res.status(202).send({
+                    message: 'Patient not found'
                 });
             }
         }
@@ -221,7 +296,7 @@ class Test {
         this.testResult = userData.testResult;
         this.patientID = userData.patientID || '';
         this.doctorID = userData.doctorID || '';
-        this.updrs = userData.updrs;
+        this.parkinsonProbability = userData.parkinsonProbability;
         this.testDate = new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
     }
 }

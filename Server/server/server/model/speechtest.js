@@ -14,7 +14,7 @@ var testSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    updrs: {
+    parkinsonProbability: {
         type: String,
         required: true,
         default: ''
@@ -35,7 +35,7 @@ var testSchema = new mongoose.Schema({
     }
 });
 
-// Auto Incrementer for the speechTest id
+// Auto Incrementer for the speechTest _id
 
 testSchema.plugin(autoIncrement.plugin, 'SpeechTest');
 

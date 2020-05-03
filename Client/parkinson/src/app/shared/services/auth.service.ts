@@ -1,17 +1,18 @@
-import { Injectable, NgZone } from "@angular/core";
-import { User } from "../services/user";
-import { auth } from "firebase/app";
-import { AngularFireAuth } from "@angular/fire/auth";
+import { DoctorService } from './doctor.service.service';
+import { Injectable, NgZone } from '@angular/core';
+import { User } from '../services/user';
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from "@angular/fire/firestore";
-import { Router } from "@angular/router";
-import * as firebase from "firebase";
-import { MatSnackBar } from "@angular/material/snack-bar";
+} from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import * as firebase from 'firebase';
+import { NotificationService } from './notification.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthService {
 
@@ -22,8 +23,9 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
+    private doctorService: DoctorService,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    public _snackBar: MatSnackBar
+    public notify: NotificationService
   ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
@@ -31,11 +33,11 @@ export class AuthService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userDocor = user;
-        localStorage.setItem("user", JSON.stringify(this.userDocor));
-        JSON.parse(localStorage.getItem("user"));
+        localStorage.setItem('user', JSON.stringify(this.userDocor));
+        JSON.parse(localStorage.getItem('user'));
       } else {
-        localStorage.setItem("user", null);
-        JSON.parse(localStorage.getItem("user"));
+        localStorage.setItem('user', null);
+        JSON.parse(localStorage.getItem('user'));
       }
     });
   }
@@ -50,10 +52,10 @@ export class AuthService {
 
       this.SetUserData(result.user);
       this.ngZone.run(() => {
-        this.router.navigate(["dashboard-g"]);
+        this.router.navigate(['dashboard-g']);
       });
       result.user.emailVerified
-        ? this.openSnackBar("Welcom Back", "OK")
+        ? this.notify.infoSnack('Welcom Back')
         : this.SendVerificationMail();
 
       // return true;
@@ -66,17 +68,33 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  async SignUp(email: string, password: string) {
+  async SignUp(email: string, password: string, lName: string, fName: string) {
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(
         email,
         password
       );
+
+      const data = {
+        "firstName": fName,
+        "lastName": lName,
+        "email": email,
+        "password": password
+      }
+      console.log("async SignUp(" + data);
+      this.doctorService.sendPostRequest(data).subscribe(arg => console.log(arg));
+
+
       /* Call the SendVerificaitonMail() function when new user sign
       up and returns promise */
       this.SendVerificationMail();
       this.SetUserData(result.user);
+
+      this.notify.successSnack('Please check your e-mail for verification link');
+
     } catch (error) {
+      this.notify.errorSnack(error.message);
+
       window.alert(error.message);
     }
   }
@@ -84,16 +102,18 @@ export class AuthService {
   // Send email verfificaiton when new user sign up
   async SendVerificationMail() {
     await this.afAuth.auth.currentUser.sendEmailVerification();
-    this.router.navigate(["verify-email-address", "null"]);
+    this.router.navigate(['verify-email-address', 'null']);
   }
 
   async VerifyEmail(code: string): Promise<boolean> {
     await this.afAuth.auth
       .applyActionCode(code)
-      .then(function (_resp) {
+      .then((resp) => {
+        this.notify.successSnack('Verification successful E-Mail');
         return true;
       })
-      .catch(function (_error) {
+      .catch((error) => {
+        this.notify.errorSnack(error.message);
         return false;
       });
     return false;
@@ -103,17 +123,18 @@ export class AuthService {
   async ForgotPassword(passwordResetEmail: string): Promise<boolean> {
     try {
       await this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
-      this.openSnackBar("Request sent successfull.! ", "");
+      this.notify.infoSnack('Request sent successfull.!');
       return true;
     } catch (error) {
-      this.openSnackBar(error.message, error.action);
+
+      this.notify.errorSnack(error.message);
       return false;
     }
   }
 
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem('user'));
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
@@ -129,8 +150,8 @@ export class AuthService {
       this.SetUserData(result.user);
 
       this.ngZone.run(async () => {
-        this.openSnackBar("Welcome", "");
-        await this.router.navigate(["dashboard-g"]);
+        this.notify.infoSnack('Welcome');
+        await this.router.navigate(['dashboard-g']);
       });
     } catch (error) {
       window.alert(error);
@@ -159,29 +180,21 @@ export class AuthService {
   // Sign out
   async SignOut() {
     await this.afAuth.auth.signOut();
-    localStorage.removeItem("user");
-    this.router.navigate(["sign-in"]);
+    localStorage.removeItem('user');
+    this.router.navigate(['sign-in']);
   }
 
   SetNewPassword(code: string, newPassword: string) {
     firebase
       .auth()
       .confirmPasswordReset(code, newPassword)
-      .then(function () {
-        this.router.navigate("/");
+      .then(() => {
+        this.router.navigate(['/']);
+        return;
       })
-      .catch(function (e) {
-        this.openSnackBar(e.message, "OK");
+      .catch((e) => {
+        this.notify.errorSnack(e.message);
       });
   }
 
-  /**
-   * @param msg the message of the nasck bar
-   * @param btn button
-   */
-  openSnackBar(msg: string, btn: string) {
-    this._snackBar.open(msg, btn, {
-      duration: 2000
-    });
-  }
 }
