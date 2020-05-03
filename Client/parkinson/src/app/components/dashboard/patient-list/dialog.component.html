@@ -1,0 +1,47 @@
+<head>
+    <style>
+        .dialog-row :hover {
+            background-color: #00b7ff;
+            cursor: pointer;
+            font-weight: 600;
+            color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+
+
+<div mat-dialog-content align="center">
+    <h1 class="small font-weight-light" style="margin: 2;font-size: 16px;">
+        Pick patient from the list below
+    </h1>
+    <hr>
+    <table class="table dataTable shadow" id="dataTable">
+        <thead class="shadow-sm text-nowrap active">
+            <tr class="text-left text-gray-700" style="font-size: 14px;">
+                <th class="text-nowrap text-center text-gray-700" style="width: 67px;">P-ID</th>
+                <th class="text-left">First Name</th>
+                <th class="text-left">Last Name</th>
+                <th class="text-center" style="width: 75px;">Gender</th>
+                <th class="text-center" style="width: 66px;">Age</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of patients" class="dialog-row">
+
+            <tr class="text-nowrap text-left active list-group-item-action "
+            cdkFocusInitial style="font-size: 13px;" (click)="select(item)">
+
+                <td class="text-center"> {{item._id}} </td>
+                <td class="text-nowrap text-left" style="width: 91px;"> {{item.firstName}} </td>
+                <td class="text-nowrap" style="width: 91px;"> {{item.lastName}} </td>
+                <td class="text-nowrap text-center" style="width: 77px;"> {{item.gender}} </td>
+                <td class="text-nowrap text-center" style="width: 52px;" mat-dialog-close>{{item.age}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div mat-dialog-actions align="center" style="margin-bottom:2px;">
+    <button mat-stroked-button enable (click)="close()" color="warn">Close</button>
+</div>
+
+<!-- <tr [mat-dialog-close]="data.animal" cdkFocusInitial class="text-nowrap text-left" style="font-size: 13px;"> -->

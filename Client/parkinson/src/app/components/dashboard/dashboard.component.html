@@ -1,60 +1,175 @@
-<!-- Top navigation -->
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/register-student">
-    <img class="brand-logo" src="assets/logo-positronx-white.svg" alt="positronX.io Logo">
-    <span class="dasboard-text">Dashboard
-    </span>
-  </a>
-</nav>
-<!-- Sidebar navigation -->
-<div class="row">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <title>Dashboard </title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" />
+</head>
 
-  <div class="container-fluid">
-    <nav class="col-md-2 d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active">
-              <i class="fas fa-user"></i>User Profile
-            </a>
-          </li>
-          <!-- Calling SignOut() Api from AuthService -->
-          <li class="nav-item">
-            <a class="nav-link" (click)="authService.SignOut()">
-              <i class="fas fa-sign-out-alt"></i>Log out
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+<body id="page-top">
+  <div id="wrapper">
+    <div class="d-flex flex-column" id="content-wrapper">
+      <div id="content">
 
-    <!-- Main content -->
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="inner-adjust">
+        <nav *ngIf="authService.userDocor as user"
+          class="navbar navbar-light navbar-expand bg-white shadow d-sm-flex flex-row align-content-center align-items-sm-center mb-4 topbar static-top p-1">
+          <div class="container-fluid">
+            <h3 class="text-dark ml-3">Dashboard</h3>
+            <div class="col">
+              <div class="row">
+                <div class="col">
+                  <div></div>
+                </div>
+              </div>
+            </div>
 
-        <div class="pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">User Profile</h1>
+            <span mat-icon-button style="font-family: 'Montserrat Alternates', sans-serif;"
+              [matMenuTriggerFor]="appMenu" style="cursor: pointer;" class="d-none d-md-inline mr-2 text-dark">
+              {{user.displayName}}
+            </span>
+
+            <img mat-icon-button [matMenuTriggerFor]="appMenu" class="img-fluid round mr-2 rounded-circle"
+              style="width: 40px; cursor: pointer;" src="{{user.photoURL}}" />
+            <mat-menu #appMenu="matMenu" class="rounde-1 m-0">
+
+              <div class="card-body d-flex justify-content-center">
+                <img class="img-fluid round rounded-circle" style="width: 50px;" src="{{user.photoURL}}" />
+              </div>
+
+              <a mat-menu-item routerLink="/account" style="font-family: 'Montserrat Alternates', sans-serif;">
+                <span class="fa fa-cog">
+                </span>
+                Account
+              </a>
+
+              <a mat-menu-item style="font-family: 'Montserrat Alternates', sans-serif;">
+                <span class="fa fa-volume-control-phone">
+                </span>
+                Contact Us
+              </a>
+              <a mat-menu-item (click)="authService.SignOut()"
+                style="font-family: 'Montserrat Alternates', sans-serif;">
+                <span class="fa fa-sign-out ">
+                </span> Sign Out
+              </a>
+            </mat-menu>
+          </div>
+        </nav>
+
+        <div class="container-fluid">
+          <div class="row mb-3">
+            <div class="col-lg-4">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3 border-left-info">
+                  <p class="m-0 font-weight-bold" style="color: #007bff;">
+                    Test History
+                  </p>
+                </div>
+                <div class="card-body">
+                  <div class="progress progress-sm mb-3">
+                    <div class="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 20%;">
+                      <span class="sr-only">20%</span>
+                    </div>
+                  </div>
+                  <div class="progress progress-sm mb-3">
+                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 40%;">
+                      <span class="sr-only">40%</span>
+                    </div>
+                  </div>
+                  <div class="progress progress-sm mb-3">
+                    <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 60%;">
+                      <span class="sr-only">60%</span>
+                    </div>
+                  </div>
+                  <div class="progress progress-sm mb-3">
+                    <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 80%;">
+                      <span class="sr-only">80%</span>
+                    </div>
+                  </div>
+                  <h4 class="small font-weight-bolder">
+                    Account setup<span class="float-right">Complete!</span>
+                  </h4>
+                  <div class="progress progress-sm mb-3">
+                    <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 100%;">
+                      <span class="sr-only">100%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+
+              <div class="row mb-3 d-none">
+                <div class="col">
+                  <div class="card text-white bg-primary shadow">
+                    <div class="card-body">
+                      <div class="row mb-2">
+                        <div class="col">
+                          <p class="m-0">Peformance</p>
+                          <p class="m-0"><strong>65.2%</strong></p>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-rocket fa-2x"></i>
+                        </div>
+                      </div>
+                      <p class="text-white-50 small m-0">
+                        <i class="fas fa-arrow-up"></i> 5% since last month
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card text-white bg-success shadow">
+                    <div class="card-body">
+                      <div class="row mb-2">
+                        <div class="col">
+                          <p class="m-0">Peformance</p>
+                          <p class="m-0"><strong>65.2%</strong></p>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-rocket fa-2x"></i>
+                        </div>
+                      </div>
+                      <p class="text-white-50 small m-0">
+                        <i class="fas fa-arrow-up"></i> 5% since last month
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+
+                  <app-speech-test>  </app-speech-test>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Patients List Viewer -->
+          <app-patients ></app-patients>
+
         </div>
-        
       </div>
-    </main>
 
-  </div>
-</div>
-
-
-<!-- Show user data when logged in -->
-<div class="row" *ngIf="authService.userData as user">
-  <div class="col-md-12">
-    <div class="media">
-      <img class="align-self-start mr-5 img-thumbnail rounded-circle"
-        src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
-      <div class="media-body">
-        <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-        <p>User ID: <strong>{{user.uid}}</strong></p>
-        <p>Email: <strong>{{user.email}}</strong></p>
-        <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
-      </div>
+      <footer class="bg-white sticky-footer" *ngIf="authService.userDocor as user" style="margin-top: 42px;">
+        <div class="container my-auto">
+          <div class="text-center my-auto copyright">
+            <span>Copyright © Kodemen 2020</span>
+          </div>
+        </div>
+      </footer>
     </div>
+
+
+    <!-- <a data-toggle="tooltip" class="border rounded-circle shadow d-inline scroll-to-top pt-1" (click)="authService.SignOut()" title="Go to the top"><i class=" material-icons">keyboard_arrow_up</i></a> -->
+    <a class="border rounded-circle shadow d-inline scroll-to-top pt-1" href="#page-top" title="Go to the top"><i
+        class=" material-icons">keyboard_arrow_up</i></a>
   </div>
-</div>
+</body>

@@ -17,7 +17,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, rand
 
 
 # Feature Scaling - done so all features are given equal weight to avoid one feature dominating others
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 sc = StandardScaler() #standardize the feature by setting it to the z-score
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
@@ -26,7 +26,7 @@ X_test = sc.transform(X_test)
 from xgboost import XGBRegressor, XGBRFRegressor
 
 xg_reg =XGBRegressor(objective ='reg:squarederror', colsample_bytree = 0.3, learning_rate = 0.1,
-                max_depth = 5, alpha = 10, n_estimators = 10)
+                max_depth = 2, alpha = 10, n_estimators = 20)
 xg_reg.fit(X_train, y_train)
 
 # Predicting the Test set results

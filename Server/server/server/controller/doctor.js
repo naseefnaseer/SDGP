@@ -220,9 +220,11 @@ exports.delete = function (req, res) {
     });
 }
 
-/**
- * Constructor for Doctor to create a doctor object
+
+
+ /* Constructor for Doctor to create a doctor object
  */
+
 class Doctor {
     constructor(userData) {
         this.firstName = userData.firstName || '';
