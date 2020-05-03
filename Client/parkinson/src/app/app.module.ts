@@ -32,9 +32,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { environment } from '../environments/environment';
-
-// Auth service
-import { AudioUploadComponent } from './audio-upload/audio-upload.component';
 import { AuthService } from './shared/services/auth.service';
 import { ConfirmationComponent } from './shared/services/confirmation/confirmation';
 import { EditPatientComponent } from './components/dashboard/edit-patient/edit-patient.component';
@@ -49,19 +46,30 @@ import { PatientsComponent } from './components/dashboard/patients/patients.comp
 import { RegisterResponseComponent } from './components/dashboard/new-patient-form/register-response/register-response.component';
 import { SpeechTestComponent } from './components/dashboard/speech-test/speech-test.component';
 import { TestResultComponent } from './components/dashboard/test-result/test-result.component';
+import { TopNavBarComponent } from './home-page/top-nav-bar/top-nav-bar.component';
+import { HomeComponent } from './home-page/home/home.component';
+import { AboutComponent } from './home-page/about/about.component';
+import { FAQComponent } from './home-page/faq/faq.component';
+import { ContactUsComponent } from './home-page/contact-us/contact-us.component';
+import { HomePageComponent } from './home-page/home-page.component';
+
+
 
 
 @NgModule({
   declarations: [
+    AboutComponent,
     AppComponent,
-    AudioUploadComponent,
     ConfirmationComponent,
+    ContactUsComponent,
     DashboardComponent,
     EditPatientComponent,
     EmailConrollerComponent,
     Error404Component,
+    FAQComponent,
     FooterComponent,
     ForgotPasswordComponent,
+    HomeComponent,
     NewPasswordComponent,
     NewPatientFormComponent,
     PatientListComponent,
@@ -70,9 +78,10 @@ import { TestResultComponent } from './components/dashboard/test-result/test-res
     SignInComponent,
     SignUpComponent,
     SpeechTestComponent,
-    EditPatientComponent,
     TestResultComponent,
-    VerifyEmailComponent
+    TopNavBarComponent,
+    VerifyEmailComponent,
+    HomePageComponent
   ],
   imports: [
     AngularFireAuthModule,

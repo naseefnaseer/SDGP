@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AudioUploadComponent } from './audio-upload.component';
+import { TopNavBarComponent } from './top-nav-bar.component';
 
-describe('AudioUploadComponent', () => {
-  let component: AudioUploadComponent;
-  let fixture: ComponentFixture<AudioUploadComponent>;
+describe('TopNavBarComponent', () => {
+  let component: TopNavBarComponent;
+  let fixture: ComponentFixture<TopNavBarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AudioUploadComponent ]
+      declarations: [ TopNavBarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AudioUploadComponent);
+    fixture = TestBed.createComponent(TopNavBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

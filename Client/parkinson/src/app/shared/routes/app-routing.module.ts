@@ -14,14 +14,18 @@ import { NewPasswordComponent } from 'src/app/components/pages/new-password/new-
 import { PreSignedGuard } from '../guard/secure-inner-pages.guard';
 import { Error404Component } from 'src/app/components/pages/error404/error404.component';
 import { EmailConrollerComponent } from '../../components/pages/email-conroller/email-conroller.component';
+import { HomeComponent } from '../../../../../HomePage/src/app/Components/home/home.component';
+import { HomePageComponent } from '../../home-page/home-page.component';
+
 
 
 // Include route guard in routes array
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/sign-in',
-    pathMatch: 'full'
+    // redirectTo: '/',
+    // pathMatch: 'full',
+    component : HomePageComponent
   },
 
   {
