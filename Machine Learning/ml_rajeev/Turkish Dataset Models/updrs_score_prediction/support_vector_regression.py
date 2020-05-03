@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset.
-dataset = pd.read_csv('Train Data with UPDRS.csv')
-X = dataset.iloc[:, 1: 27].values #matrix of independent features
+dataset = pd.read_csv('Train Data with UPDRS_Only Vowels.csv')
+X = dataset.iloc[:, 1: 26].values #matrix of independent features
 y = dataset.iloc[:, 27].values #dependent variable
 
 # Splitting the dataset into the Training set and Test set
