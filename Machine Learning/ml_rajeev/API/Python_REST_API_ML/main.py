@@ -6,11 +6,10 @@ import praat
 import os, pathlib
 from os import listdir
 from flask import Flask, flash, request, redirect, url_for, jsonify
-from werkzeug.utils import secure_filename
 import joblib
 import pandas as pd
 import numpy as np
-from sklearn import preprocessing
+#from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
 import json
 
@@ -40,12 +39,11 @@ def getAttributesArray():
                 break
     
     #delete files in voice_data
-    '''
     mydir = "../voice_data/"
     filelist = [ f for f in os.listdir(mydir)]
     for f in filelist:
         os.remove(os.path.join(mydir, f))
-        '''
+        
     return final_array
 
 

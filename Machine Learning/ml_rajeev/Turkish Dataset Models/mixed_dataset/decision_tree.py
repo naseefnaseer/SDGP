@@ -44,3 +44,23 @@ print ("FP =", cm[0][1] , "FN =", cm[1][0])
 
 joblib.dump(classifier, 'model_decision_tree.pkl')
 
+#plot the model
+from sklearn.externals.six import StringIO  
+from IPython.display import Image  
+from sklearn.tree import graphviz
+import pydotplus
+dot_data = StringIO()
+graphviz(classifier, out_file=dot_data,  
+                filled=True, rounded=True,
+                special_characters=True)
+graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+Image(graph.create_png())
+
+
+
+
+
+
+
+
+
