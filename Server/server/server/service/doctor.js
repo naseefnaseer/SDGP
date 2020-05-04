@@ -22,12 +22,6 @@ exports.findDoctor = function (query, callback) {
     doctor.findOne(query, callback);
 }
 
-// Find Doctor using email ID
-exports.findDoctorUsingEmail = function (query, callback) {
-    doctor.findOne(query, callback);
-}
-
-
 // Update Doctor by ID
 exports.updateDoctorById = function (id, data, callback) {
     doctor.findByIdAndUpdate({
@@ -38,7 +32,7 @@ exports.updateDoctorById = function (id, data, callback) {
 }
 
 // Update Doctor by Querry (Not used by the system)
-exports.updateDoctorByQuerry = function (query, data, options, callback) {
+exports.updateDoctorByQuerry = function (query, data, options, callback) {  
     doctor.findOneAndUpdate(query, data, options, (err, response) => {
         callback(err, response);
     });

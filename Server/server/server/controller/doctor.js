@@ -38,7 +38,7 @@ exports.create = function (req, res, next) {
 
 
 /**
- _ Function to find user from doctor collection.
+ _ Function to find user from doctor collection using Doctor ID
  _/
  */
 exports.find = function (req, res) {

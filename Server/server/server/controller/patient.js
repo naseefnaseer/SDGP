@@ -111,7 +111,7 @@ exports.findAll = function (req, res) {
             }); 
 
             
-            await console.log("Sending the patient list with appended age");
+            await console.log();
             
             await res.status(200).send(newArray);
             return;

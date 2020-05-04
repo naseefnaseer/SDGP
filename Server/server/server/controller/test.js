@@ -80,7 +80,7 @@ exports.create = function (req, res, next) {
         else if (error){  
             res.status(400).send({message: error}); 
             return; 
-        }
+        } 
     });
 
 }).catch((err) => {

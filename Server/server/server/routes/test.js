@@ -11,7 +11,7 @@ var upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
       let type = req.params.type;
-      let path = `E:\\GitHub\\SDGP\\Machine Learning\\ml_rajeev\\API\\voice_data`;
+      let path = '../../../../Machine Learning/REST API/API/voice_data';
       fs.mkdirsSync(path);
       callback(null, path);
     },
