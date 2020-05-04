@@ -19,8 +19,8 @@
 
 
     <div class="py-2 small">
-      <div class="shadow table" style="overflow: overlay;">
-        <table mat-table [dataSource]="dataSource" matSort  >
+      <div class="shadow table" style="overflow: overlay; ">
+        <table mat-table [dataSource]="dataSource" matSort>
 
           <!-- ID Column -->
           <ng-container matColumnDef="id">
@@ -51,6 +51,7 @@
             <th *matHeaderCellDef mat-sort-header class="text-nowrap"> D.O.B </th>
             <td *matCellDef="let row" class="text-nowrap"> {{row.dob}} </td>
           </ng-container>
+
 
           <!-- Name Column -->
           <ng-container matColumnDef="age">
@@ -84,14 +85,15 @@
               src="default.png" /><span class="text-black-50 icon"></span></div>
           <!-- Color Column -->
           <ng-container matColumnDef="manage" stickyEnd>
-            <th *matHeaderCellDef mat-sort-header > Manage </th>
+            <th *matHeaderCellDef mat-sort-header> Manage </th>
             <td *matCellDef="let row" class="text-nowrap d-xl-flex justify-content-xl-center justify-content-center ">
 
-              <button mat-icon-button title="Edit">
+              <button mat-icon-button title="Edit" (click)="editPatient(row)">
                 <a class="fa fa-edit text-info" style="font-size: x-large;"> </a>
               </button>
 
-              <button mat-icon-button title="Delete">
+              <button mat-icon-button title="Delete"
+                (click)="deletePatient(row._id,(row.firstName +' '+ row.lastName).toString())">
                 <a class="fa fa-trash-o text-danger" style="font-size: x-large;"> </a>
 
               </button>

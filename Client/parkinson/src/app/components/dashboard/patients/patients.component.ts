@@ -1,13 +1,15 @@
-import { Patient } from './../../../shared/services/Patient';
-import { PatientService } from './../../../shared/services/patient.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserData } from './user';
-import { element } from 'protractor';
+
+import { ConfirmationComponent } from '../../../shared/services/confirmation/confirmation';
+import { EditPatientComponent } from '../edit-patient/edit-patient.component';
+import { NotificationService } from '../../../shared/services/notification.service';
+import { Patient } from './../../../shared/services/Patient';
+import { PatientService } from './../../../shared/services/patient.service';
 
 @Component({
   selector: 'app-patients',
@@ -16,8 +18,10 @@ import { element } from 'protractor';
 })
 export class PatientsComponent implements OnInit {
 
+
   columnHeader: string[] =
-    ['id',
+    [
+      'id',
       'firstName',
       'lastName',
       'gender',
@@ -27,7 +31,8 @@ export class PatientsComponent implements OnInit {
       'email',
       'phone',
       'lastVisit',
-      'manage'];
+      'manage',
+    ];
 
   dataSource: MatTableDataSource<Patient>;
 
@@ -36,42 +41,20 @@ export class PatientsComponent implements OnInit {
 
   isLoading: boolean;
   isError: boolean;
+  isModified: boolean;
+
 
   constructor(
     private patientService: PatientService,
-    private snackBar: MatSnackBar
+    public dialog: MatDialog,
+    private notify: NotificationService
   ) {
     this.isLoading = true;
-    this.patientService.getList().subscribe(
-      (response: HttpResponse<JSON>) => {
-
-        const list = response.map(x => x);
-
-        // populate the data to the adapter
-        this.dataSource = new MatTableDataSource(list);
-
-        this.openSnackBar('Patient Loaded Successfully.', 'ok');
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.isLoading = true;
-
-      },
-      (err: HttpResponse<Patient>) => {
-        this.isError = true;
-        // error notifier
-        console.log(err.status);
-        console.log(err.statusText);
-        console.log(err.headers);
-        this.openSnackBar('Patient creation Unsuccessful !', 'ok');
-      }
-    );
+    this.getPatientList();
   }
 
 
-  ngOnInit() {
-
-
-  }
+  ngOnInit() { }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -82,7 +65,40 @@ export class PatientsComponent implements OnInit {
     }
   }
 
+  getPatientList() {
+
+    this.patientService.getList().subscribe(
+      (response: JSON) => {
+
+        // @ts-ignore
+        const list = response.map((x: any) => x);
+
+        // populate the data to the adapter
+        this.dataSource = new MatTableDataSource(list);
+
+        if (!this.isModified) {
+          this.notify.infoSnack('Patient Loaded Successfully.');
+        }
+        this.isModified = false;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.isLoading = false;
+
+      },
+      (err: HttpResponse<JSON>) => {
+        this.isError = true;
+        // error notifier
+        console.log(err.status);
+        console.log(err.statusText);
+        console.log(err.headers);
+        this.notify.errorSnack(`Server error code:${err.body} ! `);
+      }
+    );
+  }
+
+
   refresh() {
+    this.getPatientList();
     const filterValue = '';
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -91,15 +107,48 @@ export class PatientsComponent implements OnInit {
     }
   }
 
-  /**
-   * @param msg the message of the nasck bar
-   * @param btn button
-   */
-  openSnackBar(msg: string, btn: string) {
-    this.snackBar.open(msg, btn, {
-      duration: 2000
-    });
+  deletePatient(p: number, name: string) {
 
+    const dialogRef = this.dialog.open(ConfirmationComponent, { data: name });
+
+    dialogRef.afterClosed().subscribe(
+      (decision) => {
+        if (decision) {
+          this.patientService.delete(p).subscribe(
+            (res) => {
+              this.notify.successSnack(`Deleting of patient data : ${p} is successful`);
+              this.isModified = true;
+              this.refresh();
+            }, (error: HttpResponse<JSON>) => {
+              this.notify.errorSnack('Patient ' + error.statusText + ' | Deletion Unsuccessful!!!');
+            }
+          );
+        }
+      }
+    );
   }
+
+
+  editPatient(patient: Patient) {
+
+    console.log(patient);
+
+    const dialogRef = this.dialog.open(EditPatientComponent, { data: patient });
+
+    dialogRef.afterClosed().subscribe(
+      (state) => {
+
+        if (state) {
+          this.isModified = true;
+          this.refresh();
+        } else {
+          this.notify.infoSnack('Session closed');
+        }
+
+      }
+    );
+  }
+
+
 
 }
