@@ -16,7 +16,7 @@ exports.create = function (req, res, next) {
     body.password = Bcrypt.hashSync(req.body.password, 10);
     doctorService.createDoctor(body, function(error, response){
         if(response){
-            res.status(200).send(response)
+            res.status(200).send({message: "Registered Successfully"}); 
         }
         else if (error){
             if (error.code == 11000){  
