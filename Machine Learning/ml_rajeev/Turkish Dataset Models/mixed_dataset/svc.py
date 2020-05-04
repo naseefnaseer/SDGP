@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import model_selection
 import joblib
 
+#load datasets
 data = pd.read_csv('Sri Lankan Voice Recordings.csv', header = 0)
 testData = pd.read_csv('Sri Lankan Dataset - Finalised.csv')
 
@@ -44,5 +45,5 @@ print("Testing accuracy = {:.2f} %".format( accuracy_score(y_test, y_pred) * 100
 print ("TN =", cm[0][0] , "TP =", cm[1][1])
 print ("FP =", cm[0][1] , "FN =", cm[1][0])
 
-joblib.dump(classifier, 'model_knn_24_features_only_vowel_training_mixed_data.pkl')
+joblib.dump(classifier, 'model_svc.pkl')
 
