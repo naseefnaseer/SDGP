@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DoctorService } from '../../../shared/services/doctor.service.service';
 import { FormGroup } from '@angular/forms';
 import { TestsServiceService } from '../../../shared/services/tests.service.service';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-test-result',
@@ -14,38 +15,40 @@ export class TestResultComponent implements OnInit, AfterViewInit {
 
 
   isloading = false;
+  result: any;
 
 
   constructor(
     public dialogRef: MatDialogRef<TestResultComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: FormGroup,
-    private testsService: TestsServiceService
+    @Inject(MAT_DIALOG_DATA) public data: FormData,
+    private testsService: TestsServiceService,
+    private notifiy: NotificationService
   ) {
+    this.notifiy.infoSnack('Processing analysis...');
 
-
-  }
-  ngOnInit(): void { }
-
-  ngAfterViewInit() {
-    this.isloading = true;
     this.testsService.proceedTest(this.data).subscribe
       (async response => {
 
-        console.log(response);
         this.isloading = false;
+        this.result = response;
 
       },
         (error => {
 
-          console.log(error);
           this.isloading = false;
+          this.notifiy.infoSnack('Error occoured, Please start over.');
 
+          // console.log(error);
+          this.dialogRef.close();
 
         })
       );
+  }
+  ngOnInit(): void { this.isloading = true; }
+
+  ngAfterViewInit() {
 
   }
-
 
 
   close(): void {
