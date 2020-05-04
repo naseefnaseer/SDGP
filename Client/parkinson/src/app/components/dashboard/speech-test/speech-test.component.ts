@@ -9,6 +9,10 @@ import { NewPatientFormComponent } from './../new-patient-form/new-patient-form.
 import { Patient } from 'src/app/shared/services/Patient';
 import { PatientListComponent } from '../patient-list/dialog.component';
 import { TestResultComponent } from '../test-result/test-result.component';
+import { HttpHeaders } from '@angular/common/http';
+import { TestsServiceService } from '../../../shared/services/tests.service.service';
+import { stringify } from 'querystring';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-speech-test',
@@ -31,23 +35,23 @@ export class SpeechTestComponent implements OnInit {
   lable = 'Click here to import the audio';
   canProceed: boolean;
   testForm: FormGroup;
+  docID: any;
+
+  audio: FileList;
 
 
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private formBuilder: FormBuilder,
     private doctorService: DoctorService,
-    private authServices: AuthService
+    private authServices: AuthService,
+    private notificationService: NotificationService
   ) { }
   ngOnInit() {
 
-    this.testForm = this.formBuilder.group({
-      auido: [''],
-      doctorID: [''],
-      patientID: ['']
+    this.docID = this.doctorService.getDoctorDetails(this.authServices.userDocor.email);
 
-    });
+    console.log(this.docID);
 
   }
 
@@ -79,22 +83,43 @@ export class SpeechTestComponent implements OnInit {
           // Snack bar
         }
       });
+
+
+    this.doctorService.getDoctorDetails(
+      this.authServices.userDocor.email
+    ).subscribe(
+
+      (e => {
+        this.docID = e._id;
+        console.log(e);
+      }),
+
+      (err => console.log(err))
+
+    );
   }
 
 
   // Get audio samples
   getSample(samples: FileList) {
+
     if (samples.length !== 0) {
+      if (samples.length < 6) {
 
-      this.testForm.get('auido').setValue(samples);
+        this.audio = samples;
 
-      // re setting the lable
-      this.lable = samples.length + 'Sample(s) Attached';
+        // re setting the lable
+        this.lable = samples.length + ': Sample(s) Attached';
 
-      // test can be proceeded
-      this.canProceed = true;
-      this.proceedBtnLable = 'Proceed Test';
+        // test can be proceeded
+        this.canProceed = true;
+        this.proceedBtnLable = 'Proceed Test';
+      }
+      else {
+        this.notificationService.errorSnack('Please select 5 or less than 5 samples.')
+      }
     }
+
 
   }
 
@@ -110,35 +135,31 @@ export class SpeechTestComponent implements OnInit {
   proceedTest() {
     if (this.canProceed) {
 
-      // this.openSnackBar('Proceeding the test', 'OK');
+      const formData = new FormData();
 
-      this.testForm.get('patientID').setValue(this.patient._id);
+      formData.append('patientID', this.patient._id.toString());
+      formData.append('doctorID', this.docID );
 
-      this.testForm.get('doctorID').setValue(
-        this.doctorService.getDoctorDetails(
-          this.authServices.userDocor.email
-        )
-      );
 
-      console.log(this.testForm);
 
-      const dialogRef = this.dialog.open(TestResultComponent);
+      for (let i = 0; i < this.audio.length; i++) {
+
+        const element = this.audio[i];
+        console.log(element);
+        formData.append('audio', element);
+
+      }
+
+      var dialogRef = this.dialog.open(TestResultComponent, { data: formData });
+
       dialogRef.disableClose = true;
 
     } else {
 
-      this.openSnackBar('Please select the audio samples', 'close');
+      this.notificationService.errorSnack('Please select the audio samples');
 
     }
   }
 
-  /**
-   * @param msg the message of the nasck bar
-   * @param btn button
-   */
-  openSnackBar(msg: string, btn: string) {
-    this.snackBar.open(msg, btn, {
-      duration: 2000
-    });
-  }
+
 }

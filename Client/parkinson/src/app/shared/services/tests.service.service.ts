@@ -14,9 +14,8 @@ export class TestsServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public proceedTest(data: FormGroup): any {
+  public proceedTest(data: any): any {
 
-    
     return this.httpClient.post<any>(this.url, data);
 
   }

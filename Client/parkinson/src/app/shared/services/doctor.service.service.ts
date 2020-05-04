@@ -29,20 +29,6 @@ export class DoctorService {
 
   public getDoctorDetails(email: string): any {
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      body: { "email": email }
-    };
-
-    console.log(options);
-
-
-    return this.httpClient.get<any>(
-      this.url + '/doctors/doctor/email', // url
-      options
-    );
-
+    return this.httpClient.get<any>(this.url + "/doctors/doctor/email/" + email);
   }
 }
