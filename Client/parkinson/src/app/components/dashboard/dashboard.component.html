@@ -22,10 +22,14 @@
               </div>
             </div>
 
-            <span mat-icon-button style="font-family: 'Montserrat Alternates', sans-serif;"
+            <span mat-icon-button style="font-family: 'Montserrat Alternates', sans-serif;" [hidden]="!noName"
               [matMenuTriggerFor]="appMenu" style="cursor: pointer;" class="d-none d-md-inline mr-2 text-dark">
-              {{displayName}}
+              {{user.displayName}}
             </span>
+            <span mat-icon-button style="font-family: 'Montserrat Alternates', sans-serif;" [hidden]="noName"
+            [matMenuTriggerFor]="appMenu" style="cursor: pointer;" class="d-none d-md-inline mr-2 text-dark">
+            {{displayName}}
+          </span>
 
             <img mat-icon-button [matMenuTriggerFor]="appMenu" class="img-fluid round mr-2 rounded-circle"
               style="width: 40px; cursor: pointer;"
@@ -61,21 +65,27 @@
                 <div class="card-body text-left">
                   <ol>
                     <li>
-                      <h5 class="font-weight-bolder">
+                      <h6 class="font-weight-bolder">
                         <span >Add a patient</span>
-                      </h5>
+                      </h6>
                     </li>
                     <li>
-                      <h5 class=" font-weight-bolder">
+                      <h6 class=" font-weight-bolder">
                         <span >Upload 5 voice recordings</span>
-                      </h5>
+                      </h6>
                     </li>
                     <li>
-                      <h5 class=" font-weight-bolder">
+                      <h6 class=" font-weight-bolder">
                         <span >Complete the test</span>
-                      </h5>
+                      </h6>
+                    </li>
+                    <li>
+                      <h6 class=" font-weight-bolder">
+                        <span >Get prediction result</span>
+                      </h6>
                     </li>
                   </ol>
+                  <sup>*This tool is under development stage so any result of this is not highly reliable</sup>
                 </div>
               </div>
             </div>

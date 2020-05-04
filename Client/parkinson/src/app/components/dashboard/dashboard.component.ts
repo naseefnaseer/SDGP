@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   displayName: string;
 
+  noName: boolean;
+
   constructor(
     public authService: AuthService,
     public router: Router,
@@ -43,8 +45,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
               this.users = duser;
 
-              // Assigning the logged in users name to be displayed
-              this.displayName = `Dr. ${this.users.firstName} ${this.users.lastName}`;
+              if (this.users.firstName === undefined) {
+
+                this.noName = true;
+                this.displayName = `Dr. ${this.authService.userDocor.displayName}`;
+
+              }
+              else {
+                // Assigning the logged in users name to be displayed
+                this.displayName = `Dr. ${this.users.firstName} ${this.users.lastName}`;
+
+              }
+
 
             },
             (error) => {
