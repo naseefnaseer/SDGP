@@ -51,7 +51,7 @@ def getAttributesArray():
 #send results to server
 
 def getPredictions(array):
-     model = joblib.load('model_knn_24_features_only_vowel_training_mixed_data.pkl')
+     model = joblib.load('model_decision_tree.pkl')
      predictions = 0
      probabilities = 0
      probabilities_list_1 = []
