@@ -1,8 +1,6 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, AfterViewInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { Router, ActivatedRoute } from "@angular/router";
-
-import { User } from '../../shared/services/user';
+import { Router } from "@angular/router";
 import { DoctorService } from '../../shared/services/doctor.service.service';
 
 
@@ -11,9 +9,9 @@ import { DoctorService } from '../../shared/services/doctor.service.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
-  user: any;
+  users: any;
 
   displayName: string;
 
@@ -27,43 +25,38 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit() { }
 
-
-
-  }
   ngAfterViewInit(): void {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user == null) {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user == null) {
 
-    } else {
-      this.doctorService.getDoctorDetails(user['email']).
-        subscribe(
-          _user => {
+      } else {
 
-            console.log(_user);
+        this.doctorService.getDoctorDetails(user['email']).
 
-            this.user = _user;
+          subscribe(
+            duser => {
 
-            // Assigning the logged in users name to be displayed
-            this.displayName =
-              // is not null
-              this.authService.userDocor.displayName ?
-                this.authService.userDocor.displayName :
-                `${this.user.firstName} ${this.user.lastName}`;
+              console.log(duser);
 
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+              this.users = duser;
+
+              // Assigning the logged in users name to be displayed
+              this.displayName = `Dr. ${this.users.firstName} ${this.users.lastName}`;
+
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+
+      }
+
+    } catch (error) {
 
     }
+
   }
-
-  setData() {
-
-    return "- - -";
-  }
-
 }
