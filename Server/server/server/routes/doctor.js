@@ -22,7 +22,7 @@ router.get('/doctor/id', doctor.find);
  _ TO get the single user using email
  */
 
-router.get('/doctor/email', doctor.findByEmail);
+router.get('/doctor/email/:email', doctor.findByEmail);
 
 
 /**

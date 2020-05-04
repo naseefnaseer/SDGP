@@ -74,12 +74,14 @@ exports.find = function (req, res) {
  _/
  */
 exports.findByEmail = function (req, res) {
-    var query = req.body;
-    
-    if (!query || !query.email) {
-        res.status(400).send({message: "Bad Request"});
+    var params = req.params || {};
+    if (!params.email) {
+        res.status(400).send('Bad Request');
         return;
-    }
+    }    
+    var query = {
+        email: params.email
+    };
     doctorService.findDoctor(query, function (error, response) {
         console.log(query);
         
