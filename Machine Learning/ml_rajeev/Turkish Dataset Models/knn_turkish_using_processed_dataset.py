@@ -2,7 +2,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
+from sklearn import model_selection
+leave_one_out = model_selection.LeaveOneOut()
 #trainData = pd.read_csv('Parkinsons Processed Training.csv') #training dataset - 520 pwp, 520 healthy
 trainData = pd.read_csv('Parkinsons Processed Training - Only Vowels.csv') #trining data - only vowels 60pwp, 60healthy
 testData = pd.read_csv('Parkinsons Processed Test.csv')  # 168 recordings of pwp patients - only vowels
@@ -25,10 +26,13 @@ from sklearn.neighbors import KNeighborsClassifier
 classifier = KNeighborsClassifier(n_neighbors = 10)
 classifier.fit(X, y)
 y_pred = classifier.predict(X_SriLankan)
-
+y_pred = classifier.predict(X_SriLankan)
+y_total = 0
+for i in y_pred:
+    y_total = y_total + i
 from sklearn.model_selection import cross_val_score
 
-accuracies = cross_val_score(estimator = classifier, X = X, y = y, cv = 10)
+accuracies = cross_val_score(estimator = classifier, X = X, y = y, cv = leave_one_out)
 print("Accuracy: {:.2f} %".format(accuracies.mean()*100))
 print("Standard Deviation: {:.2f} %".format(accuracies.std()*100))
 

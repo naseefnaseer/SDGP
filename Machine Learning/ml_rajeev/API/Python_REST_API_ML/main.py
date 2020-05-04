@@ -39,12 +39,11 @@ def getAttributesArray():
                 break
     
     #delete files in voice_data
-    
     mydir = "../voice_data/"
     filelist = [ f for f in os.listdir(mydir)]
     for f in filelist:
         os.remove(os.path.join(mydir, f))
-       
+        
     return final_array
 
 
@@ -117,7 +116,7 @@ def getPredictions(array):
      else:
          return_probability = (sum(probabilities_list_0) / len(probabilities_list_0) )
     
-     return_probability = str(round(return_probability, 3))
+     return_probability = str(round(return_probability, 2))
      
      return json.dumps({"prediction":return_prediction, "probability":return_probability})
 
